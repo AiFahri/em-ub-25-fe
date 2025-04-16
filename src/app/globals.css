@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("/fonts/NeueHaasDisplayBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.font_bold {
+  font-family: NeueHaasDisplay;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplayrg";
+  src: url("/fonts/NeueHaasDisplayRegular.otf") format("truetype");
+}
+
+.font_regular {
+  font-family: NeueHaasDisplayrg;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplaymedium";
+  src: url("/fonts/NeueHaasDisplayMediu.otf") format("truetype");
+}
+
+.font_medium {
+  font-family: NeueHaasDisplayrg;
+}
+
+@font-face {
+  font-family: "SpaceGroteskRegular";
+  src: url("/fonts/SpaceGroteskRegular.ttf") format("truetype");
+}
+
+.font_grotesk_medium {
+  font-family: SpaceGroteskRegular;
+}
+
+@font-face {
+  font-family: "SpaceGroteskBold";
+  src: url("/fonts/SpaceGroteskBold.ttf") format("truetype");
+}
+
+.font_grotesk_bold {
+  font-family: SpaceGroteskBold;
+}
+
+@font-face {
+  font-family: "SpaceGroteskSemiBold";
+  src: url("/fonts/SpaceGroteskSemiBold.ttf") format("truetype");
+}
+
+.font_grotesk_semibold {
+  font-family: SpaceGroteskSemiBold;
+}
+
+@font-face {
+  font-family: "PoppinsSemiBold";
+  src: url("/fonts/PoppinsSemiBold.ttf") format("truetype");
+}
+
+.font_poppins_semibold {
+  font-family: PoppinsSemiBold;
+}
+
+
+@keyframes scrollVertical {
+  from { transform: translateY(0%); }
+  to { transform: translateY(-100%); }
+}
+
+@keyframes scrollHorizontal {
+  from { transform: translateX(0%); }
+  to { transform: translateX(-100%); }
+}

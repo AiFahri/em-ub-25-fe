@@ -81,10 +81,10 @@ export default function Lose({ onPlayAgain }: { onPlayAgain: () => void }) {
     flex items-center gap-2 z-50 font-semibold
     text-[12px] sm:text-[14px] md:text-[16px]
     fixed bottom-16 left-1/2 -translate-x-1/2 md:static md:translate-x-0
-    px-[50px] py-[12px] sm:px-[60px] sm:py-[14px] md:px-[60px] md:py-[14px]
+    px-[50px] py-[12px] sm:px-[60px] sm:py-[14px] md:px-[60px] md:py-[14px] cursor-pointer
   `}
           >
-            <Image src={again} alt="retry" className="w-[12px] sm:w-[14px] md:w-[16px]" />
+            <Image src={again} alt="retry" className="w-[12px] sm:w-[14px] md:w-[16px] " />
             <p>Play Again</p>
           </motion.button>
 
@@ -100,7 +100,7 @@ export default function Lose({ onPlayAgain }: { onPlayAgain: () => void }) {
 
   let style = {};
   let text = '';
-  let colorText = '#0049FF';
+  const colorText = '#0049FF';
 
   switch (countdown) {
     case 4:

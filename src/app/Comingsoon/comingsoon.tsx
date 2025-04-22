@@ -29,7 +29,7 @@ export default function Comingsoon() {
           </div>
         </div>
         <h2 className="text-lg  text-white font_regular text-center  sm:text-lg md:text-xl lg:text-2xl xl:text-[42.52px]">
-          the Countdown begins, it's almost here!
+          the Countdown begins, its almost here!
         </h2>
       </div>
 

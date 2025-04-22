@@ -52,7 +52,7 @@ export default function NotFound() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 640);
+      setIsMobile(window.innerWidth < 740);
     };
 
     handleResize();
@@ -114,13 +114,13 @@ export default function NotFound() {
     }, 200);
   };
 
-  const imageMapUser: Record<Choice, any> = {
+  const imageMapUser: Record<Choice, string> = {
     rock: isMobile ? batu_user_user : batu_user,
     paper: isMobile ? kertas_user_user : kertas_user,
     scissors: isMobile ? gunting_user_user : gunting_user,
   };
 
-  const imageMapBot: Record<Choice, any> = {
+  const imageMapBot: Record<Choice, string> = {
     rock: isMobile ? batu_player_mobile : batu_player,
     paper: isMobile ? kertas_player_mobile : kertas_player,
     scissors: isMobile ? gunting_player_mobile : gunting_player,
@@ -211,14 +211,14 @@ export default function NotFound() {
             </div>
           </div>
 
-          <div className="  hidden sm:flex flex-row items-center justify-between w-full xl:px-20 lg:px-16 md:px-12 sm:px-4 px-5 xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[50px] absolute -translate-y-[150%] ">
-            <h1 className="text-[#0049FF] font_bold">bot</h1>
-            <h1 className="text-[#FF4900] font_bold xl:pr-16 lg:pr-12 sm:pr-8 pr-4">you</h1>
+          <div className=" hidden sm:flex flex-row items-center justify-between w-full xl:px-20 lg:px-16 md:px-12 sm:px-4 px-5 xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[50px] absolute -translate-y-[150%] ">
+            <h1 className="text-[#0049FF] font_bold">Mori</h1>
+            <h1 className="text-[#FF4900] font_bold xl:pr-16 lg:pr-12 sm:pr-8 pr-4">You</h1>
           </div>
 
           <div className="sm:hidden flex flex-col items-center justify-center absolute right-0 left-0 translate-y-[-130%]">
             <p className="font_regular text-white text-[20px]">{labelMap[botDisplayChoice]}</p>
-            <h1 className="font_bold text-[#0049FF] text-[36px] tracking-tight leading-none">Player</h1>
+            <h1 className="font_bold text-[#0049FF] text-[36px] tracking-tight leading-none">Mori</h1>
           </div>
 
           <div className="relative w-full ">
@@ -309,7 +309,7 @@ export default function NotFound() {
           <h2 className="text-lg md:hidden text-white font_regular font-normal text-center md:text-xl lg:text-2xl xl:text-[42.52px]">We’re cooking up something awesome.</h2>
         </div>
         {!isOpening && showPlayBtn && <BtnPlay onClick={() => setShowPlayBtn(false)} />}
-        <p className="text-[14px] md:hidden w-full mt-2 text-white font-normal text-center fixed bottom-[50px] left-1/2 -translate-x-1/2">While we polish up the site, lets play a game!</p>
+        <p className="text-[14px] md:hidden w-full mt-2 text-white font-normal text-center fixed bottom-[50px] ">While we polish up the site, lets play a game!</p>
 
         <div className="flex flex-row items-center justify-center absolute top-5">
           <Image src={whitelogo} alt="white logo" className="w-auto" />
@@ -336,7 +336,7 @@ export default function NotFound() {
         </div>
 
         <div className="relattive  sm:absolute sm:bottom-[-50px] w-full flex sm:flex-row flex-col items-center justify-center space-x-[-60px] space-y-[-70px] sm:mr-0 mr-12 ">
-          <Image src={minutes} alt="coming soon" className="rotate-[167.99deg] translate-y-[70%] md:block hidden z-20 xl:w-[15%] lg:w-[30%] md:w-[20%]" />
+          <Image src={minutes} alt="coming soon" className="rotate-[167.99deg] translate-y-[70%] md:block hidden z-20 xl:w-[15%] lg:w-[30%] md:w-[20%] " />
           <GameCard
             src={gunting}
             alt="Scissors"

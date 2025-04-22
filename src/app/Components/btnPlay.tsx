@@ -28,7 +28,7 @@ export default function BtnPlay({ onClick }: { onClick: () => void }) {
         py-[13.54px] px-[81.23px] cursor-pointer transition duration-200 ease-in-out
         font-medium text-[20.31px] z-50 w-[350px] md:max-w-3xs
 
-        fixed bottom-20 left-1/2 -translate-x-1/2
+        fixed bottom-20  
         md:static md:translate-x-0 md:mt-6
       `}
     >

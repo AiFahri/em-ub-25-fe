@@ -38,8 +38,10 @@ import ResultFlow from '../Components/ResultFlow';
 import BgGrid from '../Components/background/BgGrid';
 
 import Opening from '../Components/Opening';
+import { usePathname } from 'next/navigation';
 
 export default function NotFound() {
+  const pathname = usePathname();
   const [userChoice, setUserChoice] = useState<Choice | null>(null);
   const [botChoice, setBotChoice] = useState<Choice | null>(null);
   const [result, setResult] = useState<Result | null>(null);
@@ -61,6 +63,18 @@ export default function NotFound() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    setUserChoice(null);
+    setBotChoice(null);
+    setResult(null);
+    setShowResultFlow(false);
+    setShowPlayBtn(true);
+    setIsOpening(true);
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, [pathname]);
+
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsOpening(false);
@@ -183,99 +197,115 @@ export default function NotFound() {
     }
   }, [userChoice, botChoice, result]);
 
-  if (userChoice && botChoice && result) {
-    return (
-      <div ref={resultRef} className="relative w-full h-screen overflow-hidden">
-        <BgGrid classNameVertical="opacity-40 object-cover translate-x-[-20%] translate-y-[0.5%]" classNameHorizontal="opacity-40 object-cover translate-y-[34%] z-50" speedVertical={1} speedHorizontal={1} />
-        <div className="absolute inset-0 bg-[#001B5E]" />
+    // lock body scroll when showing result
+    useEffect(() => {
+      if (userChoice && botChoice && result) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+      return () => { document.body.style.overflow = ''; };
+    }, [userChoice, botChoice, result]);
+  
+    useEffect(() => {
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = ''; };
+    }, []);
 
-        <div
-          className="absolute inset-0 opacity-70 sm:block hidden"
-          style={{
-            background: 'linear-gradient(200.32deg, #000000 -20.61%, #0049FF 184.91%)',
-            clipPath: 'polygon(58% 0%, 58% 0%, 52% 40%, 41% 100%)',
-          }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.45] sm:block hidden"
-          style={{
-            background: 'linear-gradient(200.32deg, #000000 -20.61%, #0049FF 184.91%)',
-            clipPath: 'polygon(0% 100%, 41% 100%, 58% 0%, 0% 0%)',
-          }}
-        />
-
-        <motion.div initial={{ y: 500 }} animate={{ y: 0 }} transition={{ duration: 0.5, ease: 'easeInOut' }} className="relative z-20 flex flex-col items-center justify-center h-full">
-          <div className="sm:block hidden ">
-            <div className="flex flex-row items-center justify-center absolute top-5 right-0 left-0">
-              <Image src={whitelogo} alt="white logo" className="w-auto" />
-            </div>
-          </div>
-
-          <div className=" hidden sm:flex flex-row items-center justify-between w-full xl:px-20 lg:px-16 md:px-12 sm:px-4 px-5 xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[50px] absolute -translate-y-[150%] ">
-            <h1 className="text-[#0049FF] font_bold">Mori</h1>
-            <h1 className="text-[#FF4900] font_bold xl:pr-16 lg:pr-12 sm:pr-8 pr-4">You</h1>
-          </div>
-
-          <div className="sm:hidden flex flex-col items-center justify-center absolute right-0 left-0 translate-y-[-130%]">
-            <p className="font_regular text-white text-[20px]">{labelMap[botDisplayChoice]}</p>
-            <h1 className="font_bold text-[#0049FF] text-[36px] tracking-tight leading-none">Mori</h1>
-          </div>
-
-          <div className="relative w-full ">
-            <div className="flex sm:flex-row flex-col  justify-between h-screen items-center">
-              <div className="relative sm:flex-shrink-0">
-                {botChoice && (
-                  <>
-                    <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-                      <div className="w-full h-full bg-blue-500 opacity-30 blur-3xl rounded-full"></div>
-                    </div>
-                    <Image src={imageMapBot[botDisplayChoice]} alt="pilihan bot" className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[160px] sm:h-auto h-[190px]" />
-                  </>
-                )}
-              </div>
-              <div className="relative flex-shrink-0">
-                {userChoice && (
-                  <>
-                    <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-                      <div className="w-full h-full bg-blue-500 opacity-30 blur-3xl rounded-full"></div>
-                    </div>
-
-                    <Image src={imageMapUser[userChoice]} alt="pilihan user" className="relative xl:w-[100%] lg:w-[400px] md:w-[330px] sm:w-[250px] w-[160px] sm:mb-0 mb-[-25px] sm:h-auto h-[190px]" />
-                  </>
-                )}
+    if (userChoice && botChoice && result) {
+      return (
+        <div ref={resultRef} className="relative w-full h-screen overflow-hidden">
+          <BgGrid classNameVertical="opacity-40 object-cover translate-x-[-20%] translate-y-[0.5%]" classNameHorizontal="opacity-40 object-cover translate-y-[34%] z-50" speedVertical={1} speedHorizontal={1} />
+          <div className="absolute inset-0 bg-[#001B5E]" />
+  
+          <div
+            className="absolute inset-0 opacity-70 sm:block hidden"
+            style={{
+              background: 'linear-gradient(200.32deg, #000000 -20.61%, #0049FF 184.91%)',
+              clipPath: 'polygon(58% 0%, 58% 0%, 52% 40%, 41% 100%)',
+            }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.45] sm:block hidden"
+            style={{
+              background: 'linear-gradient(200.32deg, #000000 -20.61%, #0049FF 184.91%)',
+              clipPath: 'polygon(0% 100%, 41% 100%, 58% 0%, 0% 0%)',
+            }}
+          />
+  
+          <motion.div initial={{ y: 500 }} animate={{ y: 0 }} transition={{ duration: 0.5, ease: 'easeInOut' }} className="relative z-20 flex flex-col items-center justify-center h-full">
+            <div className="sm:block hidden ">
+              <div className="flex flex-row items-center justify-center absolute top-5 right-0 left-0">
+                <Image src={whitelogo} alt="white logo" className="w-auto" />
               </div>
             </div>
-            <h1 className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 font_bold xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[60px] text-white">VS</h1>
-          </div>
+  
+            <div className="  hidden sm:flex flex-row items-center justify-between w-full xl:px-20 lg:px-16 md:px-12 sm:px-4 px-5 xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[50px] absolute -translate-y-[150%] ">
+              <h1 className="text-[#0049FF] font_bold">bot</h1>
+              <h1 className="text-[#FF4900] font_bold xl:pr-16 lg:pr-12 sm:pr-8 pr-4">you</h1>
+            </div>
+  
+            <div className="sm:hidden flex flex-col items-center justify-center absolute right-0 left-0 translate-y-[-130%]">
+              <p className="font_regular text-white text-[20px]">{labelMap[botDisplayChoice]}</p>
+              <h1 className="font_bold text-[#0049FF] text-[36px] tracking-tight leading-none">Player</h1>
+            </div>
+  
+            <div className="relative w-full ">
+              <div className="flex sm:flex-row flex-col  justify-between h-screen items-center">
+                <div className="relative sm:flex-shrink-0">
+                  {botChoice && (
+                    <>
+                      <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+                        <div className="w-full h-full bg-blue-500 opacity-30 blur-3xl rounded-full"></div>
+                      </div>
+                      <Image src={imageMapBot[botDisplayChoice]} alt="pilihan bot" className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:h-auto h-[60vw]" />
+                    </>
+                  )}
+                </div>
+                <div className="relative flex-shrink-0">
+                  {userChoice && (
+                    <>
+                      <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+                        <div className="w-full h-full bg-blue-500 opacity-30 blur-3xl rounded-full"></div>
+                      </div>
+  
+                      <Image src={imageMapUser[userChoice]} alt="pilihan user" className="relative xl:w-[100%] lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:mb-0 mb-[-25px] sm:h-auto h-[60vw]" />
+                    </>
+                  )}
+                </div>
+              </div>
+              <h1 className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 font_bold xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[60px] text-white">VS</h1>
+            </div>
+  
+            <div className="sm:hidden flex flex-col items-center justify-center  absolute right-0 left-0 translate-y-[130%]">
+              <h1 className="font_bold text-[#FF4900] text-[36px] tracking-tight leading-none">You</h1>
+              <p className="font_regular text-white text-[20px]">{labelMap[userChoice]}</p>
+            </div>
+  
+            <div className="hidden sm:flex flex-row items-center justify-between w-full xl:px-40 lg:px-30 md:px-25 sm:px-15 px-10 xl:text-[42.52px] lg:text-[38px] md:text-[30px] text-[20px] absolute translate-y-[500%]">
+              <h1 className="font_regular text-white">{labelMap[botDisplayChoice]}</h1>
+              <h1 className="font_regular text-white">{labelMap[userChoice]}</h1>
+            </div>
+          </motion.div>
+          {showResultFlow && (
+            <div className="absolute inset-0 z-50">
+              <ResultFlow isWinner={result === 'win'} onPlayAgain={handlePlayAgain} />
+            </div>
+          )}
+        </div>
+      );
+    }
 
-          <div className="sm:hidden flex flex-col items-center justify-center  absolute right-0 left-0 translate-y-[130%]">
-            <h1 className="font_bold text-[#FF4900] text-[36px] tracking-tight leading-none">You</h1>
-            <p className="font_regular text-white text-[20px]">{labelMap[userChoice]}</p>
-          </div>
-
-          <div className="hidden sm:flex flex-row items-center justify-between w-full xl:px-40 lg:px-30 md:px-25 sm:px-15 px-10 xl:text-[42.52px] lg:text-[38px] md:text-[30px] text-[20px] absolute translate-y-[500%]">
-            <h1 className="font_regular text-white">{labelMap[botDisplayChoice]}</h1>
-            <h1 className="font_regular text-white">{labelMap[userChoice]}</h1>
-          </div>
-        </motion.div>
-        {showResultFlow && (
-          <div className="absolute inset-0 z-50">
-            <ResultFlow isWinner={result === 'win'} onPlayAgain={handlePlayAgain} />
-          </div>
-        )}
-      </div>
-    );
-  }
 
   return (
-    <div className="relative flex flex-col items-center justify-center bg-[#001B5E]">
+    <div className="relative flex flex-col items-center justify-center overflow-hidden bg-[#001B5E]">
       <Opening />
 
       <div className="relative flex flex-col items-center w-full justify-center min-h-screen ">
-        <BgGrid classNameVertical="object-cover translate-x-[-20%] opacity-40" classNameHorizontal="opacity-40 object-cover translate-y-[34%] opacity-40" speedVertical={1} speedHorizontal={1} />
+        <BgGrid classNameVertical="object-cover translate-x-[-20%] opacity-40" classNameHorizontal="opacity-40 object-cover translate-y-[34%] " speedVertical={1} speedHorizontal={1} />
         <Lock />
 
-        <div className="flex flex-col items-center space-y-6 mb-14">
+        <div className="flex z-30  flex-col items-center space-y-6 mb-14">
           <div className="hidden md:flex flex-row items-center justify-center z-30 font_bold whitespace-nowrap space-x-6 text-[4rem] sm:text-[5rem] md:text-[6rem] lg:text-[7rem] xl:text-[10rem]">
             <div className="flex flex-row items-center text-[#0049FF]">
               <span>ha</span>
@@ -291,8 +321,8 @@ export default function NotFound() {
               <Animasi />
             </div>
           </div>
-          <div className="md:hidden flex flex-col items-center justify-center font_bold text-[3.5rem] leading-none space-y-2">
-            <div className="flex flex-row items-center text-[#0049FF]">
+          <div className="md:hidden z-30 flex flex-col items-center justify-center font_bold text-[3.5rem] leading-none space-y-2">
+            <div className="flex flex-row items-center  text-[#0049FF]">
               <span>ha</span>
               <Image src={n} alt="n" className="h-[2.5rem] w-auto translate-y-[6px] ml-[2px]" />
               <span>g</span>
@@ -318,7 +348,7 @@ export default function NotFound() {
 
       <div className="relative flex flex-col items-center justify-center overflow-hidden min-h-screen bg-[#001B5E] w-full">
         <BgGrid classNameVertical="object-cover translate-x-[-20%] opacity-40" classNameHorizontal="object-cover translate-y-[34%] opacity-40" speedVertical={0.7} speedHorizontal={1} />
-        <div className="flex flex-row items-center justify-center absolute top-5">
+        <div className="flex flex-row items-center justify-center absolute top-20">
           <Image src={whitelogo} alt="white logo" className="w-auto" />
         </div>
 

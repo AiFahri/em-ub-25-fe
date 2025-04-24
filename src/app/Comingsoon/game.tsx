@@ -41,7 +41,7 @@ import Opening from '../Components/Opening';
 import { usePathname } from 'next/navigation';
 
 export default function NotFound() {
-  const pathname = usePathname();
+
   const [userChoice, setUserChoice] = useState<Choice | null>(null);
   const [botChoice, setBotChoice] = useState<Choice | null>(null);
   const [result, setResult] = useState<Result | null>(null);
@@ -63,16 +63,7 @@ export default function NotFound() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    setUserChoice(null);
-    setBotChoice(null);
-    setResult(null);
-    setShowResultFlow(false);
-    setShowPlayBtn(true);
-    setIsOpening(true);
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
-  }, [pathname]);
+  
 
   
   useEffect(() => {

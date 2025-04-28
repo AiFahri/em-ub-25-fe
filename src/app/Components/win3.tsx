@@ -13,7 +13,7 @@ import { motion } from 'framer-motion';
 
 export default function Win3({ onPlayAgain }: { onPlayAgain: () => void }) {
   const handleExplore = () => {
-    window.open('https://em.ub.ac.id/', '_blank');
+    window.open('https://em.ub.ac.id/2024', '_blank');
   };
 
   const [animateBtn, setAnimateBtn] = useState(false);

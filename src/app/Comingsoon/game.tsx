@@ -38,7 +38,7 @@ import ResultFlow from '../Components/ResultFlow';
 import BgGrid from '../Components/background/BgGrid';
 
 import Opening from '../Components/Opening';
-import { usePathname } from 'next/navigation';
+
 
 export default function NotFound() {
 

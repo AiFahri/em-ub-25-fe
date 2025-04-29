@@ -1,43 +1,43 @@
 'use client';
-import { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { getBotChoice, determineResult, Choice, Result } from '../utils/gameLogic';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import { Choice, determineResult, getBotChoice, Result } from '../utils/gameLogic';
 
-import n from '../../../public/Assets/icon/days.svg';
-import o from '../../../public/Assets/icon/o.svg';
-import Animasi from '../Components/loadingdots';
-import Lock from '../Components/lock';
-import BtnPlay from '../Components/btnPlay';
+import n from '../../../public/Assets/icon/comingsoon/days.svg';
+import o from '../../../public/Assets/icon/comingsoon/o.svg';
+import BtnPlay from '../Components/ComingsoonComponents/btnPlay';
+import Animasi from '../Components/ComingsoonComponents/loadingdots';
+import Lock from '../Components/ComingsoonComponents/lock';
 
-import gunting from '../../../public/Assets/icon/gunting.png';
-import kertas from '../../../public/Assets/icon/kertas.png';
-import batu from '../../../public/Assets/icon/batu.png';
+import batu from '../../../public/Assets/icon/comingsoon/batu.png';
+import gunting from '../../../public/Assets/icon/comingsoon/gunting.png';
+import kertas from '../../../public/Assets/icon/comingsoon/kertas.png';
 
-import kertas_player from '../../../public/Assets/image/player/kertas.svg';
-import batu_player from '../../../public/Assets/image/player/batu.svg';
-import gunting_player from '../../../public/Assets/image/player/gunting.svg';
-import kertas_player_mobile from '../../../public/Assets/image/player/kertasmobile.svg';
-import batu_player_mobile from '../../../public/Assets/image/player/batumobile.svg';
-import gunting_player_mobile from '../../../public/Assets/image/player/guntingmobile.svg';
+import batu_player from '../../../public/Assets/image/comingsoon/player/batu.svg';
+import batu_player_mobile from '../../../public/Assets/image/comingsoon/player/batumobile.svg';
+import gunting_player from '../../../public/Assets/image/comingsoon/player/gunting.svg';
+import gunting_player_mobile from '../../../public/Assets/image/comingsoon/player/guntingmobile.svg';
+import kertas_player from '../../../public/Assets/image/comingsoon/player/kertas.svg';
+import kertas_player_mobile from '../../../public/Assets/image/comingsoon/player/kertasmobile.svg';
 
-import kertas_user from '../../../public/Assets/image/user/kertas.svg';
-import batu_user from '../../../public/Assets/image/user/batu.svg';
-import gunting_user from '../../../public/Assets/image/user/gunting.svg';
-import kertas_user_user from '../../../public/Assets/image/user/kertasmobile.svg';
-import batu_user_user from '../../../public/Assets/image/user/batumobile.svg';
-import gunting_user_user from '../../../public/Assets/image/user/guntingmobile.svg';
+import batu_user from '../../../public/Assets/image/comingsoon/user/batu.svg';
+import batu_user_user from '../../../public/Assets/image/comingsoon/user/batumobile.svg';
+import gunting_user from '../../../public/Assets/image/comingsoon/user/gunting.svg';
+import gunting_user_user from '../../../public/Assets/image/comingsoon/user/guntingmobile.svg';
+import kertas_user from '../../../public/Assets/image/comingsoon/user/kertas.svg';
+import kertas_user_user from '../../../public/Assets/image/comingsoon/user/kertasmobile.svg';
 
 import whitelogo from '../../../public/Assets/logo/whitelogo.svg';
 
-import orange from '../../../public/Assets/icon/orange.svg';
-import minutes from '../../../public/Assets/icon/minutes.svg';
+import minutes from '../../../public/Assets/icon/comingsoon//minutes.svg';
+import orange from '../../../public/Assets/icon/comingsoon/orange.svg';
 
-import GameCard from '../Components/GameCard';
-import ResultFlow from '../Components/ResultFlow';
-import BgGrid from '../Components/background/BgGrid';
+import BgGrid from '../Components/ComingsoonComponents/background/BgGrid';
+import GameCard from '../Components/ComingsoonComponents/GameCard';
+import ResultFlow from '../Components/ComingsoonComponents/ResultFlow';
 
-import Opening from '../Components/Opening';
+import Opening from '../Components/ComingsoonComponents/Opening';
 
 
 export default function NotFound() {
@@ -54,7 +54,7 @@ export default function NotFound() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 740);
+      setIsMobile(window.innerWidth < 640);
     };
 
     handleResize();
@@ -231,7 +231,7 @@ export default function NotFound() {
               </div>
             </div>
   
-            <div className="  hidden sm:flex flex-row items-center justify-between w-full xl:px-20 lg:px-16 md:px-12 sm:px-4 px-5 xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[50px] absolute -translate-y-[150%] ">
+            <div className="  hidden sm:flex flex-row items-center justify-between w-full xl:px-20 lg:px-16 md:px-12 sm:px-4 px-5 xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[50px] absolute xl:-translate-y-[150%] sm:-translate-y-[180%] ">
               <h1 className="text-[#0049FF] font_bold">bot</h1>
               <h1 className="text-[#FF4900] font_bold xl:pr-16 lg:pr-12 sm:pr-8 pr-4">you</h1>
             </div>
@@ -249,7 +249,7 @@ export default function NotFound() {
                       <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
                         <div className="w-full h-full bg-blue-500 opacity-30 blur-3xl rounded-full"></div>
                       </div>
-                      <Image src={imageMapBot[botDisplayChoice]} alt="pilihan bot" className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:h-auto h-[60vw]" />
+                      <Image src={imageMapBot[botDisplayChoice]} alt="pilihan bot" className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:h-auto h-[40vw]" />
                     </>
                   )}
                 </div>
@@ -260,7 +260,7 @@ export default function NotFound() {
                         <div className="w-full h-full bg-blue-500 opacity-30 blur-3xl rounded-full"></div>
                       </div>
   
-                      <Image src={imageMapUser[userChoice]} alt="pilihan user" className="relative xl:w-[100%] lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:mb-0 mb-[-25px] sm:h-auto h-[60vw]" />
+                      <Image src={imageMapUser[userChoice]} alt="pilihan user" className="relative xl:w-[100%] lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:mb-0 mb-[-25px] sm:h-auto h-[40vw]" />
                     </>
                   )}
                 </div>
@@ -339,7 +339,7 @@ export default function NotFound() {
 
       <div className="relative flex flex-col items-center justify-center overflow-hidden min-h-screen bg-[#001B5E] w-full">
         <BgGrid classNameVertical="object-cover translate-x-[-20%] opacity-40" classNameHorizontal="object-cover translate-y-[34%] opacity-40" speedVertical={0.7} speedHorizontal={1} />
-        <div className="flex flex-row items-center justify-center absolute top-20">
+        <div className="flex flex-row items-center justify-center absolute top-5">
           <Image src={whitelogo} alt="white logo" className="w-auto" />
         </div>
 

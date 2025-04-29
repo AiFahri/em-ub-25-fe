@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import btnicon from '../../../public/Assets/icon/btnPlay.svg';
+import btnicon from '../../../../public/Assets/icon/comingsoon/btnPlay.svg';
 
 export default function BtnPlay({ onClick }: { onClick: () => void }) {
   const handleClick = () => {

@@ -1,13 +1,24 @@
 'use client'
 
-import Win1 from "../Components/win1";
-import Win2 from "../Components/win2";
-import Win3 from "../Components/win3";
+import { useState } from 'react'
+import Win3 from '../Components/ComingsoonComponents/win3'
 
 export default function Win() {
-    return (
-        <div>
-            <Win3 />
-        </div>
-    );
+  // Contoh: kita pakai state untuk show/hide Win3
+  const [showWin, setShowWin] = useState(true)
+
+  return (
+    <>
+      {showWin && (
+        <Win3
+          onPlayAgain={() => {
+            // TODO: masukkan logika “play again” di sini,
+            // misal sembunyikan Win3 dan tampilkan lagi opening:
+            setShowWin(false)
+            // atau navigasi ulang, dsb.
+          }}
+        />
+      )}
+    </>
+  )
 }

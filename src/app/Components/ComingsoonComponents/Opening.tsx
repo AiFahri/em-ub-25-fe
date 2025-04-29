@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import logo from '../../../public/Assets/logo/logoEM_blue.svg';
+import logo from '../../../../public/Assets/logo/logoEM_Blue.svg';
 
 const MotionImage = motion(Image);
 

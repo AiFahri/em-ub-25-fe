@@ -1,10 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import Lose from '../../Comingsoon/lose';
 import Win1 from './win1';
 import Win2 from './win2';
 import Win3 from './win3';
-import Lose from '../Comingsoon/lose';
 
 interface ResultFlowProps {
   isWinner: boolean;

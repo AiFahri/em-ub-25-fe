@@ -1,8 +1,8 @@
 import Image from 'next/image';
+import gemay from '../../public/Assets/icon/comingsoon/gemay.svg';
+import o from '../../public/Assets/icon/comingsoon/o.svg';
 import whitelogo from '../../public/Assets/logo/whitelogo.svg';
-import gemay from '../../public/Assets/icon/gemay.svg';
-import o from '../../public/Assets/icon/o.svg';
-import BgGrid from './Components/background/BgGrid';
+import BgGrid from './Components/ComingsoonComponents/background/BgGrid';
 
 export default function NotFound() {
   return (

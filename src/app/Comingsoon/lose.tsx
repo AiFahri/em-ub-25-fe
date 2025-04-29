@@ -2,16 +2,16 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-import bg from '../../../public/Assets/image/bg_def.svg';
+import bg from '../../../public/Assets/image/comingsoon/bg_def.svg';
 import mori from '../../../public/Assets/logo/sad_mori.svg';
 import happyMori from '../../../public/Assets/logo/mori.svg';
 import whitelogo from '../../../public/Assets/logo/whitelogo.svg';
-import minute from '../../../public/Assets/icon/def.svg';
+import minute from '../../../public/Assets/icon/comingsoon/def.svg';
 import bg_red from '../../../public/Assets/background/bg_red.svg';
 import bg_error from '../../../public/Assets/background/bg_error.svg';
-import again from '../../../public/Assets/icon/again.svg';
-import o from '../../../public/Assets/icon/o3.svg';
-import light from '../../../public/Assets/image/light.svg';
+import again from '../../../public/Assets/icon/comingsoon/again.svg';
+import o from '../../../public/Assets/icon/comingsoon/o3.svg';
+import light from '../../../public/Assets/image/comingsoon/light.svg';
 import { motion } from 'framer-motion';
 
 export default function Lose({ onPlayAgain }: { onPlayAgain: () => void }) {
@@ -60,7 +60,7 @@ export default function Lose({ onPlayAgain }: { onPlayAgain: () => void }) {
               src={o}
               alt="emoji"
               className="absolute w-[23px] sm:w-[40px] md:w-[55px] lg:w-[70px]
-                 translate-x-[48px] translate-y-[38px] sm:translate-x-[60px] sm:translate-y-[40px]
+                 translate-x-[48px] translate-y-[38px] sm:translate-x-[70px] sm:translate-y-[55px]
                  md:translate-x-[93px] md:translate-y-[74px]
                  lg:translate-x-[115px] lg:translate-y-[90px]"
             />

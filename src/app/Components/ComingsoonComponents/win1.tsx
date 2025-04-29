@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import light from '../../../public/Assets/image/light.svg';
-import bg from '../../../public/Assets/image/bg_text.svg';
-import mori from '../../../public/Assets/logo/mori.svg';
-import whitelogo from '../../../public/Assets/logo/whitelogo.svg';
-import o from '../../../public/Assets/icon/o2.svg';
+import light from '../../../../public/Assets/image/comingsoon/light.svg';
+import bg from '../../../../public/Assets/image/comingsoon/bg_text.svg';
+import mori from '../../../../public/Assets/logo/mori.svg';
+import whitelogo from '../../../../public/Assets/logo/whitelogo.svg';
+import o from '../../../../public/Assets/icon/comingsoon/o2.svg';
 import { motion } from 'framer-motion';
 
 export default function Win1() {

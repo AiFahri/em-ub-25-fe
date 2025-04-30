@@ -46,6 +46,7 @@ export default function NotFound() {
   const [botChoice, setBotChoice] = useState<Choice | null>(null);
   const [result, setResult] = useState<Result | null>(null);
   const resultRef = useRef<HTMLDivElement>(null);
+  const pickRef = useRef<HTMLDivElement>(null);
   const [showResultFlow, setShowResultFlow] = useState(false);
   const [botDisplayChoice, setBotDisplayChoice] = useState<Choice>('rock');
   const [showPlayBtn, setShowPlayBtn] = useState(true);
@@ -64,7 +65,9 @@ export default function NotFound() {
   }, []);
 
   
-
+useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}, []);
   
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -202,6 +205,12 @@ export default function NotFound() {
       document.body.style.overflow = 'hidden';
       return () => { document.body.style.overflow = ''; };
     }, []);
+
+    const handlePlay = () => {
+      setTimeout(() => {
+        pickRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    };
 
     if (userChoice && botChoice && result) {
       return (
@@ -343,7 +352,7 @@ export default function NotFound() {
           <Image src={whitelogo} alt="white logo" className="w-auto" />
         </div>
 
-        <div className="relative flex flex-col sm:mb-80 px-4 ">
+        <div ref={pickRef} className="relative flex flex-col sm:mb-80 px-4 ">
           <div className="flex flex-row items-center justify-center font_bold whitespace-nowrap space-x-6 text-7xl sm:text-9xl md:text-[8rem]">
             <div className="flex flex-row items-center space-x-5 z-20">
               <span className="text-[#FF4900]">pick</span>

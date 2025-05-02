@@ -11,7 +11,6 @@ interface BgGridProps {
 export default function BgGrid({ classNameVertical = '', classNameHorizontal = '', speedVertical = 10, speedHorizontal = 20 }: BgGridProps) {
   return (
     <>
-      {/* Grid Vertikal */}
       <div
         className="absolute inset-0 z-20 overflow-hidden pointer-events-none"
         style={{
@@ -23,7 +22,6 @@ export default function BgGrid({ classNameVertical = '', classNameHorizontal = '
         </div>
       </div>
 
-      {/* Grid Horizontal */}
       <div
         className="absolute inset-0 z-20 overflow-hidden pointer-events-none"
         style={{

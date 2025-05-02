@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   description:
     "Website Resmi Eksekutif Mahasiswa Universitas Brawijaya 2025 Kabinet Simpul Memori",
   icons: {
-    icon: "/Assets/logo/Logo EM UB 25.png",
-    apple: "/Assets/logo/Logo EM UB 25.png",
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 };
 

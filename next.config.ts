@@ -6,11 +6,14 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   compress: true,
+  trailingSlash: true,
+  basePath: "",
 
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [],
     unoptimized: true,
+    domains: ["em.ub.ac.id"],
   },
 
   compiler: {

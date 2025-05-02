@@ -51,7 +51,7 @@ export default function Win2() {
           />
           <div className="absolute inset-0 z-10 flex items-center justify-center ">
             <p className="font_medium text-white tracking-tight xl:text-[42px] lg:text-[36px] md:text-[24px] text-[10px] relative z-20 text-nowrap">
-              You've earned a peek into our 2024 archives.
+              You&apos;ve earned a peek into our 2024 archives.
             </p>
           </div>
         </div>

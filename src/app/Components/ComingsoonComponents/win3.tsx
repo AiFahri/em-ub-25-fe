@@ -1,19 +1,15 @@
-'use client';
-import Image from 'next/image';
-import confetti from '../../../../public/Assets/image/confetti.svg';
-import bg from '../../../../public/Assets/image/bg_text.svg';
-import mori from '../../../../public/Assets/logo/mori.svg';
-import whitelogo from '../../../../public/Assets/logo/whitelogo.svg';
-import o from '../../../../public/Assets/icon/comingsoon/o2.svg';
-import again from '../../../../public/Assets/icon/comingsoon/again.svg';
-import again_hover from '../../../../public/Assets/icon/again_hover.svg';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+"use client";
+import Image from "next/image";
+import mori from "../../../../public/Assets/logo/mori.svg";
+import whitelogo from "../../../../public/Assets/logo/whitelogo.svg";
+import o from "../../../../public/Assets/icon/comingsoon/o2.svg";
+import again from "../../../../public/Assets/icon/comingsoon/again.svg";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function Win3({ onPlayAgain }: { onPlayAgain: () => void }) {
   const handleExplore = () => {
-    window.open('https://em.ub.ac.id/2024', '_blank');
+    window.open("https://em.ub.ac.id/2024", "_blank");
   };
 
   const [animateBtn, setAnimateBtn] = useState(false);
@@ -47,30 +43,46 @@ export default function Win3({ onPlayAgain }: { onPlayAgain: () => void }) {
           <span className="text-[#FF4900]">o</span>
           <span className="text-[#0049FF]">ry!</span>
 
-          <Image src={mori} alt="coming soon" className="absolute xl:w-[151.7px] lg:translate-x-[390%] translate-x-[340%] translate-y-[30%] md:translate-x-[350%]  lg:w-[140px] md:w-[100px] sm:w-[85px] w-[70px]" />
+          <Image
+            src={mori}
+            alt="coming soon"
+            className="absolute xl:w-[151.7px] lg:translate-x-[390%] translate-x-[340%] translate-y-[30%] md:translate-x-[350%]  lg:w-[140px] md:w-[100px] sm:w-[85px] w-[70px]"
+          />
         </div>
         <p className="font_medium text-white tracking-tight xl:text-[35px] lg:text-[30px] md:text-[20px] max-w-xs text-center md:max-w-full text-[17px]">
-          Discover the stories, struggles, and successes that shaped us. <span className="hidden md:block"> Ready to check it out? </span>
+          Discover the stories, struggles, and successes that shaped us.{" "}
+          <span className="hidden md:block"> Ready to check it out? </span>
         </p>
 
-        <p className="mt-4 md:hidden font-bold text-white tracking-tight xl:text-[35px] lg:text-[30px] md:text-[20px] max-w-xs text-center md:max-w-full text-[17px]">Ready to check it out?</p>
+        <p className="mt-4 md:hidden font-bold text-white tracking-tight xl:text-[35px] lg:text-[30px] md:text-[20px] max-w-xs text-center md:max-w-full text-[17px]">
+          Ready to check it out?
+        </p>
 
         <div className="hidden md:flex flex-row justify-center items-center xl:text-[18px] lg:text-[16px] md:text-[14px] font_poppins_semibold gap-4 lg:mt-7 md:mt-5 sm:mt-2">
           <motion.button
             initial={{ scale: 0, opacity: 0 }}
             animate={animateBtn ? { scale: 1, opacity: 1 } : {}}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
             onClick={onPlayAgain}
             className="bg-[#F2F2F2] hover:bg-[#D7D7D7] rounded-full text-gray-400 hover:text-gray-700 cursor-pointer md:px-[81.23px] py-[13.54px] px-[60px] flex flex-row items-center justify-center gap-2"
           >
-            <Image src={again} alt="coming soon" className="xl:w-[15.93px] lg:w-[13px] md:w-[14px] w-[9px]" />
+            <Image
+              src={again}
+              alt="coming soon"
+              className="xl:w-[15.93px] lg:w-[13px] md:w-[14px] w-[9px]"
+            />
             <p>Play Again</p>
           </motion.button>
 
           <motion.button
             initial={{ scale: 0, opacity: 0 }}
             animate={showExplore ? { scale: 1, opacity: 1 } : {}}
-            transition={{ type: 'spring', stiffness: 250, damping: 18, delay: 0.1 }}
+            transition={{
+              type: "spring",
+              stiffness: 250,
+              damping: 18,
+              delay: 0.1,
+            }}
             onClick={handleExplore}
             className="bg-[#FF4900] hover:bg-[#FD9165] rounded-full text-white md:px-[81.23px] py-[13.54px] px-[60px] flex cursor-pointer flex-row items-center justify-center"
           >
@@ -82,7 +94,7 @@ export default function Win3({ onPlayAgain }: { onPlayAgain: () => void }) {
           <motion.button
             initial={{ scale: 0, opacity: 0 }}
             animate={animateBtn ? { scale: 1, opacity: 1 } : {}}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
             onClick={onPlayAgain}
             className="bg-[#F2F2F2] hover:bg-[#D7D7D7] rounded-full text-gray-400 hover:text-gray-700 cursor-pointer py-3 w-full flex flex-row items-center justify-center gap-2 text-[14px]"
           >
@@ -93,7 +105,12 @@ export default function Win3({ onPlayAgain }: { onPlayAgain: () => void }) {
           <motion.button
             initial={{ scale: 0, opacity: 0 }}
             animate={showExplore ? { scale: 1, opacity: 1 } : {}}
-            transition={{ type: 'spring', stiffness: 250, damping: 18, delay: 0.1 }}
+            transition={{
+              type: "spring",
+              stiffness: 250,
+              damping: 18,
+              delay: 0.1,
+            }}
             onClick={handleExplore}
             className="bg-[#FF4900] hover:bg-[#FD9165] rounded-full text-white py-3 w-full text-[14px] flex cursor-pointer flex-row items-center justify-center"
           >

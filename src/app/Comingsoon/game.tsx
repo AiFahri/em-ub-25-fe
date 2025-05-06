@@ -58,7 +58,7 @@ export default function NotFound() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 640);
+      setIsMobile(window.innerWidth < 740);
     };
 
     handleResize();
@@ -206,7 +206,7 @@ export default function NotFound() {
     }
   }, [userChoice, botChoice, result]);
 
-  // lock body scroll when showing result
+
   useEffect(() => {
     if (userChoice && botChoice && result) {
       document.body.style.overflow = "hidden";
@@ -264,10 +264,10 @@ export default function NotFound() {
             </div>
           </div>
 
-          <div className="  hidden sm:flex flex-row items-center justify-between w-full xl:px-20 lg:px-16 md:px-12 sm:px-4 px-5 xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[50px] absolute xl:-translate-y-[150%] sm:-translate-y-[180%] ">
-            <h1 className="text-[#0049FF] font_bold">bot</h1>
+          <div className="  hidden sm:flex flex-row items-center justify-between w-full xl:px-20 lg:px-16 md:px-12 sm:px-4 px-5 xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[50px] absolute -translate-y-[150%] ">
+            <h1 className="text-[#0049FF] font_bold">Mori</h1>
             <h1 className="text-[#FF4900] font_bold xl:pr-16 lg:pr-12 sm:pr-8 pr-4">
-              you
+              You
             </h1>
           </div>
 
@@ -276,7 +276,7 @@ export default function NotFound() {
               {labelMap[botDisplayChoice]}
             </p>
             <h1 className="font_bold text-[#0049FF] text-[36px] tracking-tight leading-none">
-              Player
+              Mori
             </h1>
           </div>
 
@@ -383,7 +383,7 @@ export default function NotFound() {
             </div>
           </div>
           <div className="md:hidden z-30 flex flex-col items-center justify-center font_bold text-[3.5rem] leading-none space-y-2">
-            <div className="flex flex-row items-center  text-[#0049FF]">
+            <div className="flex flex-row items-center text-[#0049FF]">
               <span>ha</span>
               <Image
                 src={n}

@@ -16,7 +16,6 @@ export default function BgGrid2({
 }: BgGridProps) {
   return (
     <>
-      {/* Grid Vertikal */}
       <div 
         className="absolute inset-0 overflow-hidden pointer-events-none -translate-y-8"
         style={{
@@ -34,7 +33,6 @@ export default function BgGrid2({
         </div>
       </div>
 
-      {/* Grid Horizontal */}
       <div 
         className="absolute inset-0 overflow-hidden pointer-events-none"
         style={{

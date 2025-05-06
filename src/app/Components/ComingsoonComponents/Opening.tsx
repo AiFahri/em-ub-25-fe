@@ -1,10 +1,10 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import logo from '../../../../public/Assets/logo/logoEM_Blue.svg';
+"use client";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import logo from "../../../../public/Assets/logo/logoEM_Blue.svg";
 
-const MotionImage = motion(Image);
+const MotionImage = motion.create(Image);
 
 export default function Opening() {
   const [showSplash, setShowSplash] = useState(true);
@@ -24,7 +24,7 @@ export default function Opening() {
             initial={{ y: 0 }}
             animate={{ y: 0 }}
             exit={{
-              y: '-100%',
+              y: "-100%",
               transition: { duration: 1 },
             }}
             className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-[radial-gradient(circle_at_center,_#ffffff_20%,_#001B5E_100%)] z-50 overflow-hidden"
@@ -45,8 +45,11 @@ export default function Opening() {
                 }}
                 src={logo}
                 alt="Logo"
-                className="absolute md:w-[20%] md:h-[25%] w-[50%] h-[20%] z-10"
-                loading="lazy"
+                width={530}
+                height={360}
+                priority
+                quality={100}
+                className="absolute w-auto h-auto max-w-[50%] md:max-w-[20%] object-contain z-10"
                 draggable="false"
               />
             </div>

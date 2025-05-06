@@ -1,18 +1,15 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import btnicon from '../../../../public/Assets/icon/comingsoon/btnPlay.svg';
+import React from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import btnicon from "../../../../public/Assets/icon/comingsoon/btnPlay.svg";
 
 export default function BtnPlay({ onClick }: { onClick: () => void }) {
   const handleClick = () => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    const audio = new Audio('/sounds/click.mp3');
-    audio.play();
-
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     setTimeout(() => {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
       onClick();
     }, 100);
   };

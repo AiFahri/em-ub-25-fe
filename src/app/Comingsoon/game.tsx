@@ -331,7 +331,7 @@ const resetToOpening = () => {
 
 
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col h-screen overflow-hidden'>
       <div className="relative flex flex-col items-center w-full justify-center min-h-screen bg-[#001B5E]">
       <Opening />
         <BgGrid classNameVertical="object-cover translate-x-[-20%] opacity-40" classNameHorizontal="opacity-40 object-cover translate-y-[34%] " speedVertical={1} speedHorizontal={1} />

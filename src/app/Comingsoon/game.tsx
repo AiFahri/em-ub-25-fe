@@ -260,7 +260,7 @@ if (currentView === 'result' && userChoice && botChoice && result) {
             className="relative z-20 flex flex-col items-center justify-center h-full"
           >
             <div className="sm:block hidden">
-              <div className="flex flex-row items-center justify-center absolute top-5 right-0 left-0">
+              <div className="flex flex-row items-center justify-center absolute top-6 right-0 left-0">
                 <Image src={whitelogo} alt="white logo" className="w-auto" />
               </div>
             </div>
@@ -279,26 +279,26 @@ if (currentView === 'result' && userChoice && botChoice && result) {
               <div className="flex sm:flex-row relative flex-col justify-between h-screen items-center">
                 <div className="relative">
                   {botChoice && (
-                    <>
+                   
                      
                       <Image 
                         src={imageMapBot[botDisplayChoice]} 
                         alt="pilihan bot"
                         className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:h-auto h-[30vh]" 
                       />
-                    </>
+                  
                   )}
                 </div>
                 <div className="relative ">
                   {userChoice && (
-                    <>
+                
                       
                       <Image 
                         src={imageMapUser[userChoice]} 
                         alt="pilihan user" 
                         className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw]  sm:h-auto h-[30vh] object-contain" 
                       />
-                    </>
+                   
                   )}
                 </div>
               </div>
@@ -317,7 +317,7 @@ if (currentView === 'result' && userChoice && botChoice && result) {
           </motion.div>
           
           {showResultFlow && (
-            <div className="absolute inset-0 z-50">
+            <div className="absolute inset-0 z-50 w-full h-full">
               <ResultFlow isWinner={result === 'win'} onPlayAgain={handlePlayAgain} />
             </div>
           )}

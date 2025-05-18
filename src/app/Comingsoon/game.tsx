@@ -227,7 +227,7 @@ const resetToOpening = () => {
       }, 100);
     };
 
-    if (currentView === 'result' && userChoice && botChoice && result) {
+if (currentView === 'result' && userChoice && botChoice && result) {
       return (
         <div ref={resultRef} className=" w-full h-screen overflow-hidden">
           <BgGrid 
@@ -275,32 +275,28 @@ const resetToOpening = () => {
               <h1 className="font_bold text-[#0049FF] text-[36px] tracking-tight leading-none">Mori</h1>
             </div>
   
-            <div className="relative w-full">
-              <div className="flex sm:flex-row flex-col justify-between h-screen items-center">
-                <div className="relative sm:flex-shrink-0">
+            <div className="relative w-full ">
+              <div className="flex sm:flex-row relative flex-col justify-between h-screen items-center">
+                <div className="relative">
                   {botChoice && (
                     <>
-                      <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-                        <div className="w-full h-full bg-blue-500 opacity-30 blur-3xl rounded-full"></div>
-                      </div>
+                     
                       <Image 
                         src={imageMapBot[botDisplayChoice]} 
-                        alt="pilihan bot" 
+                        alt="pilihan bot"
                         className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:h-auto h-[30vh]" 
                       />
                     </>
                   )}
                 </div>
-                <div className="relative flex-shrink-0">
+                <div className="relative ">
                   {userChoice && (
                     <>
-                      <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-                        <div className="w-full h-full bg-blue-500 opacity-30 blur-3xl rounded-full"></div>
-                      </div>
+                      
                       <Image 
                         src={imageMapUser[userChoice]} 
                         alt="pilihan user" 
-                        className="relative xl:w-[100%] lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:mb-0 mb-1 sm:h-auto h-[30vh]" 
+                        className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw]  sm:h-auto h-[30vh] object-contain" 
                       />
                     </>
                   )}

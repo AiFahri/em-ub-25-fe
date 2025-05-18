@@ -60,7 +60,7 @@ export default function Lose({ onPlayAgain }: { onPlayAgain: () => void }) {
               src={o}
               alt="emoji"
               className="absolute w-[23px] sm:w-[40px] md:w-[55px] lg:w-[70px]
-                 translate-x-[48px] translate-y-[38px] sm:translate-x-[70px] sm:translate-y-[55px]
+                 translate-x-[46px] translate-y-[33px] sm:translate-x-[70px] sm:translate-y-[55px]
                  md:translate-x-[93px] md:translate-y-[74px]
                  lg:translate-x-[115px] lg:translate-y-[90px]"
             />

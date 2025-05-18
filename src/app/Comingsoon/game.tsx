@@ -209,7 +209,7 @@ const resetToOpening = () => {
         document.body.style.overflow = '';
       }
       return () => { document.body.style.overflow = ''; };
-    }, [currentView]);
+    }, [currentView,userChoice, botChoice, result]);
   
     useEffect(() => {
       document.body.style.overflow = 'hidden';
@@ -229,7 +229,7 @@ const resetToOpening = () => {
 
     if (currentView === 'result' && userChoice && botChoice && result) {
       return (
-        <div ref={resultRef} className="relative w-full h-screen overflow-hidden">
+        <div ref={resultRef} className=" w-full h-screen overflow-hidden">
           <BgGrid 
             classNameVertical="opacity-40 object-cover translate-x-[-20%] translate-y-[0.5%]" 
             classNameHorizontal="opacity-40 object-cover translate-y-[34%] z-50" 
@@ -300,7 +300,7 @@ const resetToOpening = () => {
                       <Image 
                         src={imageMapUser[userChoice]} 
                         alt="pilihan user" 
-                        className="relative xl:w-[100%] lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:mb-0 -mb-7 sm:h-auto h-[30vh]" 
+                        className="relative xl:w-[100%] lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:mb-0 mb-1 sm:h-auto h-[30vh]" 
                       />
                     </>
                   )}

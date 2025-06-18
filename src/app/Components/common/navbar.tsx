@@ -36,13 +36,13 @@ export default function Navbar() {
         <Link href="/" className={`font-medium ${isActive('/') ? 'bg-[#002787] text-white px-4 py-2 rounded-full' : 'text-[#002787] hover:underline'}`}>
           Beranda
         </Link>
-        <Link href="/Berita" className={`font-medium ${isActive('/Berita') ? 'bg-[#002787] text-white px-4 py-2 rounded-full' : 'text-[#002787] hover:underline'}`}>
+        <Link href="/berita" className={`font-medium ${isActive('/berita') ? 'bg-[#002787] text-white px-4 py-2 rounded-full' : 'text-[#002787] hover:underline'}`}>
           Berita
         </Link>
-        <Link href="/Tentang" className={`font-medium ${isActive('/Tentang') ? 'bg-[#002787] text-white px-4 py-2 rounded-full' : 'text-[#002787] hover:underline'}`}>
+        <Link href="/tentang" className={`font-medium ${isActive('/tentang') ? 'bg-[#002787] text-white px-4 py-2 rounded-full' : 'text-[#002787] hover:underline'}`}>
           Tentang
         </Link>
-        <Link href="/Proker" className={`font-medium ${isActive('/Proker') ? 'bg-[#002787] text-white px-4 py-2 rounded-full' : 'text-[#002787] hover:underline'}`}>
+        <Link href="/proker" className={`font-medium ${isActive('/proker') ? 'bg-[#002787] text-white px-4 py-2 rounded-full' : 'text-[#002787] hover:underline'}`}>
           Program Kerja
         </Link>
 
@@ -74,13 +74,13 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-4" onClick={() => setIsMobileMenuOpen(false)}>
             <Image src={berandaIcon} alt="Beranda" width={24} /> Beranda
           </Link>
-          <Link href="/Berita" className="flex items-center gap-4" onClick={() => setIsMobileMenuOpen(false)}>
+          <Link href="/berita" className="flex items-center gap-4" onClick={() => setIsMobileMenuOpen(false)}>
             <Image src={beritaIcon} alt="Berita" width={24} /> Berita
           </Link>
-          <Link href="/Tentang" className="flex items-center gap-4" onClick={() => setIsMobileMenuOpen(false)}>
+          <Link href="/tentang" className="flex items-center gap-4" onClick={() => setIsMobileMenuOpen(false)}>
             <Image src={tentangIcon} alt="Tentang" width={24} /> Tentang
           </Link>
-          <Link href="/Proker" className="flex items-center gap-4" onClick={() => setIsMobileMenuOpen(false)}>
+          <Link href="/proker" className="flex items-center gap-4" onClick={() => setIsMobileMenuOpen(false)}>
             <Image src={prokerIcon} alt="Proker" width={24} /> Proker
           </Link>
         </div>

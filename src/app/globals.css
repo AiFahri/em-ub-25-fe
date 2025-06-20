@@ -1,8 +1,8 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @font-face {
-  font-family: "NeueHaasDisplay";
-  src: url("/fonts/NeueHaasDisplayBold.ttf") format("truetype");
+  font-family: 'NeueHaasDisplay';
+  src: url('/fonts/NeueHaasDisplayBold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
@@ -12,8 +12,8 @@
 }
 
 @font-face {
-  font-family: "NeueHaasDisplayrg";
-  src: url("/fonts/NeueHaasDisplayRegular.otf") format("truetype");
+  font-family: 'NeueHaasDisplayrg';
+  src: url('/fonts/NeueHaasDisplayRegular.otf') format('truetype');
 }
 
 .font_regular {
@@ -21,8 +21,8 @@
 }
 
 @font-face {
-  font-family: "NeueHaasDisplaymedium";
-  src: url("/fonts/NeueHaasDisplayMediu.otf") format("truetype");
+  font-family: 'NeueHaasDisplaymedium';
+  src: url('/fonts/NeueHaasDisplayMediu.otf') format('truetype');
 }
 
 .font_medium {
@@ -30,8 +30,8 @@
 }
 
 @font-face {
-  font-family: "SpaceGroteskRegular";
-  src: url("/fonts/SpaceGroteskRegular.ttf") format("truetype");
+  font-family: 'SpaceGroteskRegular';
+  src: url('/fonts/SpaceGroteskRegular.ttf') format('truetype');
 }
 
 .font_grotesk_medium {
@@ -39,8 +39,8 @@
 }
 
 @font-face {
-  font-family: "SpaceGroteskBold";
-  src: url("/fonts/SpaceGroteskBold.ttf") format("truetype");
+  font-family: 'SpaceGroteskBold';
+  src: url('/fonts/SpaceGroteskBold.ttf') format('truetype');
 }
 
 .font_grotesk_bold {
@@ -48,8 +48,8 @@
 }
 
 @font-face {
-  font-family: "SpaceGroteskSemiBold";
-  src: url("/fonts/SpaceGroteskSemiBold.ttf") format("truetype");
+  font-family: 'SpaceGroteskSemiBold';
+  src: url('/fonts/SpaceGroteskSemiBold.ttf') format('truetype');
 }
 
 .font_grotesk_semibold {
@@ -57,21 +57,98 @@
 }
 
 @font-face {
-  font-family: "PoppinsSemiBold";
-  src: url("/fonts/PoppinsSemiBold.ttf") format("truetype");
+  font-family: 'PoppinsSemiBold';
+  src: url('/fonts/PoppinsSemiBold.ttf') format('truetype');
 }
 
 .font_poppins_semibold {
   font-family: PoppinsSemiBold;
 }
 
-
 @keyframes scrollVertical {
-  from { transform: translateY(0%); }
-  to { transform: translateY(-100%); }
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(-100%);
+  }
 }
 
 @keyframes scrollHorizontal {
-  from { transform: translateX(0%); }
-  to { transform: translateX(-100%); }
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
+
+.image-concave {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.image-concave::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 40px;
+  background-color: white;
+  border-top-left-radius: 100%;
+  z-index: 2;
+}
+
+.clip-concave-bottom-right {
+  mask-image: radial-gradient(
+    100px at 100% 100%, 
+    transparent 100%, 
+    black 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    100px at 100% 100%, 
+    transparent 100%, 
+    black 100%
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.inverted-border-radius {
+  background: white;
+}
+
+.inverted-border-radius::before {
+  content: '';
+  background-color: transparent;
+  bottom: -50px;
+  height: 50px;
+  width: 25px;
+  left: 0;
+  border-top-left-radius: 12px;
+  box-shadow: 0 -25px 0 0 white;
+  z-index: 0;
+}
+
+.inverted-border-radius::after {
+  content: '';
+  position: absolute;
+  background-color: transparent;
+  top: 0;
+  height: 50px;
+  width: 25px;
+  right: -25px;
+  border-top-left-radius: 12px;
+  box-shadow: 0 -25px 0 0 white;
+}
+

@@ -1,10 +1,10 @@
-import Footer from './Components/common/Footer';
-import Navbar from './Components/common/Navbar';
-import Berita from './Components/LandingPage/Berita';
-import Hero from './Components/LandingPage/Hero';
-import ProgramKerja from './Components/LandingPage/ProgramKerja';
-import TautanPintas from './Components/LandingPage/TautanPintas';
-import Welcome from './Components/LandingPage/Welcome';
+import Footer from '../components/common/Footer';
+import Navbar from '../components/common/Navbar';
+import Berita from '../components/landingpage/Berita';
+import Hero from '../components/landingpage/Hero';
+import ProgramKerja from '../components/landingpage/ProgramKerja';
+import TautanPintas from '../components/landingpage/TautanPintas';
+import Welcome from '../components/landingpage/Welcome';
 export default function Home() {
   return (
     <main>

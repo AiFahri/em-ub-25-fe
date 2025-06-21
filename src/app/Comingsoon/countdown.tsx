@@ -1,5 +1,5 @@
 import React from "react";
-import Timer from "../Components/ComingsoonComponents/timer";
+import Timer from "../../components/comingsoon/timer";
 import Image from "next/image";
 // import whitelogo from "../../../public/Assets/logo/whitelogo.svg";
 

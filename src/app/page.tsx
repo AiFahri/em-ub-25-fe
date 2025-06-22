@@ -7,7 +7,7 @@ import TautanPintas from '../components/landingpage/TautanPintas';
 import Welcome from '../components/landingpage/Welcome';
 export default function Home() {
   return (
-    <main>
+    <main className='pt-28'>
       <Navbar />
       <Hero />
       <Welcome />

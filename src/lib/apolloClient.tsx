@@ -9,10 +9,9 @@ import {
 import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 const uploadLink = createUploadLink({
-  uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT, // pastikan endpoint ini ada di .env
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT, // pake endpoint ayas
 }) as HttpLink;
 
-// Chain hanya uploadLink (tanpa auth & errorLink)
 const link = from([uploadLink]);
 
 const client = new ApolloClient({

@@ -25,7 +25,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full px-6 md:px-10 lg:px-16 py-6 bg-white flex items-center justify-between relative">
+    <nav className="w-full rounded-b-[50px] px-6 md:px-10 lg:px-16 py-6 fixed top-0 z-50 bg-white flex items-center justify-between">
       <Link href="/" className="flex-shrink-0">
         <div className="relative w-[90px] md:w-[110px] lg:w-[130px] aspect-[120/65]">
           <Image src={logo} alt="Logo Simpul Memori" fill className="object-contain" sizes="(max-width: 768px) 90px, (max-width: 1024px) 110px, 130px" />
@@ -80,7 +80,7 @@ export default function Navbar() {
           <Link href="/tentang" className="flex items-center gap-4" onClick={() => setIsMobileMenuOpen(false)}>
             <Image src={tentangIcon} alt="Tentang" width={24} /> Tentang
           </Link>
-          <Link href="/proker" className="flex items-center gap-4" onClick={() => setIsMobileMenuOpen(false)}>
+          <Link href="/programkerja" className="flex items-center gap-4" onClick={() => setIsMobileMenuOpen(false)}>
             <Image src={prokerIcon} alt="Proker" width={24} /> Proker
           </Link>
         </div>

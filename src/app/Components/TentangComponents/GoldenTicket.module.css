@@ -1,0 +1,55 @@
+/* File: components/GoldenTicket.module.css (FINAL DENGAN LENGKUNGAN) */
+
+/* Bagian atas tiket (Oranye) */
+.topPart {
+    background-color: #FF4900;
+    border-top-left-radius: 1.5rem; /* 24px */
+    border-top-right-radius: 1.5rem;
+    position: relative;
+}
+
+/* Bagian bawah tiket (Putih) */
+.bottomPart {
+    background-color: white;
+    border-bottom-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+    position: relative;
+}
+
+/* Pseudo-elements untuk membuat lengkungan ke dalam (scallops) */
+.topPart::after, .topPart::before,
+.bottomPart::after, .bottomPart::before {
+    content: '';
+    position: absolute;
+    width: 2rem; /* 32px */
+    height: 1rem; /* 16px */
+    background-color: transparent; /* Default */
+}
+
+/* Lengkungan untuk bagian ATAS tiket (berwarna putih, menimpa bagian oranye) */
+.topPart::before {
+    bottom: 0;
+    left: -1rem; /* Setengah dari width, untuk posisi */
+    border-bottom-right-radius: 1rem;
+    box-shadow: 0.5rem 0.5rem 0 0 white;
+}
+.topPart::after {
+    bottom: 0;
+    right: -1rem; /* Setengah dari width, untuk posisi */
+    border-bottom-left-radius: 1rem;
+    box-shadow: -0.5rem 0.5rem 0 0 white;
+}
+
+/* Lengkungan untuk bagian BAWAH tiket (berwarna oranye, menimpa bagian putih) */
+.bottomPart::before {
+    top: 0;
+    left: -1rem;
+    border-top-right-radius: 1rem;
+    box-shadow: 0.5rem -0.5rem 0 0 #FF4900;
+}
+.bottomPart::after {
+    top: 0;
+    right: -1rem;
+    border-top-left-radius: 1rem;
+    box-shadow: -0.5rem -0.5rem 0 0 #FF4900;
+}

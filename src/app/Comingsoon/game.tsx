@@ -40,7 +40,7 @@ import ResultFlow from '../Components/ComingsoonComponents/ResultFlow';
 import Opening from '../Components/ComingsoonComponents/Opening';
 
 
-export default function NotFound() {
+export default function Game() {
 
   const [userChoice, setUserChoice] = useState<Choice | null>(null);
   const [botChoice, setBotChoice] = useState<Choice | null>(null);
@@ -72,6 +72,7 @@ useEffect(() => {
 
   resetToOpening();
 }, []);
+
 
 const resetToOpening = () => {
   setUserChoice(null);
@@ -216,7 +217,7 @@ const resetToOpening = () => {
       return () => { document.body.style.overflow = ''; };
     }, []);
 
-
+    
 
     const handlePlay = () => {
       setCurrentView('game');
@@ -279,8 +280,6 @@ if (currentView === 'result' && userChoice && botChoice && result) {
               <div className="flex sm:flex-row relative flex-col justify-between h-screen items-center">
                 <div className="relative">
                   {botChoice && (
-                   
-                     
                       <Image 
                         src={imageMapBot[botDisplayChoice]} 
                         alt="pilihan bot"

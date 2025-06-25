@@ -66,9 +66,9 @@ const VisiMisi: FC = () => {
         <section ref={sectionRef} className="relative w-11/12 mx-auto py-24 bg-white">
             <div className="flex flex-row justify-between gap-x-[5vw]">
                 {/* Kolom Kiri - Progress Bar & Smiley */}
-                <div className="w-[20%] lg:w-[20%]">
-                    <div className="w-24 h-24 lg:w-52 lg:h-52 sticky top-[15vh] z-20">
-                        <div className="w-[65%] h-[65%] bg-[#0049FF] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center p-2">
+                <div className="w-[30%] lg:w-[20%]">
+                    <div className="w-24 h-24 lg:w-32 lg:h-32 sticky top-[15vh] z-20">
+                        <div className="w-[60%] h-[60%] bg-[#0049FF] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center p-2">
                             <div className="flex flex-row w-full justify-evenly items-center">
                                 <div className="w-[40%] aspect-square bg-white rounded-full flex justify-center items-center relative overflow-hidden">
                                     <motion.div 
@@ -107,14 +107,14 @@ const VisiMisi: FC = () => {
                     {/* Menggunakan h-screen untuk membuat jarak scroll yang alami */}
                     <motion.h2
                         ref={visiTitleRef}
-                        className={`h-[50vh] flex items-center text-5xl lg:text-7xl font-bold transition-colors duration-500 ease-in-out text-transparent bg-clip-text 
+                        className={`h-[50vh] flex items-center text-[8vw] font-bold transition-colors duration-500 ease-in-out text-transparent bg-clip-text 
                         ${isVisiInView ? "bg-gradient-to-r from-[#FF4900] to-[#FF4900]" : "bg-gradient-to-r from-gray-200 to-gray-200"}`}
                     >
                         VISI.
                     </motion.h2>
                     <motion.h2
                         ref={misiTitleRef}
-                        className={` h-[50vh] flex items-center text-5xl lg:text-7xl font-bold transition-colors duration-500 ease-in-out text-transparent bg-clip-text 
+                        className={` h-[50vh] flex items-center text-[8vw] font-bold transition-colors duration-500 ease-in-out text-transparent bg-clip-text 
                         ${isMisiInView ? "bg-gradient-to-r from-orange-500 to-orange-500" : "bg-gradient-to-r from-gray-200 to-gray-200"}`}
                     >
                         MISI.
@@ -126,7 +126,7 @@ const VisiMisi: FC = () => {
                     <div className="h-screen sticky top-0 flex items-center">
                         <div className="relative w-full h-48">
                             <motion.div
-                                className="absolute inset-0 text-gray-800 text-xl lg:text-2xl leading-relaxed flex items-center"
+                                className="absolute inset-0 text-gray-800 text-[4vw] md:text-[vw] leading-relaxed flex items-center"
                                 animate={{ opacity: activeSection === 'visi' ? 1 : 0 }}
                                 transition={{ duration: 0.5, ease: "easeInOut" }}
                             >
@@ -136,7 +136,7 @@ const VisiMisi: FC = () => {
                             </motion.div>
                             
                             <motion.div
-                                className="absolute inset-0 text-gray-800 text-base lg:text-xl leading-relaxed flex items-center"
+                                className="absolute inset-0 text-gray-800 text-[4vw] md:text-[2vw] leading-relaxed flex items-center"
                                 animate={{ opacity: activeSection === 'misi' ? 1 : 0 }}
                                 transition={{ duration: 0.5, ease: "easeInOut" }}
                             >

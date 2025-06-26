@@ -126,7 +126,7 @@ const VisiMisi: FC = () => {
                     <div className="h-screen sticky top-0 flex items-center">
                         <div className="relative w-full h-48">
                             <motion.div
-                                className="absolute inset-0 text-gray-800 text-[4vw] md:text-[vw] leading-relaxed flex items-center"
+                                className="absolute inset-0 text-gray-800 text-[4vw] md:text-[2vw] leading-relaxed flex items-center"
                                 animate={{ opacity: activeSection === 'visi' ? 1 : 0 }}
                                 transition={{ duration: 0.5, ease: "easeInOut" }}
                             >

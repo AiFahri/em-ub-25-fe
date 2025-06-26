@@ -147,7 +147,21 @@
 }
 
 
+.circle-cut {
+  --r: 30px; /* Ukuran potongan bisa disesuaikan */
+  border-radius: 20px; /* Radius sudut */
 
+  /* Properti mask yang mendefinisikan 4 potongan */
+  mask:
+    /* Potongan ATAS */
+    radial-gradient(circle var(--r) at 50% calc(0% - var(--r)), #0000 99%, #000),
+    /* Potongan BAWAH */
+    radial-gradient(circle var(--r) at 50% calc(100% + var(--r)), #0000 99%, #000),
+    /* Potongan KIRI */
+    radial-gradient(circle var(--r) at calc(0% - var(--r)) 50%, #0000 99%, #000),
+    /* Potongan KANAN */
+    radial-gradient(circle var(--r) at calc(100% + var(--r)) 50%, #0000 99%, #000);
+}
 
 
 

@@ -1,67 +1,96 @@
-// File: components/Tickets.tsx (Struktur Baru Sesuai Target)
+// components/GoldenTicket.tsx
 
 import Image, { StaticImageData } from 'next/image';
-import styles from './GoldenTicket.module.css'; // Ganti nama file CSS jika perlu
-import bg from "../../../../public/Assets/image/tentang/sec8/bg.svg"; // Impor background pattern
 
+/**
+ * Mendefinisikan properti (props) untuk komponen GoldenTicket.
+ * Anda dapat memberikan path gambar lokal (StaticImageData) atau URL string.
+ */
 interface GoldenTicketProps {
-    photo: StaticImageData;
+    photo: StaticImageData | string;
+    texture: StaticImageData | string;
     name: string;
     faculty: string;
-    title: string;
+    position: string;
+    cabinetTitle: string;
     cabinetName: string;
-    kabinet: string;
 }
 
-const Tickets: React.FC<GoldenTicketProps> = ({ photo, name, faculty, title, cabinetName, kabinet }) => {
+const GoldenTicket: React.FC<GoldenTicketProps> = ({
+    photo,
+    texture,
+    name,
+    faculty,
+    position,
+    cabinetTitle,
+    cabinetName,
+}) => {
     return (
-        // Container Utama dengan Shadow
-        <div className="w-[20vw]  drop-shadow-lg">
-            
-            {/* BAGIAN ATAS (ORANYE) - WADAH UTAMA */}
-            <div className="bg-[#FF4900] rounded-2xl p-5 relative overflow-hidden">
-                
-                {/* 1. LAYER PALING BAWAH: PATTERN BACKGROUND */}
-                <Image 
-                    src={bg} 
-                    alt="background pattern" 
-                    layout="fill" 
-                    objectFit="cover" 
-                    className="absolute top-0 left-0 opacity-20"
+        // Wrapper utama untuk mengontrol ukuran dan bayangan tiket
+        <div className="w-full max-w-[320px] drop-shadow-lg font-sans">
+
+            {/* Bagian Atas (Oranye) */}
+            <div className="bg-white rounded-t-2xl p-4 relative overflow-hidden">
+
+                {/* Gambar Tekstur Latar Belakang */}
+                {/* Diposisikan secara absolut di belakang konten dengan opasitas rendah */}
+                <Image
+                    src={texture}
+                    alt="Background Texture"
+                    layout="fill"
+                    objectFit="cover"
+                    className="absolute top-0 left-0 opacity-90"
                 />
 
-                {/* WADAH FOTO & GRADIEN */}
+                {/* Kontainer untuk Foto Orang */}
                 <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden">
-                    {/* 2. LAYER TENGAH: FOTO UTAMA */}
-                    <Image 
-                        src={photo} 
-                        alt={name} 
-                        layout="fill" 
-                        objectFit="cover" 
+                    {/* Foto Orang */}
+                    <Image
+                        src={photo}
+                        alt={name}
+                        objectPosition="center"
+                        className='absolute bottom-0 '
                     />
-                    
-                    {/* 3. LAYER PALING ATAS: GRADIEN FADE */}
-                    <div className="absolute bottom-0 h-1/2 w-full bg-gradient-to-t from-[#FF4900] to-transparent"></div>
-                </div>
 
-                {/* WADAH TEKS (DI BAWAH FOTO, DI ATAS GRADIEN) */}
-                <div className="relative z-10 text-white mt-[-6vw] sm:mt-[-5vw] lg:mt-[-4vw] pt-4 text-center">
-                    <p className="font-bold text-[1.2rem] leading-tight mt-1">{name} | {faculty}</p>
-                    <p className="text-[0.6rem] font-light mt-1">{title}</p>
+                    {/* Gradient Overlay di atas foto */}
+                    {/* Ini menciptakan efek foto yang memudar ke latar belakang oranye di bagian bawah. */}
+                    {/* Sesuai permintaan Anda: background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FF4900 71.63%); */}
+
+                </div>
+                <div
+                    className="absolute inset-0 "
+                    style={{ background: 'linear-gradient(180deg, transparent 40%, #FF4900 95%)' }}
+                ></div>
+                <div
+                    className="absolute inset-0 "
+                    style={{ background: 'linear-gradient(0deg, transparent 60%, #FF4900 100%)' }}
+                ></div>
+                {/* Konten Teks di bagian oranye */}
+                {/* Teks ditarik ke atas menimpa bagian bawah gambar untuk efek visual yang lebih baik */}
+                <div className="relative z-10 text-white text-center mt-[-4rem] ">
+                    <p className="font-bold text-xl leading-tight">{name} | {faculty}</p>
+                    <p className="text-xs font-light mt-1 px-4">{position}</p>
                 </div>
             </div>
 
-            {/* BAGIAN SOBEKAN */}
-            <div className={styles.rip}></div>
 
-            {/* BAGIAN BAWAH (PUTIH) */}
-            <div className="bg-white rounded-2xl py-5 text-center flex flex-col">
-                <p className="text-black font-bold text-xl tracking-wider">{cabinetName}</p>
-                <p className="text-[#FF4900] font-bold text-xl tracking-wider">{kabinet}</p>
+
+            {/* Bagian Bawah (Putih) dengan Lubang */}
+            <div
+                className="text-center flex flex-col items-center justify-center rounded-b-2xl pt-5 pb-9"
+                style={{
+                    // Trik CSS untuk membuat lubang setengah lingkaran di bawah
+                    // Menggunakan radial-gradient untuk "memotong" area transparan dari latar belakang putih
+                    background: `
+            radial-gradient(circle at 50% 100%, transparent 24px, white 25px)
+          `
+                }}
+            >
+                <p className="text-black font-bold text-xl tracking-wider">{cabinetTitle}</p>
+                <p className="text-[#FF4900] font-bold text-xl tracking-wider">{cabinetName}</p>
             </div>
-
         </div>
     );
 };
 
-export default Tickets;
+export default GoldenTicket;

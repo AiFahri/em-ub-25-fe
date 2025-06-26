@@ -10,6 +10,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@tailwindcss/oxide": "^4.1.10",
     "framer-motion": "^12.18.1",
     "gsap": "^3.12.7",
     "next": "^15.2.3",

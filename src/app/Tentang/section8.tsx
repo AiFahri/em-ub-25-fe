@@ -1,12 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import Tickets from "../Components/TentangComponents/Tickets";
+// Pastikan path ini benar sesuai struktur folder Anda
+import GoldenTicket from "../Components/TentangComponents/Tickets";
 import TicketShapes from "../Components/TentangComponents/TicketShapes";
 import o from "../../../public/Assets/image/tentang/sec8/O.svg";
 import presiden from "../../../public/Assets/image/tentang/sec8/presiden.svg";
 import wapres from "../../../public/Assets/image/tentang/sec8/wapres.svg";
+import orange_texture from "../../../public/Assets/image/tentang/sec8/orange_texture.svg";
+import blue_texture from "../../../public/Assets/image/tentang/sec8/blue_texture.svg";
 
+// Data untuk setiap tiket
 const ticketData = [
     {
         photo: presiden,
@@ -51,19 +55,22 @@ export default function Section8() {
                     
                     <p className="text-[#FDA480]">Kamu</p>
                     <p className="text-[#FDA480]">Memegang</p>
-                    <p>Golden Ticket</p>
+                    <p className="text-nowrap">Golden Ticket</p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-8 lg:gap-12">
                     {ticketData.map((ticket, index) => (
-                        <Tickets
+                        <GoldenTicket
                             key={index}
+                            
+                            // Mengirimkan props yang sesuai dengan kebutuhan GoldenTicket
+                            texture={orange_texture}
                             photo={ticket.photo}
                             name={ticket.name}
                             faculty={ticket.faculty}
-                            title={ticket.title}
-                            cabinetName={ticket.cabinetName}
-                            kabinet={ticket.kabinet}
+                            position={ticket.title}
+                            cabinetTitle={ticket.cabinetName}
+                            cabinetName={ticket.kabinet}
                         />
                     ))}
                 </div>

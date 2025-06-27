@@ -78,7 +78,7 @@ const Folder: React.FC<FolderProps> = ({ nama, imageUrl, isHovered, isDimmed, is
                     textAlign: 'start', // Teks mulai dari kiri
                     color: 'white',
                     fontWeight: 600,
-                    fontSize: '1.6vw', // Menggunakan font-size yang Anda tentukan
+                    fontSize: 'clamp(1rem, 1.5vw, 1.5rem)', // Menggunakan font-size yang Anda tentukan
                     padding: '1.5vw',
                     lineHeight: '1.2',
                 }}

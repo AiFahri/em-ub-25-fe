@@ -36,8 +36,8 @@ export default function Section1() {
           alt="Mori Section 1"
           className="z-40 absolute top-[16.5%] left-[16%] w-[27%] animate-float"
         />
-        <div className="z-30 absolute bottom-[17%] left-[13.3%] w-[18%]">
-          <ChatButton>Mari berkenalan!</ChatButton>
+        <div className="z-30 absolute bottom-[17%] left-[13.3%] ">
+          <ChatButton size="clamp(1rem, 1.5vw, 1.5rem)">Mari berkenalan!</ChatButton>
         </div>
         <h1 className="z-20 absolute bg-[#BACEFF] w-[6%] h-[13%] rounded-full bottom-[16%] left-[33%]"></h1>
 
@@ -62,12 +62,12 @@ export default function Section1() {
         <div className="flex z-20 flex-col text-start text-wrap absolute right-[7%] top-[20%] leading-[10vw] w-[35%]">
           <Letters
             text="Tentang"
-            className="font_bold text-[#FF4900] text-[8.5vw] tracking-[-0.04em] text-outline-kustom"
+            className="font_bold text-[#FF4900] text-[clamp(3rem,8.5vw,8rem)] tracking-[-0.04em] text-outline-kustom"
             delayStart={0}
           />
           <Letters
             text="Kami"
-            className="font_bold text-[#FF4900] text-[8.5vw] tracking-[-0.05em] text-outline-kustom ml-[1.5vw]"
+            className="font_bold text-[#FF4900] text-[clamp(3rem,8.5vw,8rem)] tracking-[-0.05em] text-outline-kustom ml-[1.5vw]"
             delayStart={1}
           />
         </div>
@@ -76,7 +76,7 @@ export default function Section1() {
       {/* section 2 */}
       <div className="relative w-full aspect-[1242/463] flex flex-row items-center justify-center">
         <div className="flex flex-col items-center justify-center text-center leading-[8vw] text-outline-kustom z-10 ml-[5vw]">
-          <h1 className="font_bold text-[#FF4900] text-[4.5vw] tracking-[-0.04em]">
+          <h1 className="font_bold text-[#FF4900] text-[clamp(3rem,5vw,6rem)] tracking-[-0.04em]">
             Kabinet EM UB 2025
           </h1>
           <SimpulMemori/>

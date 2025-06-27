@@ -15,7 +15,7 @@ export default function Section3() {
       <div className="flex flex-row justify-between items-center w-11/12 mx-auto aspect-[1900/1000] z-20">
         <div className="flex flex-col items-center w-7/12 justify-center aspect-[856/176] z-20 ">
           <div className="flex flex-row items-center relative  ">
-            <h1 className="text-[#0049FF] text-[7vw] font_bold">Filosofi L</h1>
+            <h1 className="text-[#0049FF] text-[clamp(3rem,7vw,8rem)] font_bold">Filosofi L</h1>
             <span className="bg-[#0049FF] w-[4.3vw] h-[40%] rounded-full mt-[1vw] "></span>
 
             <Image
@@ -23,14 +23,14 @@ export default function Section3() {
               alt="Logo Filosofi"
               className="absolute right-[20.4%] top-[40%] w-[9%] "
             />
-            <span className="text-[#0049FF] text-[7vw] font_bold">go</span>
+            <span className="text-[#0049FF] text-[clamp(3rem,7vw,8rem)] font_bold">go</span>
           </div>
 
-          <h1 className="text-[#0049FF] text-[2vw] font_bold border-[#0049FF] border-[0.5vw] py-[0.3vw] px-[3vw] rounded-[10vw] ">
+          <h1 className="text-[#0049FF] text-[clamp(1rem,2vw,3rem)] font_bold border-[#0049FF] border-[0.5vw] py-[0.3vw] px-[3vw] rounded-[10vw] ">
             Bentuk Simpul Infinity
           </h1>
 
-          <p className="text-[#0049FF] text-[1.2vw] font_medium bg-[#BACEFF] rounded-[2vw] p-[2.3vw] mt-[2.5vw]">
+          <p className="text-[#0049FF] text-[clamp(1rem,1.5vw,2rem)] font_medium bg-[#BACEFF] rounded-[2vw] p-[2.3vw] mt-[2.5vw]">
             Melambangkan kesinambungan, keterhubungan, dan kekekalan memori. Hal
             ini digambarkan sebagaimana Kabinet Simpul Memori dapat berhubung
             dengan ingatan atau sejarah melalui kerja sama dan kolaborasi yang
@@ -40,19 +40,19 @@ export default function Section3() {
           <div className="flex flex-row items-center  gap-x-[3vw] bg-[#BACEFF] rounded-[2vw] p-[2.3vw] mt-[3vw] ">
             <div className="flex flex-col items-center ">
               <h1 className="bg-[#0049FF] w-[4vw] h-[4vw] rounded-full  " />
-              <p className="text-[#0049FF] text-[2vw] font_bold w-[6vw] text-center leading-[2.5vw]">
+              <p className="text-[#0049FF] text-[clamp(1rem,2vw,3rem)] font_bold w-[6vw] text-center leading-[2.5vw]">
                 Warna Biru
               </p>
             </div>
 
             <div className="flex flex-col items-center">
               <h1 className="bg-gradient-to-b from-[#3488CF] to-[#002C99] w-[4vw] h-[4vw] rounded-full " />
-              <p className="text-[#0049FF] text-[2vw] font_bold w-[8vw] text-center leading-[2.5vw]">
+              <p className="text-[#0049FF] text-[clamp(1rem,2vw,3rem)] font_bold w-[8vw] text-center leading-[2.5vw]">
                 Warna Gradiasi
               </p>
             </div>
 
-            <p className="text-[#0049FF] text-[1vw]  font_medium bg-[#BACEFF] rounded-[2vw]  ">
+            <p className="text-[#0049FF] text-[clamp(1rem,1vw,2rem)]  font_medium bg-[#BACEFF] rounded-[2vw]  ">
               Melambangkan stabilitas, kepercayaan, dan profesionalisme bahwa
               kabinet ini memiliki arah dan visi yang jelas. Gradasi warna biru
               memberikan kesan dinamis dan modern yang digambarkan melalui
@@ -64,7 +64,7 @@ export default function Section3() {
       <div className="flex flex-col w-5/12 z-20">
         <div className="flex flex-row justify-end ml-[4vw]">
           <div className="flex flex-col items-center">
-          <h1 className="text-white text-[1.5vw] font_medium mt-[5vw] bg-[#0049FF] px-[1vw] text-center rounded-[2vw]">Sentuh logo kami!</h1>
+          <h1 className="text-white text-[clamp(1rem,1.2vw,2rem)] font_medium mt-[5vw] bg-[#0049FF] px-[2vw] py-[0.5vw] text-center rounded-[2vw]">Sentuh logo kami!</h1>
           <Image
           src={text}
           alt="Mori Section 3"

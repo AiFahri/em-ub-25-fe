@@ -23,14 +23,14 @@ export default function FAQPage() {
         <Image src={bg} alt="Background Simpul Memori" className="w-full" />
       </div>
 
-      <div className="mt-[2vw] w-full  items-center min-h-screen flex gap-y-[3vw] flex-col relative pb-20">
+      <div className="mt-[2vw] lg:w-9/12 w-10/12 mx-auto  items-center min-h-screen flex gap-y-[3vw] flex-col relative pb-20">
         <h1 className="text-[#0538B9] font-bold text-[clamp(5vw,5vw,5rem)]">Pertanyaan & Jawaban</h1>
 
-        <div className="flex flex-row items-center justify-center gap-x-4">
-           <div className="relative flex items-center w-[45vw]">
+        <div className="flex flex-row items-center justify-center gap-x-[2vw]">
+           <div className="relative flex items-center w-[50vw]">
             <input 
               placeholder="Cari apa yang ingin kamu tanyakan" 
-              className="w-full bg-white rounded-full text-[#0538B9] placeholder:text-[#0538B9] font-medium tracking-tight py-[0.8vw] pl-[2vw] pr-[4.5vw] text-[clamp(1vw,1.2vw,1.2rem)] focus:outline-none focus:ring-2 focus:ring-[#BACEFF] transition-all duration-300"
+              className="w-full bg-white rounded-full text-[#0538B9] placeholder:text-[#0538B9] font-medium tracking-tight py-[1vw] pl-[2vw] pr-[4.5vw] text-[clamp(2vw,2vw,1.2rem)] focus:outline-none focus:ring-2 focus:ring-[#BACEFF] transition-all duration-300"
             />
             <Image 
               src={find} 
@@ -39,7 +39,7 @@ export default function FAQPage() {
             />
           </div>
           <div className="relative flex items-center w-[15vw]">
-            <div className="w-full flex justify-between items-center bg-white rounded-full text-[#0538B9] font-medium py-[0.8vw] px-[2vw] text-[clamp(1vw,1.2vw,1.2rem)] border-2 border-[#BACEFF]">
+            <div className="w-full flex justify-between items-center bg-white rounded-full text-[#0538B9] font-medium py-[0.8vw] px-[2vw] text-[clamp(2vw,2vw,1.2rem)] border-2 border-[#BACEFF]">
               <span>Semua</span>
               <Image 
                 src={arrowDown}
@@ -59,7 +59,7 @@ export default function FAQPage() {
           </div>
         </div>
         
-        <div className="w-full flex flex-col items-center gap-y-[7vw]">
+        <div className="w-full flex flex-col items-center lg:gap-y-[5vw] gap-y-[8vw]">
           {faqData.map((faq) => (
             <QuestionPage
               key={faq.id}

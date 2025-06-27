@@ -19,11 +19,11 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ question, answer }) => {
   };
 
   return (
-    <div className="w-full max-w-4xl">
-      {/* Tombol pertanyaan dengan border-radius dinamis */}
+    <div className="w-full ">
+
       <button
         onClick={handleToggle}
-        className={`w-full flex items-center justify-between text-left bg-[#0538B9] text-white px-6 py-4 transition-all duration-300 relative z-10 ${
+        className={`w-full flex items-center justify-between text-left bg-[#0538B9] text-white px-[2vw] py-[2vw] transition-all duration-300 relative z-10 ${
           // Logika untuk mengubah radius sudut dikembalikan
           isOpen ? 'rounded-full' : 'rounded-full' 
         }`}
@@ -45,12 +45,12 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ question, answer }) => {
       {/* Kontainer jawaban ditarik ke atas dengan margin negatif */}
       <div
         // KELAS TRANSISI PENTING DIKEMBALIKAN DI SINI
-        className={`overflow-hidden transition-all duration-300 ease-in-out -mt-[4vw] ${
-          isOpen ? "max-h-[1000px]" : "max-h-0"
+        className={`overflow-hidden transition-all duration-300 rounded-t-[1vw] ease-in-out -mt-[3vw] ${
+          isOpen ? "max-h-full" : "max-h-0"
         }`}
       >
         {/* Panel jawaban dengan padding atas tambahan */}
-        <div className="bg-white pt-[6vw] pb-[2vw] px-6 rounded-b-2xl text-gray-700 ">
+        <div className="bg-white pt-[6vw] pb-[2vw] px-[2vw] rounded-b-[1vw] text-gray-700 ">
           <p>{answer}</p>
         </div>
       </div>

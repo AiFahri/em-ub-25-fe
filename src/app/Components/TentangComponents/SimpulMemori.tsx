@@ -18,7 +18,7 @@ export default function SimpulMemori() {
   return (
     <>
       <div className="flex flex-row items-center relative">
-        <h1 className="font_bold text-[#0049FF] text-[clamp(3rem,9vw,10rem)] tracking-[-0.04em]">
+        <h1 className="font_bold text-[#0049FF] text-[clamp(9vw,9vw,8rem)] tracking-[-0.04em]">
           Simpul Mem
         </h1>
         <span className="bg-[#0049FF] w-[5.5vw] h-[5vw] rounded-full ml-[0.5vw] mt-[1vw]"></span>
@@ -35,7 +35,7 @@ export default function SimpulMemori() {
 
           <Image src={smile} alt="Logo Filosofi" className="w-[1vw]" />
         </div>
-        <span className="text-[#0049FF] text-[clamp(3rem,9vw,10rem)] font_bold">ri</span>
+        <span className="text-[#0049FF] text-[clamp(9vw,9vw,8rem)] font_bold">ri</span>
       </div>
 
       <style jsx>{`

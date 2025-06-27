@@ -25,7 +25,6 @@ export default function Section2() {
             <h1 className="absolute right-[5.1%] bottom-[36%] border-[0.7vw] border-[#0049FF] rounded-full w-[4%] h-[7%] "/>
         </div>
       </div>
-n
       {/* content variation */}
       <div className="absolute top-1 left-0 w-[12%] h-[50%] border-[1vw] border-[#FF4900] rounded-r-full " />
 

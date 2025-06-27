@@ -54,7 +54,7 @@ export default function Section6() {
   const activeData = folderData[activeIndex];
 
   return (
-    <div className="relative w-11/12 mx-auto aspect-[1680/1000] sm:mt-0 mt-[-20vh] flex items-center flex-col gap-y-[3vw]">
+    <div className="relative w-11/12 mx-auto aspect-[1680/1000] sm:mt-0 mt-[-10vh] flex items-center flex-col gap-y-[3vw]">
       <div className="flex flex-row items-center gap-x-[3%]">
         <Image
           src={arrow}
@@ -62,9 +62,9 @@ export default function Section6() {
           className="absolute left-[17%] top-[8%] w-[15%]"
         />
 
-        <h1 className="text-[#0049FF] text-[clamp(2.5rem,6vw,6rem)] font_bold text-outline-kustom2 drop-shadow-sm">Arahan</h1>
+        <h1 className="text-[#0049FF] text-[clamp(6vw,6vw,6rem)] font_bold text-outline-kustom2 drop-shadow-sm">Arahan</h1>
 
-        <h1 className="text-[#FF4900] text-[clamp(2.5rem,6vw,6rem)] font_bold text-outline-kustom2 drop-shadow-sm">
+        <h1 className="text-[#FF4900] text-[clamp(6vw,6vw,6rem)] font_bold text-outline-kustom2 drop-shadow-sm">
           Strategis
         </h1>
       </div>
@@ -103,12 +103,12 @@ export default function Section6() {
       <div className="w-full rounded-[2vw] bg-[linear-gradient(87.83deg,#A1BCFF_1.25%,#E6EDFF_100%)] justify-between flex flex-row p-[3vw] aspect-[1680/334] gap-x-[10vw] items-center">
         <Image src={mori1} alt="Mori " className="w-[17%] rotate-[15deg]" />
         <div className="z-30 absolute bottom-[14%] left-[14%] w-[5%]">
-          <ChatButton size="1vw">Scroll ke bawah!</ChatButton>
+          <ChatButton size="clamp(1vw, 1vw, 0.5rem)">Scroll ke bawah!</ChatButton>
         </div>
         <div className="flex flex-col items-center gap-y-[2vw]">
           {/* 5. Ganti teks statis dengan teks dinamis dari activeData */}
           {/* Saya sarankan menggunakan <p> untuk deskripsi panjang */}
-          <p className="text-[#0538B9] text-[clamp(1rem,1.5vw,2rem)] font_bold text-center">
+          <p className="text-[#0538B9] text-[clamp(1.5vw,1.5vw,1rem)] font_bold text-center">
             {activeData.deskripsi}
           </p>
         </div>

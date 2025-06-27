@@ -15,10 +15,10 @@ export default function section4() {
         className="absolute top-0 "
       />
       <div className="relative w-[65%] mx-auto text-center flex flex-col  aspect-[734/260] leading-[8vw]">
-        <h1 className="font_bold text-[clamp(3rem,8vw,8rem)] text-[#0538B9] tracking-[-0.03em] text-outline-kustom2 z-10">
+        <h1 className="font_bold text-[clamp(8vw,8vw,7rem)] text-[#0538B9] tracking-[-0.03em] text-outline-kustom2 z-10">
           Nilai Dasar
         </h1>
-        <h1 className="font_bold text-[clamp(4rem,10vw,10rem)] text-[#7CA1FF] tracking-[-0.03em] text-outline-kustom2 z-10">
+        <h1 className="font_bold text-[clamp(10vw,10vw,9rem)] text-[#7CA1FF] tracking-[-0.03em] text-outline-kustom2 z-10">
           Organisasi
         </h1>
         <Image

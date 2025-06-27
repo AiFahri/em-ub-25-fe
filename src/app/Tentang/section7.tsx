@@ -54,7 +54,7 @@ export default function Section7() {
       <Image
         src={orange}
         alt="orange outer"
-        className="absolute left-[-4%] bottom-[4%] w-[10%] rotate-[25deg] transition-all duration-300 ease-in-out 
+        className="absolute left-[-4%] bottom-[10%] w-[10%] rotate-[25deg] transition-all duration-300 ease-in-out 
                    hover:scale-110 hover:z-50"
       />
       <Image

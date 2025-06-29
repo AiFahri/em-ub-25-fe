@@ -18,16 +18,16 @@ export default function FAQPage() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full relative aspect-[1920/1791]">
       <div className="inset-0 fixed -z-10" style={pageStyle} id="faq">
-        <Image src={bg} alt="Background Simpul Memori" className="w-full" />
+        <Image src={bg} alt="Background Simpul Memori" objectFit="cover" layout="fill" className="w-full" />
       </div>
 
       <div className="mt-[2vw] lg:w-9/12 w-10/12 mx-auto  items-center min-h-screen flex gap-y-[3vw] flex-col relative pb-20">
         <h1 className="text-[#0538B9] font-bold text-[clamp(5vw,5vw,5rem)]">Pertanyaan & Jawaban</h1>
 
         <div className="flex flex-row items-center justify-center gap-x-[2vw]">
-           <div className="relative flex items-center w-[50vw]">
+           <div className="relative flex items-center w-[55vw]">
             <input 
               placeholder="Cari apa yang ingin kamu tanyakan" 
               className="w-full bg-white rounded-full text-[#0538B9] placeholder:text-[#0538B9] font-medium tracking-tight py-[1vw] pl-[2vw] pr-[4.5vw] text-[clamp(2vw,2vw,1.2rem)] focus:outline-none focus:ring-2 focus:ring-[#BACEFF] transition-all duration-300"

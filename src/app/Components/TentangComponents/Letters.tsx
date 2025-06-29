@@ -1,6 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import React from "react";
+
+
 
 export default function AnimatedLetters({
   text,
@@ -39,7 +42,12 @@ export default function AnimatedLetters({
       className={className}
       variants={container}
       initial="hidden"
-      animate="show"
+      // ================== START PERUBAHAN ==================
+      // Ganti 'animate' dengan 'whileInView' untuk trigger saat scroll
+      whileInView="show"
+      // Tambahkan prop 'viewport' untuk kontrol replay dan trigger point
+      viewport={{ once: false, amount: 0.2 }}
+      // =================== AKHIR PERUBAHAN ===================
       style={{ display: "inline-flex" }}
     >
       {text.split("").map((char, i) => (
@@ -48,7 +56,7 @@ export default function AnimatedLetters({
           variants={item}
           style={{ display: "inline-block" }}
         >
-          {char}
+          {char === " " ? "\u00A0" : char}
         </motion.span>
       ))}
     </motion.span>

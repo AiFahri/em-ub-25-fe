@@ -1,20 +1,12 @@
+// File: /components/TentangComponents/SimpulMemori.js
+
 "use client";
 
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import smile from "../../../../public/Assets/image/tentang/sec1/smile.svg";
 
+// Tidak perlu lagi useState dan useEffect di sini
 export default function SimpulMemori() {
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsAnimating(true);
-    }, 1200);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
       <div className="flex flex-row items-center relative">
@@ -26,10 +18,12 @@ export default function SimpulMemori() {
 
           <div className='flex flex-row gap-x-[0.5vw]'>
             <div className='bg-white w-[2vw] h-[2vw] rounded-full relative overflow-hidden'>
-              <div className={`bg-black w-[1.5vw] h-[1.5vw] rounded-full absolute left-[12.5%] bottom-[15%] ${isAnimating ? 'move-sideways-bounce' : ''}`}></div>
+              {/* Menambahkan class 'pupil' untuk target GSAP */}
+              <div className='pupil bg-black w-[1.5vw] h-[1.5vw] rounded-full absolute left-[12.5%] bottom-[15%]'></div>
             </div>
             <div className='bg-white w-[2vw] h-[2vw] rounded-full relative overflow-hidden'>
-              <div className={`bg-black w-[1.5vw] h-[1.5vw] rounded-full absolute right-[12.5%] bottom-[15%] ${isAnimating ? 'move-sideways-bounce' : ''}`}></div>
+              {/* Menambahkan class 'pupil' untuk target GSAP */}
+              <div className='pupil bg-black w-[1.5vw] h-[1.5vw] rounded-full absolute right-[12.5%] bottom-[15%]'></div>
             </div>
           </div>
 
@@ -38,8 +32,9 @@ export default function SimpulMemori() {
         <span className="text-[#0049FF] text-[clamp(9vw,9vw,8rem)] font_bold">ri</span>
       </div>
 
+      {/* CSS diubah untuk merespon kelas '.is-animating' */}
       <style jsx>{`
-        .move-sideways-bounce {
+        .pupil.is-animating {
           animation: sweepAndBounce 2.5s ease-in-out forwards;
         }
 

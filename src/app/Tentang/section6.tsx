@@ -167,7 +167,7 @@ export default function Section6() {
       </div>
 
       <div
-        className="flex flex-row items-end gap-x-[2%] w-full overflow-x-auto justify-center w-full"
+        className="flex flex-row items-end gap-x-[2%] w-full overflow-x-auto justify-center w-full "
         onMouseLeave={() => setHoveredIndex(null)}
       >
         {folderData.map((folder, index) => {

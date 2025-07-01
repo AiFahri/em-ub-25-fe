@@ -23,7 +23,7 @@ interface FolderProps {
 }
 
 const Folder: React.FC<FolderProps> = ({ nama, imageUrl, isHovered, isDimmed, isActive, shadowColor }) => {
-    
+
     // Buat warna shadow dengan transparansi 0.4 dari warna HEX yang diterima
     const finalShadowColor = hexToRgba(shadowColor, 0.4);
 
@@ -43,21 +43,19 @@ const Folder: React.FC<FolderProps> = ({ nama, imageUrl, isHovered, isDimmed, is
         opacity = '0.8';
     }
 
-    const containerStyle: React.CSSProperties = {
-        position: 'relative',
-        width: '16vw',
-    // Menggunakan ukuran yang Anda tentukan
-        aspectRatio: '10/9',
+    const dynamicContainerStyle: React.CSSProperties = {
         transform: transform,
         opacity: isDimmed ? '0.6' : '1',
-        // Tampilkan shadow jika di-hover ATAU jika sedang aktif
         filter: isHovered || isActive ? `drop-shadow(0 12px 20px ${shadowColor})` : 'none',
         transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out, filter 0.3s ease-in-out',
         cursor: 'pointer',
     };
 
     return (
-        <div style={containerStyle}>
+        <div
+            className="relative w-[23vw]  sm:w-[16vw] aspect-[10/9]"
+            style={dynamicContainerStyle}
+        >
             <Image
                 src={imageUrl}
                 alt={nama}
@@ -65,7 +63,7 @@ const Folder: React.FC<FolderProps> = ({ nama, imageUrl, isHovered, isDimmed, is
                 objectFit="contain"
             />
             {/* Menerapkan gaya teks yang Anda inginkan */}
-            <div 
+            <div
                 style={{
                     position: 'absolute',
                     top: '0',
@@ -78,7 +76,7 @@ const Folder: React.FC<FolderProps> = ({ nama, imageUrl, isHovered, isDimmed, is
                     textAlign: 'start', // Teks mulai dari kiri
                     color: 'white',
                     fontWeight: 600,
-                    fontSize: 'clamp(1.5vw, 1.5vw, 1rem)', // Menggunakan font-size yang Anda tentukan
+                    fontSize: 'clamp(2vw, 2vw, 1rem)', // Menggunakan font-size yang Anda tentukan
                     padding: '1.5vw',
                     lineHeight: '1.2',
                 }}

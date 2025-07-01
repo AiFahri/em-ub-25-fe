@@ -63,25 +63,27 @@ export default function Section3() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full aspect-[1900/950] mt-[5vw] overflow-hidden">
-      <div className="flex flex-row justify-between items-center w-11/12 mx-auto aspect-[1900/1000] z-20">
+    <div ref={containerRef} className="relative w-full sm:aspect-[1900/950] aspect-[1900/1800] mt-[5vw] overflow-hidden">
+      <div className="flex sm:flex-row flex-col justify-between items-center w-11/12 mx-auto aspect-[1900/1000] z-20">
 
 
-        <div className="flex flex-col items-center w-7/12 justify-center aspect-[856/176] z-20 ">
+        <div className="flex flex-col items-center sm:w-7/12 w-full justify-center aspect-[856/176] z-20 ">
+   
           <div className="flex flex-row items-center relative anim-left-stagger">
-            <h1 className="text-[#0049FF] text-[clamp(7vw,7vw,6rem)] font_bold">Filosofi L</h1>
-            <span className="bg-[#0049FF] w-[4.3vw] h-[40%] rounded-full mt-[1vw] "></span>
+            <h1 className="text-[#0049FF] sm:text-[clamp(7vw,7vw,6rem)] text-[clamp(10vw,10vw,8rem)] font_bold">Filosofi L</h1>
+            <span className="bg-[#0049FF] sm:w-[4.3vw] w-[6vw] h-[40%] rounded-full mt-[1vw] "></span>
             <Image src={smile} alt="Logo Filosofi" className="absolute right-[20.4%] top-[40%] w-[9%]" />
-            <span className="text-[#0049FF] text-[clamp(7vw,7vw,6rem)] font_bold">go</span>
+            <span className="text-[#0049FF] sm:text-[clamp(7vw,7vw,6rem)] text-[clamp(10vw,10vw,8rem)] font_bold">go</span>
           </div>
 
+           <Image src={logo} alt="Logo Filosofi" className="w-[50%] mx-auto anim-main-logo sm:hidden block" />
           <div className="anim-left-stagger">
-            <h1 className="text-[#0049FF] text-[clamp(2vw,2vw,1.5rem)] font_bold border-[#0049FF] border-[0.5vw] py-[0.3vw] px-[3vw] rounded-[10vw]">
+            <h1 className="text-[#0049FF] sm:text-[clamp(2vw,2vw,1.5rem)] text-[clamp(5vw,5vw,1.5rem)] font_bold border-[#0049FF] border-[0.5vw] py-[0.3vw] px-[3vw] rounded-[10vw]">
               Bentuk Simpul Infinity
             </h1>
           </div>
 
-          <p className="text-[#0049FF] text-[clamp(1.5vw,1.5vw,1rem)] font_medium bg-[#BACEFF] rounded-[2vw] p-[2.3vw] mt-[2.5vw] anim-left-stagger">
+          <p className="text-[#0049FF] sm:text-[clamp(1.5vw,1.5vw,1rem)] text-[clamp(2vw,2vw,1rem)]  font_medium bg-[#BACEFF] rounded-[2vw] p-[2.3vw] mt-[2.5vw] anim-left-stagger">
             Melambangkan kesinambungan, keterhubungan, dan kekekalan memori. Hal
             ini digambarkan sebagaimana Kabinet Simpul Memori dapat berhubung
             dengan ingatan atau sejarah melalui kerja sama dan kolaborasi yang
@@ -101,7 +103,7 @@ export default function Section3() {
                 Warna Gradiasi
               </p>
             </div>
-            <p className="text-[#0049FF] text-[clamp(1vw,1vw,1rem)] font_medium bg-[#BACEFF] rounded-[2vw]">
+            <p className="text-[#0049FF] sm:text-[clamp(1vw,1vw,1rem)] text-[clamp(2vw,2vw,1rem)] font_medium bg-[#BACEFF] rounded-[2vw]">
               Melambangkan stabilitas, kepercayaan, dan profesionalisme bahwa
               kabinet ini memiliki arah dan visi yang jelas. Gradasi warna biru
               memberikan kesan dinamis dan modern yang digambarkan melalui
@@ -111,8 +113,8 @@ export default function Section3() {
         </div>
 
 
-        <div className="flex flex-col w-5/12 z-20">
-          <div className="flex flex-row justify-end ml-[4vw]">
+        <div className="flex flex-col w-5/12 z-20 sm:block hidden">
+          <div className="flex flex-row justify-end ml-[4vw] ">
             <div className="flex flex-col items-center anim-touch-group">
               <h1 className="text-white text-[clamp(1.2vw,1.2vw,1rem)] font_medium mt-[5vw] bg-[#0049FF] px-[2vw] py-[0.5vw] text-center rounded-[2vw]">Sentuh logo kami!</h1>
               <Image src={text} alt="Mori Section 3" className="place-items-end w-[95%] mt-[1vw]" />
@@ -127,6 +129,11 @@ export default function Section3() {
       <Image src={half_right} alt="Logo Filosofi" className="absolute bottom-[40%] right-[30%] w-[20%] anim-decor-half-right" />
       <Image src={bottom} alt="Logo Filosofi" className="absolute bottom-[0%] right-[50%] w-[15%] anim-decor-bottom" />
       <Image src={left} alt="Logo Filosofi" className="absolute bottom-[20%] left-[10%] w-[15%] anim-decor-left" />
+
+      <Image src={right} alt="Logo Filosofi" className="absolute top-[10%] left-[5%] w-[10%] anim-decor-right sm:hidden block" />
+      <Image src={half_right} alt="Logo Filosofi" className="absolute top-[20%] right-[5%] w-[10%] anim-decor-half-right sm:hidden block" />
+      <Image src={bottom} alt="Logo Filosofi" className="absolute top-[0%] left-[50%] w-[15%] anim-decor-bottom sm:hidden block" />
+   
     </div>
   );
 }

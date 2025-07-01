@@ -54,9 +54,9 @@ const VisiMisi: FC = () => {
     useMotionValueEvent(progressValue, "change", (value) => {
         setCircularProgress(Math.round(value));
     });
-    
-    const movementRange = 15; 
-    const maxPupilMovement = 5; 
+
+    const movementRange = 15;
+    const maxPupilMovement = 5;
     const rawPupilX = (mousePosition.x / (typeof window !== 'undefined' ? window.innerWidth : 1) - 0.5) * movementRange;
     const rawPupilY = (mousePosition.y / (typeof window !== 'undefined' ? window.innerHeight : 1) - 0.5) * movementRange;
     const pupilX = Math.max(-maxPupilMovement, Math.min(maxPupilMovement, rawPupilX));
@@ -67,18 +67,18 @@ const VisiMisi: FC = () => {
             <div className="flex flex-row justify-between gap-x-[5vw]">
                 {/* Kolom Kiri - Progress Bar & Smiley */}
                 <div className="w-[30%] lg:w-[20%]">
-                    <div className="w-24 h-24 lg:w-32 lg:h-32 sticky top-[15vh] z-20">
+                    <div className="w-24 h-24 lg:w-32 lg:h-32 sticky top-[30vh] sm:top-[15vh] z-20">
                         <div className="w-[60%] h-[60%] bg-[#0049FF] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center p-2">
                             <div className="flex flex-row w-full justify-evenly items-center">
                                 <div className="w-[40%] aspect-square bg-white rounded-full flex justify-center items-center relative overflow-hidden">
-                                    <motion.div 
+                                    <motion.div
                                         className="w-[60%] h-[60%] bg-black rounded-full"
                                         animate={{ x: pupilX, y: pupilY }}
                                         transition={{ type: "spring", stiffness: 150, damping: 20 }}
                                     />
                                 </div>
                                 <div className="w-[40%] aspect-square bg-white rounded-full flex justify-center items-center relative overflow-hidden">
-                                    <motion.div 
+                                    <motion.div
                                         className="w-[60%] h-[60%] bg-black rounded-full"
                                         animate={{ x: pupilX, y: pupilY }}
                                         transition={{ type: "spring", stiffness: 150, damping: 20 }}
@@ -124,22 +124,27 @@ const VisiMisi: FC = () => {
                     <div className="h-screen sticky top-0 flex items-center">
                         <div className="relative w-full h-48">
                             <motion.div
-                                className="absolute inset-0 text-gray-800 text-[clamp(2vw,2vw,1.5rem)]  leading-relaxed flex items-center"
+                                className="absolute inset-0 text-gray-800 sm:text-[clamp(2vw,2vw,1.5rem)] text-[clamp(3vw,3vw,1.5rem)] leading-relaxed flex items-center"
                                 animate={{ opacity: activeSection === 'visi' ? 1 : 0 }}
                                 transition={{ duration: 0.5, ease: "easeInOut" }}
                             >
-                                <div>
-                                    Terwujudnya Eksekutif Mahasiswa Brawijaya sebagai <span className="font-bold">Motor Pembaharuan</span> dan <span className="font-bold">Konektor</span> bagi seluruh <span>Simpul Brawijaya</span>...
+                                <div className="text-[#0049FF]">
+                                    Mewujudkan Eksekutif Mahasiswa Universitas Brawijaya 2025 sebagai Simpul Memori yang <span className="font-bold">Inklusif</span> dan <span className="font-bold">Progresif</span> dalam Harmonisasi Cita Karakter Brawijaya
                                 </div>
                             </motion.div>
-                            
+
                             <motion.div
-                                className="absolute inset-0 text-gray-800 text-[clamp(2vw,2vw,1.5rem)]  leading-relaxed flex items-center"
+                                className="absolute inset-0 text-gray-800 sm:text-[clamp(2vw,2vw,1.5rem)] text-[clamp(3vw,3vw,1.5rem)]  leading-relaxed flex items-center"
                                 animate={{ opacity: activeSection === 'misi' ? 1 : 0 }}
                                 transition={{ duration: 0.5, ease: "easeInOut" }}
                             >
-                                <div>
-                                    Advocacy Student Well-Being Oriented, Maximaze Collaborative Governance...
+                                <div className="text-[#0049FF]">
+                                    Manifesti Simpul Gerakan <br />
+                                    Efektivitas Simpul Gerakan <br />
+                                    Mutu Simpul Pengembangan <br />
+                                    Optimasi Simpul Pengembangan <br />
+                                    Resiliensi Simpul Organisasi  <br />
+                                    Inklusi Simpul Pengabdian
                                 </div>
                             </motion.div>
                         </div>

@@ -1,3 +1,4 @@
+import WelcomeMobile from '@/components/landingpage/WelcomeMobile';
 import Footer from '../components/common/Footer';
 import Navbar from '../components/common/Navbar';
 import Berita from '../components/landingpage/Berita';
@@ -7,13 +8,13 @@ import TautanPintas from '../components/landingpage/TautanPintas';
 import Welcome from '../components/landingpage/Welcome';
 export default function Home() {
   return (
-    <main className='pt-28'>
+    <main className="pt-28">
       <Navbar />
       <Hero />
       <Welcome />
+      <TautanPintas />
       <Berita />
       <ProgramKerja />
-      <TautanPintas />
       <Footer />
     </main>
   );

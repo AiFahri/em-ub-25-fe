@@ -1,4 +1,4 @@
-// File: components/TentangComponents/ChatButton.tsx
+
 
 import styles from './ChatButton.module.css';
 import React from 'react';
@@ -8,18 +8,14 @@ interface ChatButtonProps {
     size?: string;
 }
 
-// --- PERBAIKAN DI SINI ---
-// 1. Definisikan sebuah tipe baru yang memperluas React.CSSProperties
-//    untuk mengizinkan custom properties (variabel CSS)
+
 interface MyCSSProperties extends React.CSSProperties {
     '--button-font-size'?: string;
 }
-// -------------------------
+
 
 
 const ChatButton: React.FC<ChatButtonProps> = ({ children, size }) => {
-    
-    // 2. Gunakan tipe baru yang sudah kita buat
     const buttonStyle: MyCSSProperties = {
         '--button-font-size': size,
     };

@@ -5,7 +5,6 @@
 import Image from 'next/image';
 import smile from "../../../../public/Assets/image/tentang/sec1/smile.svg";
 
-// Tidak perlu lagi useState dan useEffect di sini
 export default function SimpulMemori() {
   return (
     <>
@@ -18,11 +17,9 @@ export default function SimpulMemori() {
 
           <div className='flex flex-row gap-x-[0.5vw]'>
             <div className='bg-white w-[2vw] h-[2vw] rounded-full relative overflow-hidden'>
-              {/* Menambahkan class 'pupil' untuk target GSAP */}
               <div className='pupil bg-black w-[1.5vw] h-[1.5vw] rounded-full absolute left-[12.5%] bottom-[15%]'></div>
             </div>
             <div className='bg-white w-[2vw] h-[2vw] rounded-full relative overflow-hidden'>
-              {/* Menambahkan class 'pupil' untuk target GSAP */}
               <div className='pupil bg-black w-[1.5vw] h-[1.5vw] rounded-full absolute right-[12.5%] bottom-[15%]'></div>
             </div>
           </div>
@@ -32,7 +29,6 @@ export default function SimpulMemori() {
         <span className="text-[#0049FF] text-[clamp(9vw,9vw,8rem)] font_bold">ri</span>
       </div>
 
-      {/* CSS diubah untuk merespon kelas '.is-animating' */}
       <style jsx>{`
         .pupil.is-animating {
           animation: sweepAndBounce 2.5s ease-in-out forwards;

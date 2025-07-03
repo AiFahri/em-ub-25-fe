@@ -65,7 +65,6 @@ const VisiMisi: FC = () => {
     return (
         <section ref={sectionRef} className="relative w-11/12 mx-auto py-24 bg-white">
             <div className="flex flex-row justify-between gap-x-[5vw]">
-                {/* Kolom Kiri - Progress Bar & Smiley */}
                 <div className="w-[30%] lg:w-[20%]">
                     <div className="w-24 h-24 lg:w-32 lg:h-32 sticky top-[30vh] sm:top-[15vh] z-20">
                         <div className="w-[60%] h-[60%] bg-[#0049FF] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center p-2">
@@ -101,7 +100,6 @@ const VisiMisi: FC = () => {
                     </div>
                 </div>
 
-                {/* Kolom Tengah - Judul VISI MISI */}
                 <div className="w-[30%]">
                     <motion.h2
                         ref={visiTitleRef}
@@ -119,7 +117,6 @@ const VisiMisi: FC = () => {
                     </motion.h2>
                 </div>
 
-                {/* Kolom Kanan - Konten Visi Misi */}
                 <div className="w-[45%]">
                     <div className="h-screen sticky top-0 flex items-center">
                         <div className="relative w-full h-48">

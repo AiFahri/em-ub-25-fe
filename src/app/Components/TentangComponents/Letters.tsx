@@ -42,12 +42,11 @@ export default function AnimatedLetters({
       className={className}
       variants={container}
       initial="hidden"
-      // ================== START PERUBAHAN ==================
-      // Ganti 'animate' dengan 'whileInView' untuk trigger saat scroll
+
       whileInView="show"
-      // Tambahkan prop 'viewport' untuk kontrol replay dan trigger point
+
       viewport={{ once: false, amount: 0.2 }}
-      // =================== AKHIR PERUBAHAN ===================
+
       style={{ display: "inline-flex" }}
     >
       {text.split("").map((char, i) => (

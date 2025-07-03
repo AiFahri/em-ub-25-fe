@@ -140,6 +140,7 @@
 }
 
 
+
 .shake-on-hover:hover {
 
   animation: shake 0.5s;
@@ -147,18 +148,46 @@
   animation-iteration-count: infinite;
 }
 
+
+
 @layer utilities {
-  /* Menyembunyikan scrollbar untuk Chrome, Safari dan Opera */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
 
-  /* Menyembunyikan scrollbar untuk IE, Edge dan Firefox */
   .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; 
+    scrollbar-width: none;  
   }
 }
+
+
+
+
+
+.background-dengan-tonjolan {
+  position: relative;
+  background-color: #E6EDFF;
+  border-radius: 2vw; 
+  display: flex;
+  height: auto;
+}
+
+.background-dengan-tonjolan::after {
+  content: '';
+  position: absolute;
+  width: 7vw;
+  height: 7vw;
+  background-color: #E6EDFF; 
+  right: 0%;
+  bottom: 0;
+  transform: translate(10%, 50%); 
+  border-radius: 50%;
+  z-index: -1;
+}
+
+
+
 
 
 

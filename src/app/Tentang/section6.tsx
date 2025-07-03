@@ -1,4 +1,4 @@
-// File: section6.tsx (Lengkap dengan Animasi)
+
 "use client";
 
 import Image from "next/image";
@@ -81,7 +81,6 @@ export default function Section6() {
   const descriptionRef = useRef(null);
 
   useLayoutEffect(() => {
-    // Pastikan container ada sebelum menjalankan GSAP
     if (!containerRef.current) return;
 
     const ctx = gsap.context(() => {
@@ -128,18 +127,16 @@ export default function Section6() {
           tl.from(descriptionRef.current, { opacity: 0, y: 20 }, "-=0.3");
         },
 
-        // B. Animasi untuk Layar Kecil (Mobile)
         "(max-width: 767px)": () => {
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: containerRef.current,
-              start: "top 90%", // <-- Trigger JAUH LEBIH AWAL untuk mobile
+              start: "top 90%", 
               end: "bottom 20%",
               toggleActions: "restart reverse restart reverse",
             },
           });
 
-          // Animasi bisa dibuat lebih sederhana di mobile jika perlu
           tl.from(".anim-title-s6", {
             y: -50,
             opacity: 0,
@@ -218,7 +215,6 @@ export default function Section6() {
         onMouseLeave={() => setHoveredIndex(null)}
       >
         {folderData.map((folder, index) => {
-          // ... (kode map tetap sama)
           const isHovered = hoveredIndex === index;
           const isDimmed = hoveredIndex !== null && !isHovered;
           const isActive = activeIndex === index;
@@ -228,7 +224,7 @@ export default function Section6() {
               onMouseEnter={() => setHoveredIndex(index)}
               onClick={() => setActiveIndex(index)}
               style={{ cursor: "pointer" }}
-              className="anim-folder snap-start flex-shrink-0 sm:px-0 px-[1vw]" // <-- TAMBAHKAN 'snap-start' dan 'flex-shrink-0'
+              className="anim-folder snap-start flex-shrink-0 sm:px-0 px-[1vw]"
             >
               <Folder
                 nama={folder.nama}
@@ -259,7 +255,6 @@ export default function Section6() {
           ref={descriptionRef}
           className="w-[80%] sm:w-[70%] sm:h-[90%] sm:overflow-y-auto   sm:pr-4 flex flex-col justify-end items-start gap-y-3 text-start sm:pt-0 sm:pb-0 pt-[2vw] pb-[1vw]"
         >
-          {/* Gunakan .map() untuk menampilkan setiap baris deskripsi */}
           {activeData.deskripsi.map((line, index) => (
             <p
               key={index}

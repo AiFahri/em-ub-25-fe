@@ -38,7 +38,7 @@ export default function Section4() {
       });
 
       tl.from(".anim-title-1", { x: -100, opacity: 0, skewX: 15, duration: 1, ease: "power3.out" })
-        .from(".anim-title-2", { x: 100, opacity: 0, skewX: -15, duration: 1, ease: "power3.out" }, "<"); // "<" = mulai bersamaan dengan sebelumnya
+        .from(".anim-title-2", { x: 100, opacity: 0, skewX: -15, duration: 1, ease: "power3.out" }, "<"); 
 
 
       tl.from([".anim-star-1", ".anim-star-2"], {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Win3 from '../Components/ComingsoonComponents/win3'
+import Win3 from '../../components/comingsoon/win3'
 
 export default function Win() {
   // Contoh: kita pakai state untuk show/hide Win3

@@ -5,7 +5,7 @@ import Link from "next/link";
 import gemay from "../../public/Assets/icon/comingsoon/gemay.svg";
 import o from "../../public/Assets/icon/comingsoon/o.svg";
 import whitelogo from "../../public/Assets/logo/whitelogo.svg";
-import BgGrid from "./Components/ComingsoonComponents/background/BgGrid";
+import BgGrid from "../components/comingsoon/background/BgGrid";
 
 export default function NotFound() {
   useEffect(() => {

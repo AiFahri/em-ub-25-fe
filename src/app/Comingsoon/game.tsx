@@ -2,13 +2,13 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { Choice, determineResult, getBotChoice, Result } from '../utils/gameLogic';
+import { Choice, determineResult, getBotChoice, Result } from '../../utils/gameLogic';
 
 import n from '../../../public/Assets/icon/comingsoon/days.svg';
 import o from '../../../public/Assets/icon/comingsoon/o.svg';
-import BtnPlay from '../Components/ComingsoonComponents/btnPlay';
-import Animasi from '../Components/ComingsoonComponents/loadingdots';
-import Lock from '../Components/ComingsoonComponents/lock';
+import BtnPlay from '../../components/comingsoon/btnPlay';
+import Animasi from '../../components/comingsoon/loadingdots';
+import Lock from '../../components/comingsoon/lock';
 
 import batu from '../../../public/Assets/icon/comingsoon/batu.png';
 import gunting from '../../../public/Assets/icon/comingsoon/gunting.png';
@@ -33,11 +33,11 @@ import whitelogo from '../../../public/Assets/logo/whitelogo.svg';
 import minutes from '../../../public/Assets/icon/comingsoon//minutes.svg';
 import orange from '../../../public/Assets/icon/comingsoon/orange.svg';
 
-import BgGrid from '../Components/ComingsoonComponents/background/BgGrid';
-import GameCard from '../Components/ComingsoonComponents/GameCard';
-import ResultFlow from '../Components/ComingsoonComponents/ResultFlow';
+import BgGrid from '../../components/comingsoon/background/BgGrid';
+import GameCard from '../../components/comingsoon/GameCard';
+import ResultFlow from '../../components/comingsoon/ResultFlow';
 
-import Opening from '../Components/ComingsoonComponents/Opening';
+import Opening from '../../components/comingsoon/Opening';
 
 
 export default function Game() {

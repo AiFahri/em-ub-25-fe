@@ -1,11 +1,17 @@
 // lib/apolloClient.ts
 'use client';
 
-import { ApolloClient, InMemoryCache, ApolloProvider as ApolloHooksProvider, HttpLink, from } from '@apollo/client';
-import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider as ApolloHooksProvider,
+  HttpLink,
+  from,
+} from "@apollo/client";
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 const uploadLink = createUploadLink({
-  uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT, // pake endpoint ayas
 }) as HttpLink;
 
 const link = from([uploadLink]);
@@ -15,4 +21,9 @@ export const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export const ApolloProvider = ({ children }: { children: React.ReactNode }) => <ApolloHooksProvider client={client}>{children}</ApolloHooksProvider>;
+
+
+
+export const ApolloProvider = ({ children }: { children: React.ReactNode }) => (
+  <ApolloHooksProvider client={client}>{children}</ApolloHooksProvider>
+);

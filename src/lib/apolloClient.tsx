@@ -1,4 +1,6 @@
 // lib/apolloClient.ts
+'use client';
+
 import {
   ApolloClient,
   InMemoryCache,
@@ -14,10 +16,13 @@ const uploadLink = createUploadLink({
 
 const link = from([uploadLink]);
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link,
   cache: new InMemoryCache(),
 });
+
+
+
 
 export const ApolloProvider = ({ children }: { children: React.ReactNode }) => (
   <ApolloHooksProvider client={client}>{children}</ApolloHooksProvider>

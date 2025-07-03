@@ -18,7 +18,7 @@ export default function BgGrid({ classNameVertical = '', classNameHorizontal = '
         }}
       >
         <div>
-          <Image src="/Assets/background/grid/bg_grid_vertical.svg" alt="vertical grid" fill className={classNameVertical} />
+          <Image src="/Assets/background/grid/gridvertical-bg.svg" alt="vertical grid" fill className={classNameVertical} />
         </div>
       </div>
 
@@ -29,7 +29,7 @@ export default function BgGrid({ classNameVertical = '', classNameHorizontal = '
         }}
       >
         <div>
-          <Image src="/Assets/background/grid/bg_grid_horizontal.svg" alt="horizontal grid" fill className={classNameHorizontal} />
+          <Image src="/Assets/background/grid/gridhorizontal-bg.svg" alt="horizontal grid" fill className={classNameHorizontal} />
         </div>
       </div>
 

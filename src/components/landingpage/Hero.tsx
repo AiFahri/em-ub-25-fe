@@ -21,7 +21,7 @@ const Hero = () => {
           <div className="relative w-full md:w-[90vw] md:aspect-[1810/943]">
             <Image src={bgheromobile} alt="Background Simpul Memori Mobile" fill className="object-cover z-0 md:hidden" />
 
-            <Image src={bghero} alt="Background Simpul Memori" className="object-cover z-0 hidden md:block" />
+            <Image src={bghero} alt="Background Simpul Memori" fill className="object-cover z-0 hidden md:block" />
 
             <div className="absolute inset-0 z-10 pointer-events-none">
               <Image src={decor1} className="absolute top-[15%] right-[40%] w-[4vw] " alt="decoration" />

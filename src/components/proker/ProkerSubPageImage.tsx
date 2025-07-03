@@ -32,15 +32,12 @@ const ProkerSubPageImage: React.FC<ProkerSubPageImageProps> = ({ imageUrl }) => 
         }}
       >
         <Image
-          // 3. Gunakan variabel imageToDisplay sebagai src
+    
           src={imageToDisplay}
           fill
           alt="Gambar Program Kerja"
           className="object-cover"
-          // 4. (PENTING) Jika Anda menggunakan domain eksternal, tambahkan prop `unoptimized` 
-          //    atau konfigurasikan domain di next.config.js (lihat catatan di bawah).
-          //    Kita tambahkan kondisi: unoptimized hanya aktif jika imageUrl (dari eksternal) ada.
-          unoptimized={!!imageUrl} 
+        unoptimized={!!imageUrl} 
         />
       </div>
     </div>

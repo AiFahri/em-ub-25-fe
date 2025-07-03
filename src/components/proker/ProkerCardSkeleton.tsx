@@ -4,9 +4,9 @@ import React from 'react';
 const ProkerCardSkeleton: React.FC = () => {
   return (
     <div className="w-full bg-white rounded-4xl shadow-lg overflow-hidden animate-pulse">
-      {/* Image Placeholder */}
+
       <div className="aspect-video bg-gray-300"></div>
-      {/* Footer Placeholder */}
+ 
       <div className="p-5">
         <div className="flex justify-end mb-4">
           <div className="h-6 w-24 bg-gray-300 rounded-full"></div>

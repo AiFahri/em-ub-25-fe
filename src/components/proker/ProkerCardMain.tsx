@@ -67,7 +67,7 @@ const ProkerCardMain: React.FC<ProkerCardMainProps> = ({
   
     <div
       className={cn(
-        'w-full rounded-4xl overflow-hidden flex flex-col', // <-- PERUBAHAN DI SINI
+        'w-full rounded-4xl overflow-hidden flex flex-col', 
         'transition-all duration-300 ease-in-out transform hover:-translate-y-2',
         shadowClass
       )}
@@ -96,7 +96,7 @@ const ProkerCardMain: React.FC<ProkerCardMainProps> = ({
       </div>
 
       {/* Footer */}
-      {/* LANGKAH 2: Tambahkan 'flex-1' dan 'flex flex-col' di sini */}
+
       <div className={cn("relative border-x-2 border-b-2 rounded-b-4xl p-5 flex-1 flex flex-col", borderColor, bgColor)}>
         {/* Background pattern (tidak berubah) */}
         <div className="absolute inset-0">
@@ -104,7 +104,7 @@ const ProkerCardMain: React.FC<ProkerCardMainProps> = ({
         </div>
 
         {/* Konten */}
-        {/* LANGKAH 3: Tambahkan 'h-full' dan 'justify-between' untuk mengatur posisi konten */}
+    
         <div className="relative z-10 flex flex-col justify-between h-full">
           {/* Bagian Atas: Type */}
           <div>

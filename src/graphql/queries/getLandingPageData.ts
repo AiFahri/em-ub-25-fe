@@ -11,7 +11,7 @@ export const GET_LANDING_PAGE_DATA = gql`
         status
       }
     }
-    listNews(input: {}) {
+    listNews(input: { orderBy: ID_DESC }) {
       news {
         id
         title

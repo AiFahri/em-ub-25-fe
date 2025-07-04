@@ -8,17 +8,19 @@ import circleBlue from '@/assets/landingpage/icons/circle-blue.svg';
 import circleQuarter from '@/assets/landingpage/icons/circle-quarter-blue.svg';
 import k from '@/assets/landingpage/icons/k-outline.svg';
 import CountUp from './CountUp';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import vektor33 from '@/assets/landingpage/icons/Vector33.svg';
 import vektor34 from '@/assets/landingpage/icons/Vector34.svg';
 import { useQuery } from '@apollo/client';
 import { GET_LANDING_PAGE_DATA } from '@/graphql/queries/getLandingPageData';
+import { useInView, motion } from 'framer-motion';
 
 const bgColorPattern = ['bg-[#0538B9]', 'bg-[#0049FF]', 'bg-[#FF4900]', 'bg-[#0049FF]', 'bg-[#0049FF]'];
 
 export default function ProgramKerja() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { data, loading, error } = useQuery(GET_LANDING_PAGE_DATA);
+
 
   const workProgramsData = data?.listWorkPrograms?.workPrograms ?? [];
   useEffect(() => {
@@ -43,6 +45,16 @@ export default function ProgramKerja() {
 
   return (
     <section className="py-10 px-3 md:px-6 lg:px-[5vh] font-sans">
+      <style>{`
+                @keyframes shake {
+                    0%, 100% { transform: rotate(0deg); }
+                    25% { transform: rotate(-10deg); }
+                    75% { transform: rotate(10deg); }
+                }
+                .animate-shake {
+                    animation: shake 0.5s ease-in-out infinite;
+                }
+            `}</style>
       <div className="flex justify-center flex-col md:px-20">
         <div className="relative flex flex-col lg:flex-row items-center justify-center gap-8 mb-24 md:mb-32 font-[NeueHaasDisplay]">
           <div className="order-2 lg:order-1 relative w-[80vw] max-w-[480px] aspect-[16/10] h-auto flex-shrink-0">
@@ -108,9 +120,12 @@ export default function ProgramKerja() {
           ].map((item, index) => (
             <div key={index} className="min-w-[90px] md:min-w-[150px] lg:min-w-[180px] xl:w-full flex flex-col justify-between items-center">
               <h3 className="text-[#FF4900] font-bold leading-none text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[8rem]">
-                <CountUp target={item.target} />
-                {item.label === 'Fungsionaris Terlibat' && '+'}
+                <span className="inline-flex items-center overflow-hidden">
+                  <CountUp target={item.target} />
+                  {item.label === 'Fungsionaris Terlibat' && <span className="pl-1">+</span>}
+                </span>
               </h3>
+
               <div className="min-h-[3.5rem] sm:min-h-[3.8rem] md:min-h-[4rem] lg:min-h-[4.2rem] xl:min-h-[4.5rem] flex items-start justify-center text-center">
                 {item.label === 'Program Kerja Mega Besar' ? (
                   <p className="text-black font-medium text-[12px] md:text-lg lg:text-xl xl:text-3xl leading-tight">

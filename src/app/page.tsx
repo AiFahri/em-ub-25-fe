@@ -11,7 +11,7 @@ export default function Home() {
     <main className="pt-28">
       <Navbar />
       <Hero />
-      <Welcome />
+      {/* <Welcome /> */}
       <TautanPintas />
       <Berita />
       <ProgramKerja />

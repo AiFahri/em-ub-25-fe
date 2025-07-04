@@ -20,6 +20,7 @@ export default function Berita() {
 
   if (loading) return <p className="text-center">Memuat berita...</p>;
   if (error) return <p className="text-center">Gagal memuat berita.</p>;
+  console.log(beritaData);
 
   return (
     <section className="bg-white font-sans relative">
@@ -55,7 +56,7 @@ export default function Berita() {
         >
           {beritaData.map((news: any, index: any) => (
             <SwiperSlide key={news.id}>
-              <div className="relative h-fit overflow-hidden rounded-[40px]">
+              <div className="relative h-fit">
                 <BeritaCard id={news.id} title={news.title} date={new Date(news.createdAt).toLocaleDateString('id-ID')} description={news.content} imageUrl={news.imageUrls?.[0] || ''} index={index} />
               </div>
             </SwiperSlide>

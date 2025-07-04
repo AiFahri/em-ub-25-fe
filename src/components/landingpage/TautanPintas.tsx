@@ -38,7 +38,7 @@ export default function TautanPintas() {
           spaceBetween={28}
           breakpoints={{
             0: {
-              slidesPerView: 1.5,
+              slidesPerView: 1.7,
             },
             640: {
               slidesPerView: 2.5,
@@ -54,15 +54,28 @@ export default function TautanPintas() {
         >
           {tautanPintasData.map((links: any, i: any) => (
             <SwiperSlide key={links.id}>
-              <div onClick={() => router.push(`${links.url}`)} className="cursor-pointer relative h-[200px] lg:h-[320px] overflow-hidden rounded-[30px]">
+              <div onClick={() => router.push(`${links.url}`)} className="cursor-pointer relative h-[200px] lg:h-[320px] overflow-hidden rounded-[30px] group">
                 <div className="absolute inset-0" style={{ backgroundColor: overlayColors[i % overlayColors.length], zIndex: 0 }} />
 
-                <div className="absolute top-10 md:top-10 lg:top-14 inset-0 flex items-end p-8 text-white font-semibold text-2xl md:text-3xl lg:text-4xl z-10 rounded-tr-[80%]" style={{ backgroundColor: bgColors[i % bgColors.length] }}>
-                  <div className="absolute -top-2 right-5 md:right-5 md:-top-4 lg:-top-8 lg:right-5 z-20">
-                    <Image src={arrowUpRight} alt="Arrow up right" width={30} height={30} />
+                <div
+                  className={`absolute inset-0 flex items-end p-8 z-10
+               rounded-tr-[80%] text-white font-semibold text-2xl md:text-3xl lg:text-4xl
+               bg-[${bgColors[i % bgColors.length]}]
+               top-14 md:top-10 lg:top-20 lg:right-20 right-10
+               transform group-hover:scale-120 lg:group-hover:scale-140 md:scale-100
+               transition-all duration-300 ease-in-out`}
+                >
+                  <div className="absolute top-[-5vw] right-[-1vw] md:right-[-1vw] md:-top-4 lg:-top-8 lg:right-[-0.8vw] z-20">
+                    <Image
+                      src={arrowUpRight}
+                      alt="Arrow up right"
+                      className="w-10 h-10 md:w-[6vw] md:h-[6vw] xl:w-[5vw] xl:h-[5vw] transform scale-100 group-hover:scale-50 lg:group-hover:scale-50 transition-all duration-300 ease-in-out"
+                    />
                   </div>
+                </div>
 
-                  <a href={links.url} className="z-20 text-[18px] md:text-2xl lg:text-4xl line-clamp-3">
+                <div className="absolute inset-0 top-10 md:top-10 lg:top-20 lg:right-20 flex items-end p-8 z-20 pointer-events-none">
+                  <a href={links.url} className="block text-[18px] md:text-2xl lg:text-4xl font-semibold text-white line-clamp-3">
                     {links.title}
                   </a>
                 </div>

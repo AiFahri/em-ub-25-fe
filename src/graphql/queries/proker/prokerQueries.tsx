@@ -30,6 +30,37 @@ export const GET_WORK_PROGRAM_BY_SLUG = gql`
       instagramUrl
       imageUrls
       createdAt
+      hasForm
+      registerLink
+      isGeneral
+      form {
+        id
+        category
+        categoryName
+        ImageUrl
+        isPublished
+        groupLink
+        acceptedLink
+        fileLink
+        deadlineAt
+        extendedDeadlineAt
+        createdAt
+        fields {
+          id
+          label
+          type
+          isRequired
+          order
+          fileCategories
+          maxFile
+          maxFileSize
+          options {
+            id
+            label
+            order
+          }
+        }
+      }
     }
   }
 `;

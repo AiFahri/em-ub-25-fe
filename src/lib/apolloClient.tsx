@@ -11,7 +11,7 @@ import {
 import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 const uploadLink = createUploadLink({
-  uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT, // pake endpoint ayas
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT, 
 }) as HttpLink;
 
 const link = from([uploadLink]);

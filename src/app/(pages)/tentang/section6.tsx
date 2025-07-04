@@ -189,7 +189,7 @@ export default function Section6() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full mx-auto sm:aspect-[1680/920]  sm:mt-0 flex items-center flex-col"
+      className="relative w-full mx-auto sm:aspect-[1680/920] mb-10  sm:mt-0 flex items-center flex-col"
     >
       <div className="flex flex-row items-center gap-x-[3%] mb-[1vw]">
         <Image
@@ -239,7 +239,7 @@ export default function Section6() {
       <Image
         src="/Assets/image/tentang/mori1.svg"
         alt="Mori"
-        className="sm:absolute sm:mb-0 mb-[-5vw] bottom-[5%] left-0 sm:w-[25%] w-[25%] z-50 rotate-[15deg] anim-mori-s6"
+        className="sm:absolute sm:mb-0  bottom-[10%] left-0 sm:w-[25%] w-[25%] z-30 rotate-[15deg] anim-mori-s6"
         width={300}
         height={300}
       />
@@ -253,7 +253,7 @@ export default function Section6() {
 
         <div
           ref={descriptionRef}
-          className="w-[80%] sm:w-[70%] sm:h-[90%] sm:overflow-y-auto sm:pr-4 flex flex-col justify-end items-start gap-y-3 text-start sm:pt-0 sm:pb-0 pt-[2vw] pb-[1vw]"
+          className="w-[80%] sm:w-[70%]  sm:overflow-y-auto sm:pr-4 flex flex-col justify-end items-start gap-y-3 text-start sm:pt-0 sm:pb-0 pt-[2vw] pb-[1vw]"
         >
           {activeData.deskripsi.map((line, index) => (
             <p

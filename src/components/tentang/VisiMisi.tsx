@@ -85,7 +85,7 @@ const VisiMisi: FC = () => {
     >
       <div className="flex flex-row justify-between gap-x-[5vw]">
         <div className="w-[30%] lg:w-[20%]">
-          <div className="w-24 h-24 lg:w-32 lg:h-32 sticky top-[30vh] sm:top-[15vh] z-20">
+          <div className="w-24 h-24 lg:w-32 lg:h-32 sticky top-[30vh] sm:top-[20vh] z-20">
             <div className="w-[60%] h-[60%] bg-[#0049FF] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center p-2">
               <div className="flex flex-row w-full justify-evenly items-center">
                 <div className="w-[40%] aspect-square bg-white rounded-full flex justify-center items-center relative overflow-hidden">
@@ -129,22 +129,20 @@ const VisiMisi: FC = () => {
           <motion.h2
             ref={visiTitleRef}
             className={`h-[50vh] flex items-center text-[clamp(8vw,8vw,7rem)] font-bold transition-colors duration-500 ease-in-out text-transparent bg-clip-text 
-                        ${
-                          isVisiInView
-                            ? "bg-gradient-to-r from-[#FF4900] to-[#FF4900]"
-                            : "bg-gradient-to-r from-gray-200 to-gray-200"
-                        }`}
+                        ${isVisiInView
+                ? "bg-gradient-to-r from-[#FF4900] to-[#FF4900]"
+                : "bg-gradient-to-r from-gray-200 to-gray-200"
+              }`}
           >
             VISI.
           </motion.h2>
           <motion.h2
             ref={misiTitleRef}
             className={` h-[50vh] flex items-center text-[clamp(8vw,8vw,7rem)] font-bold transition-colors duration-500 ease-in-out text-transparent bg-clip-text 
-                        ${
-                          isMisiInView
-                            ? "bg-gradient-to-r from-orange-500 to-orange-500"
-                            : "bg-gradient-to-r from-gray-200 to-gray-200"
-                        }`}
+                        ${isMisiInView
+                ? "bg-gradient-to-r from-orange-500 to-orange-500"
+                : "bg-gradient-to-r from-gray-200 to-gray-200"
+              }`}
           >
             MISI.
           </motion.h2>

@@ -128,7 +128,7 @@ export default function Section1() {
         width={0}
         height={0}
       />
-      <div className="relative w-full aspect-[1700/755] overflow-hidden">
+      <div className="relative w-full mt-16 aspect-[1700/755] overflow-hidden">
         <Image
           src="/Assets/background/tentang/bg_section1.svg"
           alt="Background Section 1"
@@ -204,7 +204,7 @@ export default function Section1() {
               Kabinet EM UB 2025
             </h1>
           </div>
-          <div className="overflow-hidden">
+          <div className="">
             <div className="anim-simpul-memori">
               <SimpulMemori />
             </div>

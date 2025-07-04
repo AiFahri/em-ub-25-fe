@@ -10,8 +10,8 @@
     "export": "next export"
   },
   "dependencies": {
-    "@tailwindcss/oxide": "^4.1.10",
     "@apollo/client": "^3.13.8",
+    "@tailwindcss/oxide": "^4.1.10",
     "apollo-link-error": "^1.1.13",
     "apollo-upload-client": "^18.0.1",
     "framer-motion": "^12.18.1",
@@ -37,6 +37,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
     "next-svgr": "^0.0.2",
+    "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4",
     "typescript": "^5.8.2"
   }

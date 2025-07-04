@@ -100,6 +100,7 @@
   from {
     transform: translateY(0%);
   }
+
   to {
     transform: translateY(-100%);
   }
@@ -109,6 +110,7 @@
   from {
     transform: translateX(0%);
   }
+
   to {
     transform: translateX(-100%);
   }
@@ -118,12 +120,15 @@
   0% {
     transform: translateY(0px) translateX(0px);
   }
+
   25% {
     transform: translateY(-5vw) translateX(3vw);
   }
+
   75% {
     transform: translateY(3vw) translateX(3vw);
   }
+
   100% {
     transform: translateY(0px) translateX(0px);
   }
@@ -133,12 +138,15 @@
   0% {
     transform: translateY(0px) translateX(0px);
   }
+
   25% {
     transform: translateY(-5vw) translateX(-3vw);
   }
+
   75% {
     transform: translateY(3vw) translateX(-3vw);
   }
+
   100% {
     transform: translateY(0px) translateX(0px);
   }
@@ -148,33 +156,43 @@
   0% {
     transform: translate(1px, 1px) rotate(0deg);
   }
+
   10% {
     transform: translate(-1px, -2px) rotate(-1deg);
   }
+
   20% {
     transform: translate(-3px, 0px) rotate(1deg);
   }
+
   30% {
     transform: translate(3px, 2px) rotate(0deg);
   }
+
   40% {
     transform: translate(1px, -1px) rotate(1deg);
   }
+
   50% {
     transform: translate(-1px, 2px) rotate(-1deg);
   }
+
   60% {
     transform: translate(-3px, 1px) rotate(0deg);
   }
+
   70% {
     transform: translate(3px, 1px) rotate(-1deg);
   }
+
   80% {
     transform: translate(-1px, -1px) rotate(1deg);
   }
+
   90% {
     transform: translate(1px, 2px) rotate(0deg);
   }
+
   100% {
     transform: translate(1px, -2px) rotate(-1deg);
   }
@@ -203,6 +221,35 @@
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  /* Lebar scrollbar vertikal */
+  height: 8px;
+  /* Tinggi scrollbar horizontal */
+}
+
+/* Menargetkan track (jalur) scrollbar */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #E6EDFF;
+  /* Warna track, sesuaikan dengan background Anda */
+  border-radius: 10px;
+}
+
+/* Menargetkan thumb (gagang) scrollbar yang bisa digeser */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #0049FF;
+  /* Warna utama thumb */
+  border-radius: 10px;
+  border: 2px solid #E6EDFF;
+  /* Membuat efek padding di sekitar thumb */
+}
+
+/* Styling saat thumb di-hover */
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #0032b3;
+  /* Warna thumb menjadi lebih gelap saat di-hover */
 }
 
 /* === CUSTOM BACKGROUND === */

@@ -1,16 +1,35 @@
 import { gql } from "@apollo/client";
 
+export const GET_NEWS = gql`
+  query GetNews($id: ID!) {
+    getNews(id: $id) {
+      id
+      title
+      content
+      publishedAt
+      categoryName
+      imageUrls
+      ministryName
+    }
+  }
+`;
+
 export const LIST_NEWS = gql`
   query ListNews3 {
     listNews(input: { orderBy: ID_DESC }) {
       news {
-        slug
-        title
-        content
-        imageUrls
-        publishedAt
-        id
-        categoryName
+id
+            slug
+            title
+            content
+            status
+            ministryID
+            ministryName
+            categoryID
+            categoryName
+            imageUrls
+            publishedAt
+            createdAt
       }
       pagination {
         totalData

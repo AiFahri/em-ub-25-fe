@@ -29,14 +29,14 @@ const BeritaPage = () => {
         - pointer-events-none: SANGAT PENTING. Membuat mouse bisa "menembus" gambar ini, sehingga tidak menghalangi klik pada scrollbar atau elemen di belakangnya.
         - hidden md:block: Membuat aset disembunyikan di layar kecil (HP) dan baru muncul di layar medium (tablet/desktop) ke atas.
       */}
-      <div className="hidden md:block absolute top-[660px] right-[-40px] w-[800px] h-[800px] z-30 pointer-events-none">
+      {/* <div className="hidden md:block absolute top-[660px] right-[-40px] w-[800px] h-[800px] z-30 pointer-events-none">
         <Image 
           src={MoriAsset}
           alt="Maskot Mori mengintip di halaman berita"
           fill
           className="object-contain"
         />
-      </div>
+      </div> */}
 
     </div>
   );

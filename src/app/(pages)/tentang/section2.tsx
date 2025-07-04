@@ -40,7 +40,7 @@ const dataProfil = {
     jabatan: "Wakil Presiden",
     nama: "Muhammad Ghifari Aulia",
     fakultas: "Fakultas Teknik 2021",
-    gambar: "/Assets/image/tentang/sec2/Presiden.webp",
+    gambar: "/Assets/image/tentang/sec2/Wakil Presiden EM.png",
     background: "/Assets/background/tentang/sec2/bg_wapres.svg",
     smiley: "/Assets/icon/tentang/section2/smileOrange.svg",
     bridge: "/Assets/icon/tentang/section2/bridgeBlue.svg",

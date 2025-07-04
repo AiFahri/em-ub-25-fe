@@ -2,16 +2,8 @@
 
 import React, { useRef, useLayoutEffect } from "react";
 import Image from "next/image";
-import logo from "/public/Assets/logo/tentang/logo.svg";
-import smile from "public/Assets/image/tentang/sec3/smile.svg";
-import bg from "/Assets/background/tentang/sec3/bg.svg";
-import mori from "/Assets/image/tentang/sec3/mori.svg";
-import text from "/Assets/image/tentang/sec3/text.svg";
-import bottom from "Assets/image/tentang/sec3/bottom.svg";
-import right from "/Assets/image/tentang/sec3/right.svg";
-import half_right from "Assets/image/tentang/sec3/half_right.svg";
-import left from "/Assets/image/tentang/sec3/left.svg";
-
+// Hapus import logo kalau memang dari public, lalu ganti jadi path langsung juga
+// import logo from "/public/Assets/logo/tentang/logo.svg"; ❌
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -129,9 +121,11 @@ export default function Section3() {
             </h1>
             <span className="bg-[#0049FF] sm:w-[4.3vw] w-[6vw] h-[40%] rounded-full mt-[1vw] "></span>
             <Image
-              src={smile}
+              src="/Assets/image/tentang/sec3/smile.svg"
               alt="Logo Filosofi"
               className="absolute right-[20.4%] top-[40%] w-[9%]"
+              width={100}
+              height={100}
             />
             <span className="text-[#0049FF] sm:text-[clamp(7vw,7vw,6rem)] text-[clamp(10vw,10vw,8rem)] font_bold">
               go
@@ -139,9 +133,11 @@ export default function Section3() {
           </div>
 
           <Image
-            src={logo}
+            src="/Assets/logo/tentang/logo.svg"
             alt="Logo Filosofi"
             className="w-[50%] mx-auto anim-main-logo sm:hidden block"
+            width={500}
+            height={500}
           />
           <div className="anim-left-stagger">
             <h1 className="text-[#0049FF] sm:text-[clamp(2vw,2vw,1.5rem)] text-[clamp(5vw,5vw,1.5rem)] font_bold border-[#0049FF] border-[0.5vw] py-[0.3vw] px-[3vw] rounded-[10vw]">
@@ -185,60 +181,80 @@ export default function Section3() {
                 Sentuh logo kami!
               </h1>
               <Image
-                src={text}
+                src="/Assets/image/tentang/sec3/text.svg"
                 alt="Mori Section 3"
                 className="place-items-end w-[95%] mt-[1vw]"
+                width={400}
+                height={100}
               />
             </div>
             <Image
-              src={mori}
+              src="/Assets/image/tentang/sec3/mori.svg"
               alt="Mori Section 3"
               className="place-items-end w-[60%] anim-mori-3"
+              width={300}
+              height={300}
             />
           </div>
           <Image
-            src={logo}
+            src="/Assets/logo/tentang/logo.svg"
             alt="Logo Filosofi"
             className="w-[80%] mx-auto anim-main-logo"
+            width={500}
+            height={500}
           />
         </div>
       </div>
 
       <Image
-        src={right}
+        src="/Assets/image/tentang/sec3/right.svg"
         alt="Logo Filosofi"
         className="absolute bottom-[10%] right-[5%] w-[10%] anim-decor-right"
+        width={100}
+        height={100}
       />
       <Image
-        src={half_right}
+        src="/Assets/image/tentang/sec3/half_right.svg"
         alt="Logo Filosofi"
         className="absolute bottom-[40%] right-[30%] w-[20%] anim-decor-half-right"
+        width={100}
+        height={100}
       />
       <Image
-        src={bottom}
+        src="/Assets/image/tentang/sec3/bottom.svg"
         alt="Logo Filosofi"
         className="absolute bottom-[0%] right-[50%] w-[15%] anim-decor-bottom"
+        width={100}
+        height={100}
       />
       <Image
-        src={left}
+        src="/Assets/image/tentang/sec3/left.svg"
         alt="Logo Filosofi"
         className="absolute bottom-[20%] left-[10%] w-[15%] anim-decor-left"
+        width={100}
+        height={100}
       />
 
       <Image
-        src={right}
+        src="/Assets/image/tentang/sec3/right.svg"
         alt="Logo Filosofi"
         className="absolute top-[10%] left-[5%] w-[10%] anim-decor-right sm:hidden block"
+        width={100}
+        height={100}
       />
       <Image
-        src={half_right}
+        src="/Assets/image/tentang/sec3/half_right.svg"
         alt="Logo Filosofi"
         className="absolute top-[20%] right-[5%] w-[10%] anim-decor-half-right sm:hidden block"
+        width={100}
+        height={100}
       />
       <Image
-        src={bottom}
+        src="/Assets/image/tentang/sec3/bottom.svg"
         alt="Logo Filosofi"
         className="absolute top-[0%] left-[50%] w-[15%] anim-decor-bottom sm:hidden block"
+        width={100}
+        height={100}
       />
     </div>
   );

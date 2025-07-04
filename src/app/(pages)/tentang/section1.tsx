@@ -160,9 +160,9 @@ export default function Section1() {
         </div>
         <h1 className="z-20 absolute bg-[#BACEFF] w-[6%] h-[13%] rounded-full bottom-[16%] left-[33%]"></h1>
         <Image
-          src="/Assets/image/tentang/sec1/left_image.svg"
+          src="/Assets/image/tentang/sec1/left_img.svg"
           alt="Section 1"
-          className="z-30 absolute top-0 left-0 w-[28%] anim-from-left"
+          className="z-30 absolute top-0 left-0 w-[28%] anim-from-left text-"
           fill={false}
           width={0}
           height={0}
@@ -230,4 +230,3 @@ export default function Section1() {
     </div>
   );
 }
-

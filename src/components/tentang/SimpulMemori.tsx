@@ -3,7 +3,6 @@
 "use client";
 
 import Image from "next/image";
-import smile from "/Assets/image/tentang/sec1/smile.svg";
 
 export default function SimpulMemori() {
   return (
@@ -23,7 +22,13 @@ export default function SimpulMemori() {
             </div>
           </div>
 
-          <Image src={smile} alt="Logo Filosofi" className="w-[1vw]" />
+          <Image
+            src="/Assets/image/tentang/sec1/smile.svg"
+            alt="Logo Filosofi"
+            width={40}
+            height={40}
+            className="w-[1vw] h-auto"
+          />
         </div>
         <span className="text-[#0049FF] text-[clamp(9vw,9vw,8rem)] font_bold">
           ri

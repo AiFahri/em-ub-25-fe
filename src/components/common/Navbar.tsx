@@ -11,7 +11,7 @@ import beritaIcon from '@/assets/landingpage/icons/beritaIcon.svg';
 import tentangIcon from '@/assets/landingpage/icons/tentangIcon.svg';
 import prokerIcon from '@/assets/landingpage/icons/prokerIcon.svg';
 import hamburger from '@/assets/landingpage/icons/hamburger.svg';
-// import closeIcon from '../../assets/icons/close.svg'; // optional
+
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -47,15 +47,17 @@ export default function Navbar() {
         </Link>
 
         <div className="relative">
-          <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="flex items-center text-[#002787] font-medium hover:underline">
-            Layanan <Image src={dropdown} alt="dropdown" width={20} height={11} className="ml-2" />
+          <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="flex items-center text-[#002787] font-medium hover:underline cursor-pointer">
+            Layanan <Image src={dropdown} alt="dropdown" width={20} height={11} className={`transform transition-transform duration-300 ml-2 cursor-pointer ${isDropdownOpen ? "rotate-180" : ""
+              }`}
+            />
           </button>
           {isDropdownOpen && (
             <div className="absolute mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-md z-10">
-              <Link href="/layanan/jdih" className={`block px-4 py-2 hover:bg-gray-100 ${isActive('/layanan/jdih') ? 'bg-[#002787] text-white' : 'text-[#002787]'}`}>
-                JDIH
+              <Link href="/faq" className={`block px-4 py-2 hover:bg-gray-100 ${isActive('/faq') ? 'bg-[#002787] text-white' : 'text-[#002787]'}`} onClick={() => setIsDropdownOpen(false)}>
+                Faq
               </Link>
-              <Link href="/layanan/aspirasi" className={`block px-4 py-2 hover:bg-gray-100 ${isActive('/layanan/aspirasi') ? 'bg-[#002787] text-white' : 'text-[#002787]'}`}>
+              <Link href="/layanan/aspirasi" className={`block px-4 py-2 hover:bg-gray-100 ${isActive('/layanan/aspirasi') ? 'bg-[#002787] text-white' : 'text-[#002787]'}`} onClick={() => setIsDropdownOpen(false)}>
                 Aspirasi
               </Link>
             </div>

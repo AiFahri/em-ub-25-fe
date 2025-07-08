@@ -66,27 +66,25 @@ export default function Section2() {
   const [isExpanded, setIsExpanded] = useState(false);
   const profileContentRef = useRef(null);
   const descriptionWrapperRef = useRef(null);
+  const descriptionContentRef = useRef(null);
+  const arrowRef = useRef(null);
   const clickMeRef = useRef(null);
   const isInitialMount = useRef(true);
 
   const handleProfileToggle = () => {
-    if (!profileContentRef.current || !descriptionWrapperRef.current) return;
+    if (!profileContentRef.current || !descriptionWrapperRef.current || !arrowRef.current) return;
 
-    gsap
-      .timeline({
-        onComplete: () => {
-          setProfilAktif((prev) =>
-            prev === "presiden" ? "wapres" : "presiden"
-          );
-        },
-      })
-      .to([profileContentRef.current, descriptionWrapperRef.current], {
-        opacity: 0,
-        y: -20,
-        duration: 0.4,
-        ease: "power2.in",
-        stagger: 0.1,
-      });
+    gsap.timeline({
+      onComplete: () => {
+        setProfilAktif((prev) => (prev === "presiden" ? "wapres" : "presiden"));
+      },
+    }).to([profileContentRef.current, descriptionWrapperRef.current, arrowRef.current], {
+      opacity: 0,
+      y: -20,
+      duration: 0.4,
+      ease: "power2.in",
+      stagger: 0.1,
+    });
   };
 
   const handleToggleExpand = () => {
@@ -98,6 +96,33 @@ export default function Section2() {
   useEffect(() => {
     setIsExpanded(false);
   }, [profilAktif]);
+
+
+  const refreshScrollTrigger = () => {
+    setTimeout(() => {
+      ScrollTrigger.refresh(true); 
+    }, 100);
+
+    setTimeout(() => {
+      ScrollTrigger.refresh(true);
+    }, 300);
+  };
+
+  useLayoutEffect(() => {
+    if (descriptionContentRef.current) {
+      gsap.to(descriptionContentRef.current, {
+        height: isExpanded ? "auto" : "20vw",
+        duration: 0.7,
+        ease: "power3.inOut",
+        onComplete: () => {
+          refreshScrollTrigger();
+        },
+        onUpdate: () => {
+          ScrollTrigger.refresh();
+        }
+      });
+    }
+  }, [isExpanded]);
 
   useLayoutEffect(() => {
     if (!containerRef.current) return;
@@ -131,19 +156,31 @@ export default function Section2() {
       isInitialMount.current = false;
       return;
     }
-    if (profileContentRef.current && descriptionWrapperRef.current) {
+    if (profileContentRef.current && descriptionWrapperRef.current && arrowRef.current) {
       gsap.fromTo(
-        [profileContentRef.current, descriptionWrapperRef.current],
+        [profileContentRef.current, descriptionWrapperRef.current, arrowRef.current],
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.15 }
+        {
+          opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.15, onComplete: () => {
+            refreshScrollTrigger();
+          }
+        }
       );
     }
   }, [profilAktif]);
 
+    useEffect(() => {
+    const timer = setTimeout(() => {
+      refreshScrollTrigger();
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div
       ref={containerRef}
-      className="relative w-full flex flex-col items-center pb-20 mt-[-2vw]"
+      className="relative w-full flex flex-col items-center pb-20 mt-[-2vw] overflow-hidden"
     >
       <h1 className="text-[#FF4900] font_bold text-[10vw] text-outline-kustom drop-shadow-sm overflow-hidden anim-main-title">
         Sambutan
@@ -223,7 +260,7 @@ export default function Section2() {
               {dataSekarang.jabatan}
             </h1>
             <h2
-              className={`text-[#0049FF] font_bold text-[7vw] text-outline-kustom drop-shadow-sm leading-[6vw] ${profilAktif === "presiden" ? "text-[#0049FF]" : "text-[#FF4900]"
+              className={`font_bold text-[7vw] text-outline-kustom drop-shadow-sm leading-[6vw] ${profilAktif === "presiden" ? "text-[#0049FF]" : "text-[#FF4900]"
                 }`}
             >
               EM UB <br />
@@ -252,8 +289,8 @@ export default function Section2() {
         </div>
       </div>
 
-      <div ref={descriptionWrapperRef} className="relative w-[90%] mt-4">
-        <div className="background-dengan-tonjolan w-full bg-[#E6EDFF] drop-shadow-xl flex flex-col justify-start text-[#0049FF] p-[3vw] gap-y-[1.5vw] text-[1.5vw] relative z-10">
+      <div ref={descriptionWrapperRef} className="relative w-[90%] mt-4 ">
+        <div className="background-dengan-tonjolan w-full bg-[#E6EDFF] drop-shadow-xl flex flex-col justify-start text-[#0049FF] p-[3vw] gap-y-[1.5vw] text-[1.5vw] relative z-10 ">
           {dataSekarang.welcomeWords.map((text, index) => (
             <p
               key={`welcome-${index}`}
@@ -265,10 +302,9 @@ export default function Section2() {
           ))}
 
           <div
-            className={`transition-all duration-700 ease-in-out transition-transform  ${isExpanded
-              ? "max-h-full opacity-100"
-              : "max-h-[20vw] opacity-100 overflow-y-auto custom-scrollbar"
-              }`}
+            ref={descriptionContentRef}
+            className="overflow-y-auto custom-scrollbar"
+            style={{ height: "20vw" }}
           >
             <div className="pt-[1.5vw]">
               {dataSekarang.deskripsi.map((text, index) => (
@@ -281,7 +317,7 @@ export default function Section2() {
               ))}
             </div>
 
-            <div className="pt-[1.5vw]">
+            <div className="pt-[1.5vw]" ref={arrowRef}>
               {dataSekarang.closingWords.map((text, index) => (
                 <p
                   key={`closing-${index}`}

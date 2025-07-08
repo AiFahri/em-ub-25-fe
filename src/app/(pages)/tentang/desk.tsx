@@ -9,7 +9,7 @@ import Section6 from './section6';
 
 export default function Desk(){
     return (
-        <div className='w-full h-full mt-[-28]'>
+        <div className='w-full h-full sm:mt-[-28] mt-[-96] '>
 
             <Section1/>
             <Section2/>

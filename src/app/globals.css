@@ -225,34 +225,33 @@
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
-  /* Lebar scrollbar vertikal */
+
   height: 8px;
-  /* Tinggi scrollbar horizontal */
+
 }
 
-/* Menargetkan track (jalur) scrollbar */
+
 .custom-scrollbar::-webkit-scrollbar-track {
   background: #E6EDFF;
   /* Warna track, sesuaikan dengan background Anda */
   border-radius: 10px;
 }
 
-/* Menargetkan thumb (gagang) scrollbar yang bisa digeser */
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: #0049FF;
-  /* Warna utama thumb */
   border-radius: 10px;
   border: 2px solid #E6EDFF;
-  /* Membuat efek padding di sekitar thumb */
+
 }
 
-/* Styling saat thumb di-hover */
+
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: #0032b3;
-  /* Warna thumb menjadi lebih gelap saat di-hover */
+  
 }
 
-/* === CUSTOM BACKGROUND === */
+
 .background-dengan-tonjolan {
   position: relative;
   background-color: #E6EDFF;

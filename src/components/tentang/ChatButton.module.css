@@ -17,7 +17,6 @@
   padding: 0.5em 1em 0.5em 3em;
   background-color: #f94b17;
   transition: box-shadow 0.3s ease;
-  clip-path: url(#chat-button-shape);
   overflow: hidden;
 }
 

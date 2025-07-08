@@ -208,7 +208,7 @@ export default function Section6() {
       </div>
 
       <div
-        className="flex flex-row items-end gap-x-[2%] w-full md:justify-center justify-start overflow-x-auto snap-x snap-mandatory px-4 pt-[5vw] pb-[10vw] mb-[-2vw] scrollbar-hide"
+        className="flex flex-row items-end gap-x-[2%] w-full md:justify-center justify-start overflow-x-auto snap-x snap-mandatory px-4 pt-[5vw] pb-[10vw] mb-[-2vw] hide-scrollbar"
         onMouseLeave={() => setHoveredIndex(null)}
       >
         {folderData.map((folder, index) => {
@@ -221,7 +221,8 @@ export default function Section6() {
               onMouseEnter={() => setHoveredIndex(index)}
               onClick={() => setActiveIndex(index)}
               style={{ cursor: "pointer" }}
-              className="anim-folder snap-start flex-shrink-0 sm:px-0 px-[1vw]"
+              className="anim-folder snap-start flex-shrink-0 sm:px-0 px-[1vw] text-[0.5vw]"
+
             >
               <Folder
                 nama={folder.nama}
@@ -245,7 +246,7 @@ export default function Section6() {
       />
 
       <div className="rounded-[2vw] bg-[linear-gradient(87.83deg,#A1BCFF_1.25%,#E6EDFF_100%)] w-11/12 sm:justify-between justify-center flex flex-row p-[3vw] aspect-[1680/334] gap-x-[2vw] items-center anim-desc-box">
-        <div className="z-30 sm:flex items-end mt-[15vw] ml-[10vw] justify-end flex-col anim-chat-s6 hidden">
+        <div className="z-30 sm:flex items-end mt-[15vw] ml-[10vw] justify-end flex-col anim-chat-s6 hidden text-justify ">
           <ChatButton size="clamp(1.5vw, 1.5vw, 0.5rem)">
             Scroll ke bawah!
           </ChatButton>
@@ -253,12 +254,12 @@ export default function Section6() {
 
         <div
           ref={descriptionRef}
-          className="w-[80%] sm:w-[70%]  sm:overflow-y-auto sm:pr-4 flex flex-col justify-end items-start gap-y-3 text-start sm:pt-0 sm:pb-0 pt-[2vw] pb-[1vw]"
+          className="w-[80%] sm:w-[70%]  sm:overflow-y-auto sm:pr-4 flex flex-col justify-end text-justify items-start gap-y-3 text-start sm:pt-0 sm:pb-0 pt-[2vw] pb-[1vw]"
         >
           {activeData.deskripsi.map((line, index) => (
             <p
               key={index}
-              className="text-[#0538B9] sm:text-[clamp(1.5vw,1.5vw,1rem)] font_bold"
+              className="text-[#0538B9] sm:text-[clamp(1.5vw,1.5vw,1rem)] font_bold text-justify"
             >
               {line}
             </p>

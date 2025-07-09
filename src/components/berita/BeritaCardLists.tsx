@@ -19,6 +19,7 @@ type NewsItem = {
   categoryName?: string;
   ministryName?: string;
   imageUrls?: string[];
+  slug: string;
 };
 
 type ListNewsData = {
@@ -118,7 +119,7 @@ export default function BeritaSection() {
           isMobile ? (
             <div className="grid grid-cols-1 gap-6">
               {paginatedNews.map((news, idx) => (
-                <Link key={news.id} href={`/berita/${news.id}`} legacyBehavior>
+                <Link key={news.id} href={`/berita/${news.slug}`} legacyBehavior>
                   <a><BeritaCard title={news.title} date={news.publishedAt ? new Date(news.publishedAt).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" }) : ""} description={news.content} color={idx % 2 === 0 ? "orange" : "blue"} imageUrl={news.imageUrls?.[0]} /></a>
                 </Link>
               ))}
@@ -126,7 +127,7 @@ export default function BeritaSection() {
           ) : isTablet ? (
             <div className="grid grid-cols-2 gap-6">
               {paginatedNews.map((news, idx) => (
-                <Link key={news.id} href={`/berita/${news.id}`} legacyBehavior>
+                <Link key={news.id} href={`/berita/${news.slug}`} legacyBehavior>
                   <a><BeritaCard title={news.title} date={news.publishedAt ? new Date(news.publishedAt).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" }) : ""} description={news.content} color={idx % 2 === 0 ? "orange" : "blue"} imageUrl={news.imageUrls?.[0]} /></a>
                 </Link>
               ))}
@@ -136,7 +137,7 @@ export default function BeritaSection() {
               <div className="flex justify-center gap-8 ">
                 {row1News.map((news, idx) => (
                   <div key={news.id} className="sm:w-full md:2/4 ">
-                    <Link href={`/berita/${news.id}`} legacyBehavior>
+                    <Link href={`/berita/${news.slug}`} legacyBehavior>
                       <a><BeritaCard title={news.title} date={news.publishedAt ? new Date(news.publishedAt).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" }) : ""} description={news.content} color={idx % 2 === 0 ? "orange" : "blue"} imageUrl={news.imageUrls?.[0]} /></a>
                     </Link>
                   </div>
@@ -146,7 +147,7 @@ export default function BeritaSection() {
                 <div className="flex justify-center gap-8 mb-8 "  >
                   {row2News.map((news, idx) => (
                     <div key={news.id} className="w-1/3">
-                      <Link href={`/berita/${news.id}`} legacyBehavior>
+                      <Link href={`/berita/${news.slug}`} legacyBehavior>
                         <a><BeritaCard title={news.title} date={news.publishedAt ? new Date(news.publishedAt).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" }) : ""} description={news.content} color={(idx + CARDS_PER_ROW_DESKTOP) % 2 === 0 ? "orange" : "blue"} imageUrl={news.imageUrls?.[0]} /></a>
                       </Link>
                     </div>

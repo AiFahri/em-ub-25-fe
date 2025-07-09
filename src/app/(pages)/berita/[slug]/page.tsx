@@ -2,7 +2,8 @@
 
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { GET_NEWS, LIST_NEWS } from "@/graphql/queries/berita/beritaQueries";
+import { GET_NEWS_BY_SLUG, LIST_NEWS } from "@/graphql/queries/berita/beritaQueries";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import BeritaHero from '@/components/berita/BeritaHero';
 import BeritaCardSide from "@/components/berita/BeritaCardSide";
@@ -24,10 +25,11 @@ type NewsItem = {
     categoryName?: string;
     imageUrls?: string[];
     ministryName?: string;
+    slug: string;
 };
 
 type GetNewsData = {
-    getNews: NewsItem;
+    getNewsBySlug: NewsItem;
 }
 
 type ListNewsData = {
@@ -36,18 +38,20 @@ type ListNewsData = {
     };
 };
 
-export default function BeritaDetailPage({ params }: { params: { id: string } }) {
-    const newsId = params.id;
+export default function BeritaDetailPage() {
+    const params = useParams();
+    const newsSlug = params?.slug as string;
+    
     const [expand, setExpand] = React.useState(false);
     const { data: listData } = useQuery<ListNewsData>(LIST_NEWS);
 
-    const { data: detailData, loading, error } = useQuery<GetNewsData>(GET_NEWS, {
-        variables: { id: newsId },
-        skip: !newsId,
+    const { data: detailData, loading, error } = useQuery<GetNewsData>(GET_NEWS_BY_SLUG, {
+        variables: { slug: newsSlug },
+        skip: !newsSlug,
     });
 
     const [imageIdx, setImageIdx] = React.useState(0);
-    const news = detailData?.getNews;
+    const news = detailData?.getNewsBySlug;
 
     const otherNews = React.useMemo(() => {
         if (!listData?.listNews?.news || !news) return [];
@@ -65,10 +69,40 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
 
     React.useEffect(() => {
         setImageIdx(0);
-    }, [newsId]);
+    }, [newsSlug]);
+
+ 
+    React.useEffect(() => {
+        console.log('Current slug:', newsSlug);
+        console.log('GraphQL Variables:', { slug: newsSlug });
+        if (error) {
+            console.error('GraphQL Error:', error);
+        }
+    }, [newsSlug, error]);
+
+    if (!newsSlug) {
+        return (
+            <div className="w-full h-screen flex justify-center items-center">
+                <div className="text-xl font-semibold">Loading...</div>
+            </div>
+        );
+    }
 
     if (loading) return <div className="w-full h-screen flex justify-center items-center"><div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-700"></div></div>;
-    if (error) return <div className="w-full h-screen flex justify-center items-center"><div className="text-red-600 text-xl font-semibold">Error: {error.message}</div></div>;
+    
+    if (error) {
+        console.error('GraphQL Error:', error);
+        return (
+            <div className="w-full h-screen flex justify-center items-center">
+                <div className="text-red-600 text-xl font-semibold">
+                    Error: {error.message}
+                    <br />
+                    <small>Slug: {newsSlug}</small>
+                </div>
+            </div>
+        );
+    }
+    
     if (!news) return <div className="w-full h-screen flex justify-center items-center"><div className="text-xl font-semibold">Berita tidak ditemukan.</div></div>;
 
     return (
@@ -129,7 +163,6 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
                                 )}
                                 <div className="flex-1 flex flex-col order-1 md:order-2">
                                     <div className="relative w-full aspect-video bg-gray-100 rounded-2xl overflow-hidden mb-6 ">
-
                                         {displayImage ? (
                                             <Image src={displayImage} alt={news.title} layout="fill" className="object-cover" />
                                         ) : (
@@ -140,7 +173,6 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
                                         )}
                                     </div>
                                     <div className="relative w-full">
-
                                         <div className="leading-[3.5vw]">
                                             <h1 className="text-[clamp(5vw,5vw,4rem)] font_bold text-[#002787] text-justify">{news.title}</h1>
                                             <p className="text-[#0538B9] text-[clamp(2.5vw,2.5vw,1.5rem)] mb-6 text-justify">{new Date(news.publishedAt).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" })}</p>
@@ -149,7 +181,6 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
                                         <div className=" text-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] h-[35vw] sm:h-[25vw] md:h-[40vw] lg:h-[40vw] scrollbar-hidden overflow-y-auto text-justify mt-[2vw] mb-2">
                                             {news.content}
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +190,7 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
                         <h3 className="text-2xl font-bold text-blue-900 mb-6">Berita Lain</h3>
                         <div className="flex flex-col gap-4">
                             {otherNews.map((other, index) => (
-                                <Link key={other.id} href={`/berita/${other.id}`} passHref legacyBehavior>
+                                <Link key={other.id} href={`/berita/${other.slug}`} passHref legacyBehavior>
                                     <a className="transition transform hover:-translate-y-1  text-[2vw]">
                                         <BeritaCardSide
                                             title={other.title}
@@ -173,23 +204,23 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
                         </div>
                     </div>
                 </div>
-                                    <div className="w-[100%] px-[2vw] block sm:hidden mb-6">
-                        <h3 className="text-2xl font-bold text-blue-900 mb-6">Berita Lain</h3>
-                        <div className="flex flex-col gap-4">
-                            {otherNews.map((other, index) => (
-                                <Link key={other.id} href={`/berita/${other.id}`} passHref legacyBehavior>
-                                    <a className="transition transform hover:-translate-y-1  text-[2vw]">
-                                        <BeritaCardSide
-                                            title={other.title}
-                                            category={other.categoryName}
-                                            ministryName={other.ministryName}
-                                            color={index % 2 === 0 ? 'blue' : 'orange'}
-                                        />
-                                    </a>
-                                </Link>
-                            ))}
-                        </div>
+                <div className="w-[100%] px-[2vw] block sm:hidden mb-6">
+                    <h3 className="text-2xl font-bold text-blue-900 mb-6">Berita Lain</h3>
+                    <div className="flex flex-col gap-4">
+                        {otherNews.map((other, index) => (
+                            <Link key={other.id} href={`/berita/${other.slug}`} passHref legacyBehavior>
+                                <a className="transition transform hover:-translate-y-1  text-[2vw]">
+                                    <BeritaCardSide
+                                        title={other.title}
+                                        category={other.categoryName}
+                                        ministryName={other.ministryName}
+                                        color={index % 2 === 0 ? 'blue' : 'orange'}
+                                    />
+                                </a>
+                            </Link>
+                        ))}
                     </div>
+                </div>
             </div>
         </main>
     );

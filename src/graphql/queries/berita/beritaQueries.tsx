@@ -1,15 +1,20 @@
 import { gql } from "@apollo/client";
 
-export const GET_NEWS = gql`
-  query GetNews($id: ID!) {
-    getNews(id: $id) {
+export const GET_NEWS_BY_SLUG = gql`
+  query GetNewsBySlug($slug: String!) {     
+    getNewsBySlug(slug: $slug) {             
       id
+      slug
       title
       content
-      publishedAt
+      status
+      ministryID
+      ministryName
+      categoryID
       categoryName
       imageUrls
-      ministryName
+      publishedAt
+      createdAt
     }
   }
 `;

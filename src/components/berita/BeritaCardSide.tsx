@@ -9,10 +9,10 @@ const BeritaCardSide = ({ title, category, ministryName, color }: BeritaCardSide
   const bgColor = color === 'blue' ? 'bg-[#003EA7]' : 'bg-[#FF4500]';
   
   return (
-    <div className={`relative ${bgColor} rounded-3xl p-6 text-white overflow-hidden shadow-md`}>
-      {/* Ornamen background */}
-      <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full" />
-      <div className="absolute right-4 -bottom-8 w-20 h-20 bg-white/5 rounded-full" />
+    <div className={`relative ${bgColor} rounded-3xl p-6 text-white w-full overflow-hidden shadow-md`}>
+      
+      <div className="absolute -right-8 -bottom-8 w-[15vw] h-[20vw] border-white/10 border-32 rotate-[15deg] rounded-full" />
+      <div className="absolute right-0 -bottom-10 w-[13vw] h-[13vw] border-5 border-white/5 rounded-full" />
 
       <div className="relative z-10">
         <div className="flex justify-end mb-2">
@@ -26,7 +26,7 @@ const BeritaCardSide = ({ title, category, ministryName, color }: BeritaCardSide
           {title}
         </h4>
         {ministryName && (
-          <span className="text-sm font-medium bg-white/90 text-blue-900 px-4 py-1 rounded-lg">
+          <span className="text-sm font-medium bg-white text-blue-900 text-wrap inline-block px-1 py-1  w-fit rounded-lg">
             {ministryName}
           </span>
         )}

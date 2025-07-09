@@ -16,7 +16,7 @@ const HeroSection = () => {
         />
       </div>
       {/* Text content */}
-      <div className="relative z-10 text-center leading-[5vw]">
+      <div className="relative z-10 text-center sm:mt-0 mt-[15vw] leading-[5vw]">
         <h1 className="text-[6vw] font_bold text-[#0538B9] mb-2">
           Portal Berita
         </h1>

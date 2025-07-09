@@ -92,7 +92,7 @@ export default function BeritaSection() {
           >
             {categories.map((cat) => (<option key={cat} value={cat}>{cat}</option>))}
           </select>
-          <Image src={arrowTop} alt="arrowTop" className="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <Image src={arrowTop} alt="arrowTop" className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
         </div>
         <div className="relative w-[60vw] md:w-[35vw] lg:w-[25vw]">
           <input

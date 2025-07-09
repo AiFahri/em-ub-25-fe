@@ -74,32 +74,32 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
     return (
         <main>
             <BeritaHero />
-            <div className="flex flex-col relative mt-[-12vw] md:mt-[-5vw]">
-                <div className="flex flex-row items-center px-[2vw] w-[70%] gap-x-[1vw]">
+            <div className="flex flex-col relative mt-[-12vw] md:mt-[-5vw] overflow-hidden">
+                <div className="flex flex-row items-center px-[2vw] sm:w-[70%] w-full gap-x-[1vw]">
                     <Image src={ornamentArrowLeft} alt="ornament arrow left" className="w-[2vw]" />
                     <Image src={ornamentArrowRight} alt="ornament arrow right" className="w-[2vw] " />
                     <div className="w-full bg-[#7CA1FF] rounded-full h-[0.5vw]" />
                 </div>
 
-                <div className="relative w-full px-[2vw] mt-[-10vw] flex flex-row  gap-[2vw] justify-center mb-[2vw] mt-[3vw]">
-                    <Image src={subpageBg} alt="Background" className="h-[50%] w-[70%]" />
+                <div className="relative w-full px-[2vw] mt-[-10vw] flex  sm:flex-row  gap-[2vw] justify-center mb-[2vw] mt-[3vw]">
+                    <Image src={subpageBg} alt="Background" className="h-[50%] sm:w-[70%] w-full" />
                     <div className="flex flex-row items-center absolute top-[2vw] left-0 gap-x-[0.5vw] px-[2vw]">
                         <Image src={detailBerita} alt="detail berita" className="w-[2.5vw]" />
                         <p className="text-[#0538B9] text-[2vw] tracking-tight">Detail Berita</p>
-                        <Image src={detailBeritaArrow} alt="detail berita" className="sm:w-[6.5vw] w-[6vw]" />
+                        <Image src={detailBeritaArrow} alt="detail berita" className="sm:w-[6.5vw] w-[14vw]" />
                     </div>
                     <Image src={ornamentBgSubpage} alt="bg ornament subpage" className="absolute bottom-0 -z-10" />
 
-                    <div className="w-[80%] absolute top-[8%] left-[3%]  ">
+                    <div className="w-[100%] sm:w-[80%] absolute top-[8%] left-[3%]  ">
                         <Image src={ornament} alt="ornament" className="absolute bottom-[1%] right-[10%] w-[20%] -z-10" />
-                        <div className="w-[75%]">
-                            <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 ">
+                        <div className="sm:w-[75%] w-[90%] px-[2vw]  sm:px-0">
+                            <div className="flex flex-col md:flex-row items-center md:items-start  md:gap-12 ">
                                 {totalImages > 0 && (
-                                    <div className="md:flex flex-row md:flex-col items-center md:mt-[5vw] justify-center gap-4 md:gap-6 order-2 hidden">
+                                    <div className="flex flex-row md:flex-col items-center  sm:mt-0 md:mt-[5vw] justify-center gap-4 md:gap-6 order-2 ">
                                         <button
                                             onClick={() => setImageIdx(prev => Math.max(prev - 1, 0))}
                                             disabled={imageIdx === 0}
-                                            className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-blue-700 text-blue-700 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition hover:bg-blue-100"
+                                            className="sm:w-10 sm:h-10 w-7 h-7 flex items-center justify-center rounded-full border-2 border-blue-700 text-blue-700 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition hover:bg-blue-100"
                                             aria-label="Gambar Sebelumnya"
                                         >
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 15l-6-6-6 6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -120,7 +120,7 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
                                         <button
                                             onClick={() => setImageIdx(prev => Math.min(prev + 1, totalImages - 1))}
                                             disabled={imageIdx === totalImages - 1}
-                                            className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-blue-700 cursor-pointer text-blue-700 disabled:opacity-30 disabled:cursor-not-allowed transition hover:bg-blue-100"
+                                            className="sm:w-10 sm:h-10 w-7 h-7 flex items-center justify-center rounded-full border-2 border-blue-700 cursor-pointer text-blue-700 disabled:opacity-30 disabled:cursor-not-allowed transition hover:bg-blue-100"
                                             aria-label="Gambar Selanjutnya"
                                         >
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -129,6 +129,7 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
                                 )}
                                 <div className="flex-1 flex flex-col order-1 md:order-2">
                                     <div className="relative w-full aspect-video bg-gray-100 rounded-2xl overflow-hidden mb-6 ">
+
                                         {displayImage ? (
                                             <Image src={displayImage} alt={news.title} layout="fill" className="object-cover" />
                                         ) : (
@@ -139,53 +140,22 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
                                         )}
                                     </div>
                                     <div className="relative w-full">
+
                                         <div className="leading-[3.5vw]">
                                             <h1 className="text-[clamp(5vw,5vw,4rem)] font_bold text-[#002787] text-justify">{news.title}</h1>
                                             <p className="text-[#0538B9] text-[clamp(2.5vw,2.5vw,1.5rem)] mb-6 text-justify">{new Date(news.publishedAt).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" })}</p>
                                         </div>
                                         <p className="text-[#0538B9] border-2 border-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] bg-white rounded-[2vw] px-[1vw] py-[1vw]  w-fit ">{news.ministryName}</p>
-                                        <div className=" text-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] h-[18vw] md:h-[30vw] lg:h-[40vw] scrollbar-hidden overflow-y-auto text-justify mt-[2vw] mb-2">
+                                        <div className=" text-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] h-[35vw] sm:h-[25vw] md:h-[40vw] lg:h-[40vw] scrollbar-hidden overflow-y-auto text-justify mt-[2vw] mb-2">
                                             {news.content}
                                         </div>
-                                        {totalImages > 0 && (
-                                            <div className="flex flex-row  items-center justify-center gap-4 mx-auto justify-center items-center md:hidden  ">
-                                                <button
-                                                    onClick={() => setImageIdx(prev => Math.max(prev - 1, 0))}
-                                                    disabled={imageIdx === 0}
-                                                    className="w-5 h-5 flex items-center justify-center cursor-pointer rounded-full border-2 border-blue-700 text-blue-700 disabled:opacity-30 disabled:cursor-not-allowed transition hover:bg-blue-100"
-                                                    aria-label="Gambar Sebelumnya"
-                                                >
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 15l-6-6-6 6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                                                </button>
-                                                <div className="flex md:flex-col gap-3">
-                                                    {images.map((_, idx) => (
-                                                        <button
-                                                            key={idx}
-                                                            onClick={() => setImageIdx(idx)}
-                                                            className={clsx(
-                                                                "w-3 h-3 rounded-full border-2 border-blue-700 cursor-pointer transition-all flex flex-row transform hover:scale-125",
-                                                                imageIdx === idx ? "bg-blue-700 scale-125" : "bg-white"
-                                                            )}
-                                                            aria-label={`Lihat gambar ${idx + 1}`}
-                                                        />
-                                                    ))}
-                                                </div>
-                                                <button
-                                                    onClick={() => setImageIdx(prev => Math.min(prev + 1, totalImages - 1))}
-                                                    disabled={imageIdx === totalImages - 1}
-                                                    className="w-5 h-5 flex items-center justify-center rounded-full  cursor-pointer border-2 border-blue-700 text-blue-700 disabled:opacity-30 disabled:cursor-not-allowed transition hover:bg-blue-100"
-                                                    aria-label="Gambar Selanjutnya"
-                                                >
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                                                </button>
-                                            </div>
-                                        )}
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="w-full">
+                    <div className="w-full sm:block hidden">
                         <h3 className="text-2xl font-bold text-blue-900 mb-6">Berita Lain</h3>
                         <div className="flex flex-col gap-4">
                             {otherNews.map((other, index) => (
@@ -203,6 +173,23 @@ export default function BeritaDetailPage({ params }: { params: { id: string } })
                         </div>
                     </div>
                 </div>
+                                    <div className="w-[100%] px-[2vw] block sm:hidden mb-6">
+                        <h3 className="text-2xl font-bold text-blue-900 mb-6">Berita Lain</h3>
+                        <div className="flex flex-col gap-4">
+                            {otherNews.map((other, index) => (
+                                <Link key={other.id} href={`/berita/${other.id}`} passHref legacyBehavior>
+                                    <a className="transition transform hover:-translate-y-1  text-[2vw]">
+                                        <BeritaCardSide
+                                            title={other.title}
+                                            category={other.categoryName}
+                                            ministryName={other.ministryName}
+                                            color={index % 2 === 0 ? 'blue' : 'orange'}
+                                        />
+                                    </a>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
             </div>
         </main>
     );

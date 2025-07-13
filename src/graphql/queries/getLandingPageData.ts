@@ -5,6 +5,7 @@ export const GET_LANDING_PAGE_DATA = gql`
     listWorkPrograms(input: {}) {
       workPrograms {
         title
+        slug
         id
         content
         ministryID

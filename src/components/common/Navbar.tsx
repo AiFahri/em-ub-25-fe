@@ -8,35 +8,50 @@ import useAuth from '@/hooks/useAuth';
 
 import logo from '@/assets/logo/logo-em-ub-2025.svg';
 import dropdown from '@/assets/landingpage/icons/dropdown.svg';
-import hamburger from '@/assets/landingpage/icons/hamburger.svg';
 import { GET_WORK_PROGRAM_BY_SLUG } from '@/graphql/queries/proker/prokerQueries';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConfirmLoginModal from './ConfirmLoginModal';
 import { useRouter } from 'next/navigation';
 import HamburgerButton from './HamburgerButton';
 import profileIcon from '@/assets/landingpage/icons/profile.svg';
-import { client } from '@/lib/apolloClient';
 import { useQuery } from '@apollo/client';
 import history from '@/assets/landingpage/icons/history.svg';
 import logoutIcon from '@/assets/landingpage/icons/Logout.svg';
+import Modal from '../pendaftaran/Modal';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const router = useRouter();
+
   const { isLoggedIn, logout } = useAuth();
   const [isMobileView, setIsMobileView] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [currentSlug, setCurrentSlug] = useState<string | null>(null);
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileServiceDropdownOpen, setIsMobileServiceDropdownOpen] = useState(false);
   const [isMobileProfileDropdownOpen, setIsMobileProfileDropdownOpen] = useState(false);
-  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
-  const isOnProkerSlugPage = pathname?.startsWith('/proker/') && pathname?.split('/').length === 3;
-  const slug = isOnProkerSlugPage ? pathname.split('/')[2] : null;
+  useEffect(() => {
+    const normalizedPath = pathname.replace(/\/+$/, '');
+
+    const match = normalizedPath.match(/^\/proker\/([^/]+)$/);
+
+    if (match) {
+      setCurrentSlug(match[1]);
+    } else {
+      setCurrentSlug(null);
+    }
+  }, [pathname]);
+
+  const slug = currentSlug;
+  const isOnProkerSlugPage = Boolean(slug);
+  console.log('🔍 pathname:', pathname);
+  console.log('🔍 currentSlug:', currentSlug);
+  console.log('🔍 isOnProkerSlugPage:', isOnProkerSlugPage);
 
   const { data: prokerData } = useQuery(GET_WORK_PROGRAM_BY_SLUG, {
     variables: { slug },
@@ -64,10 +79,7 @@ export default function Navbar() {
 
   const handleLoginClick = () => {
     if (isOnProkerSlugPage && isOprecProker) {
-      const statePayload = { slug };
-      const encodedState = encodeURIComponent(btoa(JSON.stringify(statePayload)));
-      const googleLoginUrl = `https://dev-em-ub-2025.iqh.my.id/oauth/google?state=${encodedState}`;
-      window.location.href = googleLoginUrl;
+      setShowModal(true);
     } else {
       setShowModal(true);
     }
@@ -155,9 +167,9 @@ export default function Navbar() {
                     setIsProfileDropdownOpen(!isProfileDropdownOpen);
                     setIsServiceDropdownOpen(false);
                   }}
-                  className="flex items-center gap-2 text-[#002787] text-[clamp(1.5vw,1.7vw,2rem)] font-medium"
+                  className="relative flex items-center gap-2 text-[#002787] text-[clamp(1.5vw,1.7vw,2rem)] font-medium after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-[#002787] after:transition-all after:duration-300 after:w-0 hover:after:w-full"
                 >
-                  <Image src={profileIcon} alt="Profile Icon" className="w-[2vw]" />
+                  <Image src={profileIcon} alt="Profile Icon" className="w-[clamp(1.9vw,2vw,3rem)]" />
                   Profile
                 </button>
 
@@ -190,7 +202,21 @@ export default function Navbar() {
                 >
                   Log In
                 </button>
-                <ConfirmLoginModal isOpen={showModal} onClose={() => setShowModal(false)} onConfirm={handleLoginClick} isOprecPage={isOprecProker} />
+                {isOnProkerSlugPage && isOprecProker ? (
+                  <Modal
+                    isOpen={showModal}
+                    onClose={() => setShowModal(false)}
+                    onConfirm={() => {
+                      setShowModal(false);
+                      if (prokerData?.getWorkProgramBySlug?.registerLink) {
+                        window.location.href = prokerData.getWorkProgramBySlug.registerLink;
+                      }
+                    }}
+                    isGeneral={prokerData?.getWorkProgramBySlug?.isGeneral}
+                  />
+                ) : (
+                  <ConfirmLoginModal isOpen={showModal} onClose={() => setShowModal(false)} onConfirm={handleLoginClick} isOprecPage={false} />
+                )}
               </>
             )}
           </div>
@@ -278,7 +304,7 @@ export default function Navbar() {
                         }}
                         className="flex items-center gap-2 w-full text-left px-4 py-2 rounded-lg text-[#002787]"
                       >
-                        <Image src={profileIcon} alt="Profile Icon" className="w-[6vw]" />
+                        <Image src={profileIcon} alt="Profile Icon" className="w-[clamp(2vw,4vw,6vw)]" />
                         Profile
                       </button>
 
@@ -317,7 +343,21 @@ export default function Navbar() {
                       <button onClick={handleLoginClick} className={`w-full text-left px-4 py-2 rounded-lg font-medium ${isActive('/login') ? 'bg-[#002787] text-white font-semibold' : 'text-[#002787]'}`}>
                         Log In
                       </button>
-                      <ConfirmLoginModal isOpen={showModal} onClose={() => setShowModal(false)} onConfirm={handleLoginClick} isOprecPage={isOprecProker} />
+                      {isOnProkerSlugPage && isOprecProker ? (
+                        <Modal
+                          isOpen={showModal}
+                          onClose={() => setShowModal(false)}
+                          onConfirm={() => {
+                            setShowModal(false);
+                            if (prokerData?.getWorkProgramBySlug?.registerLink) {
+                              window.location.href = prokerData.getWorkProgramBySlug.registerLink;
+                            }
+                          }}
+                          isGeneral={prokerData?.getWorkProgramBySlug?.isGeneral}
+                        />
+                      ) : (
+                        <ConfirmLoginModal isOpen={showModal} onClose={() => setShowModal(false)} onConfirm={handleLoginClick} isOprecPage={false} />
+                      )}
                     </>
                   )}
                 </motion.div>

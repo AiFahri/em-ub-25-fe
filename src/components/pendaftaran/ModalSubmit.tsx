@@ -1,18 +1,29 @@
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 interface ModalSubmitProps {
   mode: 'confirm' | 'success';
   onClose: () => void;
   onConfirm?: () => void;
   groupLink?: string;
+  slug?: string;
 }
 
-const ModalSubmit: React.FC<ModalSubmitProps> = ({ mode, onClose, onConfirm, groupLink }) => {
+const ModalSubmit: React.FC<ModalSubmitProps> = ({ mode, onClose, onConfirm, groupLink, slug }) => {
+  const router = useRouter();
+  const handleClose = () => {
+    if (mode === 'success' && slug) {
+      router.push(`/proker/${slug}`);
+      window.location.reload();
+    } else {
+      onClose();
+    }
+  };
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
       <div className="bg-[#E6EDFF] rounded-2xl p-4 sm:p-6 max-w-xs sm:max-w-sm w-full text-center relative">
         {mode === 'success' && (
-          <button onClick={onClose} className="absolute top-3 right-4 text-[#002787] font-bold text-xl">
+          <button onClick={handleClose} className="absolute top-3 right-4 text-[#002787] font-bold text-xl">
             ×
           </button>
         )}

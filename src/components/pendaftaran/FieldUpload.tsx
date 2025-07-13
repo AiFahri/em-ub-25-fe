@@ -32,7 +32,6 @@ const fileCategoryMap: Record<string, string[]> = {
 export default function FieldUpload({ label, name, value = [], onChange, fileCategories, maxFile, maxFileSize }: FieldUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<FileWrapper[]>(value);
-  const { isLoggedIn } = useAuth();
   const [insertAnswer] = useMutation(INSERT_ANSWER);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
@@ -41,33 +40,47 @@ export default function FieldUpload({ label, name, value = [], onChange, fileCat
   }, [value]);
 
   const updateFiles = (files: File[]) => {
-    const maxCount = maxFile ?? 5;
-    const maxSize = (maxFileSize ?? 5120) * 1024;
+    const maxCount = maxFile ?? 0;
+    const maxSize = (maxFileSize ?? 0) * 1024 * 1024;
     const newErrors: string[] = [];
-    const newFiles: FileWrapper[] = [];
+
+    if (maxCount > 0 && selectedFiles.length + files.length > maxCount) {
+      newErrors.push(`Jumlah file melebihi batas maksimal (${maxCount} file).`);
+      setErrorMessages(newErrors);
+      return;
+    }
 
     const allowedExt = (fileCategories || []).flatMap((category) => fileCategoryMap[category.toLowerCase()] || []).map((ext) => ext.toLowerCase());
+
+    const newFiles: FileWrapper[] = [];
 
     for (const file of files) {
       const ext = file.name.split('.').pop()?.toLowerCase();
       const isValidExt = !allowedExt.length || allowedExt.includes(ext || '');
       const isValidSize = file.size <= maxSize;
 
+      // Cek semua nama file yang sudah dipilih, baik yang lama (selected) maupun baru (dalam loop ini)
+      const isDuplicate = [...selectedFiles, ...newFiles].some((f) => {
+        const existingName = f.file?.name || f.url?.split('/').pop(); // handle file dan restored url
+        return existingName === file.name;
+      });
+
+      if (isDuplicate) {
+        newErrors.push(`File dengan nama "${file.name}" sudah ditambahkan.`);
+        continue;
+      }
+
       if (!isValidExt) {
-        newErrors.push(`Tipe file tidak valid. Diperbolehkan: ${allowedExt.join(', ')}`);
+        newErrors.push(`Tipe file "${file.name}" tidak valid. Diperbolehkan: ${allowedExt.join(', ')}`);
         continue;
       }
 
       if (!isValidSize) {
-        newErrors.push(`❌ File "${file.name}" terlalu besar. Maksimum ${maxFileSize} KB`);
+        newErrors.push(`File "${file.name}" terlalu besar. Maksimum ${maxFileSize} MB`);
         continue;
       }
 
       newFiles.push({ file, uploaded: false });
-
-      if (selectedFiles.length + newFiles.length >= maxCount) {
-        break;
-      }
     }
 
     if (newErrors.length > 0) {

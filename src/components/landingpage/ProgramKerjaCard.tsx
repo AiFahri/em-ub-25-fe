@@ -9,6 +9,7 @@ import star from '@/assets/landingpage/icons/programkerjacard/star.svg';
 import zigzag from '@/assets/landingpage/icons/programkerjacard/zigzag.svg';
 import threeshape from '@/assets/landingpage/icons/programkerjacard/3shape.svg';
 import twhoshape from '@/assets/landingpage/icons/programkerjacard/2shape.svg';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   index: number;
@@ -16,6 +17,7 @@ interface Props {
   description: string;
   kementerian: string;
   bgColor: string;
+  slug: string;
 }
 
 function extractHexColor(twColor: string): string {
@@ -23,7 +25,8 @@ function extractHexColor(twColor: string): string {
   return match ? `#${match[1]}` : '#0047AB';
 }
 
-export default function ProgramKerjaCard({ index, title, description, kementerian, bgColor }: Props) {
+export default function ProgramKerjaCard({ index, title, description, kementerian, bgColor, slug }: Props) {
+  const router = useRouter();
   const hexColor = extractHexColor(bgColor);
 
   const decorations = (() => {
@@ -36,11 +39,7 @@ export default function ProgramKerjaCard({ index, title, description, kementeria
           </>
         );
       case 1:
-        return (
-          <>
-            <Image src={threeshape} alt="threeshape" className="absolute top-20 md:top-14 left-0 w-32 md:w-40 lg:w-48" />
-          </>
-        );
+        return <Image src={threeshape} alt="threeshape" className="absolute top-20 md:top-14 left-0 w-32 md:w-40 lg:w-48" />;
       case 2:
         return (
           <>
@@ -49,17 +48,9 @@ export default function ProgramKerjaCard({ index, title, description, kementeria
           </>
         );
       case 3:
-        return (
-          <>
-            <Image src={zigzag} alt="zigzag" className="absolute top-20 md:top-28 -right-24 md:-right-28 w-56 md:w-64" />
-          </>
-        );
+        return <Image src={zigzag} alt="zigzag" className="absolute top-20 md:top-28 -right-24 md:-right-28 w-56 md:w-64" />;
       case 4:
-        return (
-          <>
-            <Image src={twhoshape} alt="twoshape" className="absolute top-16 md:top-20 right-0 w-24 md:w-28 lg:w-32" />
-          </>
-        );
+        return <Image src={twhoshape} alt="twoshape" className="absolute top-16 md:top-20 right-0 w-24 md:w-28 lg:w-32" />;
       default:
         return null;
     }
@@ -67,7 +58,8 @@ export default function ProgramKerjaCard({ index, title, description, kementeria
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-4xl p-6 text-white flex flex-col justify-between transition-all duration-500 ease-in-out ${bgColor} w-[200px] hover:w-[260px] md:w-[250px] xl:w-[300px] md:hover:w-[400px] h-[300px] md:h-[500px]`}
+      onClick={() => router.push(`/proker/${slug}`)}
+      className={`group relative overflow-hidden rounded-4xl p-6 text-white flex flex-col justify-between transition-all duration-500 ease-in-out ${bgColor} w-[200px] hover:w-[260px] md:w-[250px] xl:w-[300px] md:hover:w-[400px] h-[300px] md:h-[500px] cursor-pointer`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none">{decorations}</div>
 
@@ -79,14 +71,14 @@ export default function ProgramKerjaCard({ index, title, description, kementeria
         <h4 className="text-xl md:text-2xl line-clamp-3 lg:text-3xl font-bold">{title}</h4>
         <p className="text-sm md:text-md lg:text-xl truncate text-white mt-1">{description}</p>
 
-        <Link href="#" className="mt-4 block w-full">
+        <div className="mt-4 w-full">
           <div className="w-full flex justify-between items-center bg-white rounded-full px-6 py-2 group/button transition hover:brightness-110" style={{ color: hexColor }}>
             <span className="text-xs sm:text-sm md:text-lg font-semibold">Selengkapnya</span>
             <div className="w-5 h-5 md:w-8 md:h-8 rounded-full flex items-center justify-center transition-transform duration-300 group-hover/button:translate-x-1" style={{ backgroundColor: hexColor }}>
               <Image src={arrowRight} alt="arrow right" className="w-3 h-3" />
             </div>
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );

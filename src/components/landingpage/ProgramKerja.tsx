@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import ProgramKerjaCard from './ProgramKerjaCard';
 import { programList } from '@/data/programKerjaData';
 import face from '@/assets/landingpage/icons/maskot-face.svg';
@@ -8,19 +9,18 @@ import circleBlue from '@/assets/landingpage/icons/circle-blue.svg';
 import circleQuarter from '@/assets/landingpage/icons/circle-quarter-blue.svg';
 import k from '@/assets/landingpage/icons/k-outline.svg';
 import CountUp from './CountUp';
+import SkeletonProgramKerjaCard from './SkeletonProgramKerjaCard';
 import { useEffect, useRef, useState } from 'react';
 import vektor33 from '@/assets/landingpage/icons/Vector33.svg';
 import vektor34 from '@/assets/landingpage/icons/Vector34.svg';
 import { useQuery } from '@apollo/client';
 import { GET_LANDING_PAGE_DATA } from '@/graphql/queries/getLandingPageData';
-import { useInView, motion } from 'framer-motion';
 
 const bgColorPattern = ['bg-[#0538B9]', 'bg-[#0049FF]', 'bg-[#FF4900]', 'bg-[#0049FF]', 'bg-[#0049FF]'];
 
 export default function ProgramKerja() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { data, loading, error } = useQuery(GET_LANDING_PAGE_DATA);
-
 
   const workProgramsData = data?.listWorkPrograms?.workPrograms ?? [];
   useEffect(() => {
@@ -40,11 +40,58 @@ export default function ProgramKerja() {
     return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
-  if (loading) return <p className="text-center">Memuat tautan pintas...</p>;
-  if (error) return <p className="text-center">Gagal memuat tautan pintas.</p>;
+  const slideLeft = {
+    hidden: { opacity: 0, x: -80, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: { duration: 1, ease: 'easeOut' },
+    },
+  };
+
+  const slideRight = {
+    hidden: { opacity: 0, x: 80 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 1, ease: 'easeOut', delay: 0.4 },
+    },
+  };
+
+  const bounceUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: (i: number = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.3 + 0.6,
+        duration: 0.8,
+        ease: 'backOut',
+      },
+    }),
+  };
+
+  if (loading) {
+    return (
+      <section className="py-10 px-3 md:px-6 lg:px-[5vh] font-sans">
+        <div className="flex justify-center mb-12">
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-bold text-[#0538B9] text-center animate-pulse">Program Kerja</h2>
+        </div>
+
+        <div className="flex gap-6 overflow-x-auto scrollbar-hide px-4">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <SkeletonProgramKerjaCard key={i} />
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  if (error) return <p className="text-center">Gagal memuat Program Kerja.</p>;
 
   return (
-    <section className="py-10 px-3 md:px-6 lg:px-[5vh] font-sans">
+    <section className="py-10 px-3 md:px-6 lg:px-[5vh] font-sans overflow-hidden">
       <style>{`
                 @keyframes shake {
                     0%, 100% { transform: rotate(0deg); }
@@ -55,9 +102,9 @@ export default function ProgramKerja() {
                     animation: shake 0.5s ease-in-out infinite;
                 }
             `}</style>
-      <div className="flex justify-center flex-col md:px-20">
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} className="flex justify-center flex-col md:px-20">
         <div className="relative flex flex-col lg:flex-row items-center justify-center gap-8 mb-24 md:mb-32 font-[NeueHaasDisplay]">
-          <div className="order-2 lg:order-1 relative w-[80vw] max-w-[480px] aspect-[16/10] h-auto flex-shrink-0">
+          <motion.div variants={slideLeft} className="order-2 lg:order-1 relative w-[80vw] max-w-[480px] aspect-[16/10] h-auto flex-shrink-0">
             <Image
               src={k}
               alt="shape"
@@ -102,23 +149,31 @@ export default function ProgramKerja() {
             >
               Lihat Selengkapnya
             </button>
-          </div>
+          </motion.div>
 
-          <div className="order-1 lg:order-2 flex-1 justify-center items-center text-center lg:text-left">
+          <motion.div variants={slideRight} className="order-1 lg:order-2 flex-1 justify-center items-center text-center lg:text-left">
             <h2 className="text-[clamp(5vw,8vw,50px)] font-black leading-tight">
               <span className="text-[#0538B9]">Program kerja mega besar,</span>
               <span className="text-[#BACEFF]"> dari kami untuk mahasiswa Brawijaya.</span>
             </h2>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="flex flex-row justify-center xl:justify-between items-end mb-16 text-center font-[NeueHaasDisplay] gap-6 md:gap-8 px-4">
+        <motion.div className="flex flex-row justify-center xl:justify-between items-end mb-16 text-center font-[NeueHaasDisplay] gap-6 md:gap-8 px-4">
           {[
             { target: 10, label: 'Program Kerja Mega Besar' },
             { target: 17, label: 'Kementerian & Biro' },
             { target: 550, label: 'Fungsionaris Terlibat' },
           ].map((item, index) => (
-            <div key={index} className="min-w-[90px] md:min-w-[150px] lg:min-w-[180px] xl:w-full flex flex-col justify-between items-center">
+            <motion.div
+              key={index}
+              custom={index}
+              variants={bounceUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="min-w-[90px] md:min-w-[150px] lg:min-w-[180px] xl:w-full flex flex-col justify-between items-center"
+            >
               <h3 className="text-[#FF4900] font-bold leading-none text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[8rem]">
                 <span className="inline-flex items-center overflow-hidden">
                   <CountUp target={item.target} />
@@ -137,10 +192,10 @@ export default function ProgramKerja() {
                   <p className="text-black font-medium text-[12px] md:text-lg lg:text-xl xl:text-3xl leading-tight">{item.label}</p>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <div className="relative">
         <Image src={vektor34} alt="vektor34" className=" w-[100px] md:w-[200px] lg:w-[250px] absolute left-[0%] -top-[10%] pointer-events-none z-10" />
@@ -148,7 +203,7 @@ export default function ProgramKerja() {
         <div ref={scrollRef} className="overflow-x-auto scrollbar-hide relative z-20">
           <div className="flex gap-6 md:mt-10 md:px-4 w-max">
             {[...workProgramsData, ...workProgramsData].map((workProgram, i) => (
-              <ProgramKerjaCard index={i} key={workProgram.id} title={workProgram.title} description={workProgram.content} kementerian={workProgram.ministryID} bgColor={bgColorPattern[i % bgColorPattern.length]} />
+              <ProgramKerjaCard index={i} key={workProgram.id} title={workProgram.title} description={workProgram.content} kementerian={workProgram.ministryID} bgColor={bgColorPattern[i % bgColorPattern.length]} slug={workProgram.slug} />
             ))}
           </div>
         </div>

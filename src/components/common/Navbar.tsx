@@ -4,20 +4,57 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import useAuth from '@/hooks/useAuth';
 
 import logo from '@/assets/logo/logo-em-ub-2025.svg';
 import dropdown from '@/assets/landingpage/icons/dropdown.svg';
 import hamburger from '@/assets/landingpage/icons/hamburger.svg';
+import { GET_WORK_PROGRAM_BY_SLUG } from '@/graphql/queries/proker/prokerQueries';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConfirmLoginModal from './ConfirmLoginModal';
+import { useRouter } from 'next/navigation';
+import HamburgerButton from './HamburgerButton';
+import profileIcon from '@/assets/landingpage/icons/profile.svg';
+import { client } from '@/lib/apolloClient';
+import { useQuery } from '@apollo/client';
+import history from '@/assets/landingpage/icons/history.svg';
+import logoutIcon from '@/assets/landingpage/icons/Logout.svg';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { isLoggedIn, logout } = useAuth();
+  const [isMobileView, setIsMobileView] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobileView, setIsMobileView] = useState(false);
+  const [isMobileServiceDropdownOpen, setIsMobileServiceDropdownOpen] = useState(false);
+  const [isMobileProfileDropdownOpen, setIsMobileProfileDropdownOpen] = useState(false);
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  const isOnProkerSlugPage = pathname?.startsWith('/proker/') && pathname?.split('/').length === 3;
+  const slug = isOnProkerSlugPage ? pathname.split('/')[2] : null;
+
+  const { data: prokerData } = useQuery(GET_WORK_PROGRAM_BY_SLUG, {
+    variables: { slug },
+    skip: !isOnProkerSlugPage,
+  });
+
+  useEffect(() => {
+    setIsClient(true);
+
+    const mediaQuery = window.matchMedia('(max-width: 799px)');
+    const updateView = () => setIsMobileView(mediaQuery.matches);
+
+    updateView();
+    mediaQuery.addEventListener('change', updateView);
+    return () => mediaQuery.removeEventListener('change', updateView);
+  }, []);
+
+  const isOprecProker = prokerData?.getWorkProgramBySlug?.hasForm && prokerData?.getWorkProgramBySlug?.isGeneral;
 
   const isActive = (path: string) => {
     const current = pathname?.toLowerCase().replace(/\/$/, '');
@@ -25,17 +62,18 @@ export default function Navbar() {
     return current === target;
   };
 
-  useEffect(() => {
-    const handleCheckMobileView = () => {
-      const width = window.innerWidth;
-      const isSmallScreen = width < 800;
-      setIsMobileView(isSmallScreen);
-    };
+  const handleLoginClick = () => {
+    if (isOnProkerSlugPage && isOprecProker) {
+      const statePayload = { slug };
+      const encodedState = encodeURIComponent(btoa(JSON.stringify(statePayload)));
+      const googleLoginUrl = `https://dev-em-ub-2025.iqh.my.id/oauth/google?state=${encodedState}`;
+      window.location.href = googleLoginUrl;
+    } else {
+      setShowModal(true);
+    }
+  };
 
-    handleCheckMobileView();
-    window.addEventListener('resize', handleCheckMobileView);
-    return () => window.removeEventListener('resize', handleCheckMobileView);
-  }, []);
+  if (!isClient) return <></>;
 
   return (
     <nav className="w-full flex items-center justify-between flex-wrap px-6 lg:px-16 py-6 fixed top-0 z-50 bg-white rounded-b-[50px] gap-y-4">
@@ -70,17 +108,20 @@ export default function Navbar() {
 
               <div className="relative inline-block">
                 <button
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  onClick={() => {
+                    setIsServiceDropdownOpen(!isServiceDropdownOpen);
+                    setIsProfileDropdownOpen(false);
+                  }}
                   className="relative flex items-center font-medium text-[#002787] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-[#002787] after:transition-all after:duration-300 after:w-0 hover:after:w-full"
                 >
                   Layanan
-                  <Image src={dropdown} alt="dropdown" className={`ml-2 w-3 h-3 md:w-3 md:h-3 lg:w-5 lg:h-5 transition-transform duration-500 ease-in-out ${isDropdownOpen ? 'rotate-180' : 'rotate-0'}`} />
+                  <Image src={dropdown} alt="dropdown" className={`ml-2 w-3 h-3 md:w-3 md:h-3 lg:w-5 lg:h-5 transition-transform duration-500 ease-in-out ${isServiceDropdownOpen ? 'rotate-180' : 'rotate-0'}`} />
                 </button>
 
                 <AnimatePresence>
-                  {isDropdownOpen && (
+                  {isServiceDropdownOpen && (
                     <motion.div
-                      key="dropdown"
+                      key="service-dropdown"
                       initial={{ opacity: 0, y: -10, height: 0 }}
                       animate={{ opacity: 1, y: 0, height: 'auto' }}
                       exit={{ opacity: 0, y: -10, height: 0 }}
@@ -106,49 +147,74 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="block whitespace-nowrap">
-            <button
-              onClick={() => setShowModal(true)}
-              className="relative font-medium text-[#002787] text-[clamp(1.5vw,1.7vw,2rem)] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-[#002787] after:w-0 hover:after:w-full after:transition-all after:duration-300"
-            >
-              Log In
-            </button>
-            <ConfirmLoginModal
-              isOpen={showModal}
-              onClose={() => setShowModal(false)}
-              onConfirm={() => {
-                setShowModal(false);
+          <div className="block whitespace-nowrap relative">
+            {isLoggedIn ? (
+              <div className="relative inline-block">
+                <button
+                  onClick={() => {
+                    setIsProfileDropdownOpen(!isProfileDropdownOpen);
+                    setIsServiceDropdownOpen(false);
+                  }}
+                  className="flex items-center gap-2 text-[#002787] text-[clamp(1.5vw,1.7vw,2rem)] font-medium"
+                >
+                  <Image src={profileIcon} alt="Profile Icon" className="w-[2vw]" />
+                  Profile
+                </button>
 
-                window.location.href = '/api/auth/google';
-              }}
-            />
+                <AnimatePresence>
+                  {isProfileDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-50 overflow-hidden"
+                    >
+                      <Link href="/riwayat-pendaftaran" className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-[#002787]">
+                        <Image src={history} alt="Riwayat" width={20} height={20} />
+                        Riwayat Pendaftaran
+                      </Link>
+                      <button onClick={logout} className="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-100 text-[#002787]">
+                        <Image src={logoutIcon} alt="Logout" width={20} height={20} />
+                        Log out
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <>
+                <button
+                  onClick={handleLoginClick}
+                  className="relative font-medium text-[#002787] text-[clamp(1.5vw,1.7vw,2rem)] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-[#002787] after:w-0 hover:after:w-full after:transition-all after:duration-300"
+                >
+                  Log In
+                </button>
+                <ConfirmLoginModal isOpen={showModal} onClose={() => setShowModal(false)} onConfirm={handleLoginClick} isOprecPage={isOprecProker} />
+              </>
+            )}
           </div>
         </>
       )}
 
       {isMobileView && (
         <>
-          {/* Hamburger button with higher z-index */}
           <div className="block fixed top-6 right-6 z-[60]">
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              <Image src={hamburger} alt="menu" width={36} height={36} />
-            </button>
+            <HamburgerButton isOpen={isMobileMenuOpen} onToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
           </div>
 
           <AnimatePresence>
             {isMobileMenuOpen && (
               <>
-                {/* Overlay click blocker */}
                 <div onClick={() => setIsMobileMenuOpen(false)} className="fixed inset-0 z-40" />
 
-                {/* Sidebar */}
                 <motion.div
                   key="sidebar"
                   initial={{ x: '100%' }}
                   animate={{ x: 0 }}
                   exit={{ x: '100%' }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  className="fixed top-0 right-0 h-full md:w-[250px] font-medium w-[200px] bg-white p-6 z-50 flex flex-col gap-4 pt-20 text-lg"
+                  className="fixed top-10 right-0 h-full md:w-[250px] font-medium w-[200px] bg-white p-6 z-50 flex flex-col gap-4 pt-20 text-lg"
                 >
                   <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className={`px-4 py-2 rounded-lg ${isActive('/') ? 'bg-[#002787] text-white font-semibold' : 'text-[#002787]'}`}>
                     Beranda
@@ -165,66 +231,95 @@ export default function Navbar() {
 
                   <div>
                     <button
-                      onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
+                      onClick={() => {
+                        setIsMobileServiceDropdownOpen(!isMobileServiceDropdownOpen);
+                        setIsMobileProfileDropdownOpen(false);
+                      }}
                       className={`w-full text-left px-4 py-2 rounded-lg font-medium flex justify-between items-center ${isActive('/layanan') ? 'bg-[#002787] text-white' : 'text-[#002787]'}`}
                     >
                       Layanan
                       <div className="relative w-[20px] h-[11px] ml-2">
-                        <Image src={dropdown} alt="dropdown" fill className={`object-contain transition-transform duration-300 ease-in-out ${isMobileDropdownOpen ? 'rotate-180' : 'rotate-0'}`} />
+                        <Image src={dropdown} alt="dropdown" fill className={`object-contain transition-transform duration-300 ease-in-out ${isMobileServiceDropdownOpen ? 'rotate-180' : 'rotate-0'}`} />
                       </div>
                     </button>
 
                     <AnimatePresence>
-                      {isMobileDropdownOpen && (
+                      {isMobileServiceDropdownOpen && (
                         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden ml-2 mt-2 flex flex-col gap-1">
-                          <Link
-                            href="/faq"
-                            onClick={() => {
-                              setIsMobileMenuOpen(false);
-                              setIsMobileDropdownOpen(false);
-                            }}
-                            className={`block px-4 py-2 rounded-lg text-sm ${isActive('/faq') ? 'bg-[#002787] text-white font-semibold' : 'text-[#002787]'}`}
-                          >
-                            FAQ
-                          </Link>
-                          <Link
-                            href="/forum-komunikasi"
-                            onClick={() => {
-                              setIsMobileMenuOpen(false);
-                              setIsMobileDropdownOpen(false);
-                            }}
-                            className={`block px-4 py-2 rounded-lg text-sm ${isActive('/forum-komunikasi') ? 'bg-[#002787] text-white font-semibold' : 'text-[#002787]'}`}
-                          >
-                            Forum Komunikasi
-                          </Link>
-                          <Link
-                            href="/jaga-batin"
-                            onClick={() => {
-                              setIsMobileMenuOpen(false);
-                              setIsMobileDropdownOpen(false);
-                            }}
-                            className={`block px-4 py-2 rounded-lg text-sm ${isActive('/jaga-batin') ? 'bg-[#002787] text-white font-semibold' : 'text-[#002787]'}`}
-                          >
-                            Jaga Batin
-                          </Link>
-                          <Link
-                            href="/donasi"
-                            onClick={() => {
-                              setIsMobileMenuOpen(false);
-                              setIsMobileDropdownOpen(false);
-                            }}
-                            className={`block px-4 py-2 rounded-lg text-sm ${isActive('/donasi') ? 'bg-[#002787] text-white font-semibold' : 'text-[#002787]'}`}
-                          >
-                            Donasi
-                          </Link>
+                          {[
+                            { href: '/faq', label: 'FAQ' },
+                            { href: '/forum-komunikasi', label: 'Forum Komunikasi' },
+                            { href: '/jaga-batin', label: 'Jaga Batin' },
+                            { href: '/donasi', label: 'Donasi' },
+                          ].map(({ href, label }) => (
+                            <Link
+                              key={href}
+                              href={href}
+                              onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                setIsMobileServiceDropdownOpen(false);
+                              }}
+                              className={`block px-4 py-2 rounded-lg text-sm ${isActive(href) ? 'bg-[#002787] text-white font-semibold' : 'text-[#002787]'}`}
+                            >
+                              {label}
+                            </Link>
+                          ))}
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
 
-                  <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className={`px-4 py-2 rounded-lg ${isActive('/login') ? 'bg-[#002787] text-white font-semibold' : 'text-[#002787]'}`}>
-                    Log In
-                  </Link>
+                  {isLoggedIn ? (
+                    <div className="relative">
+                      <button
+                        onClick={() => {
+                          setIsMobileProfileDropdownOpen(!isMobileProfileDropdownOpen);
+                          setIsMobileServiceDropdownOpen(false);
+                        }}
+                        className="flex items-center gap-2 w-full text-left px-4 py-2 rounded-lg text-[#002787]"
+                      >
+                        <Image src={profileIcon} alt="Profile Icon" className="w-[6vw]" />
+                        Profile
+                      </button>
+
+                      <AnimatePresence>
+                        {isMobileProfileDropdownOpen && (
+                          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="mt-2 ml-2 flex flex-col gap-2">
+                            <Link
+                              href="/riwayat-pendaftaran"
+                              onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                setIsMobileProfileDropdownOpen(false);
+                              }}
+                              className="flex items-center gap-2 px-4 py-2 rounded-lg text-[#002787]"
+                            >
+                              <Image src={history} alt="Riwayat" className="w-[3vw]" />
+                              Riwayat Pendaftaran
+                            </Link>
+
+                            <button
+                              onClick={() => {
+                                logout();
+                                setIsMobileMenuOpen(false);
+                                setIsMobileProfileDropdownOpen(false);
+                              }}
+                              className="flex items-center gap-2 w-full text-left px-4 py-2 rounded-lg text-[#002787]"
+                            >
+                              <Image src={logoutIcon} alt="Logout" className="w-[3vw]" />
+                              Log out
+                            </button>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <>
+                      <button onClick={handleLoginClick} className={`w-full text-left px-4 py-2 rounded-lg font-medium ${isActive('/login') ? 'bg-[#002787] text-white font-semibold' : 'text-[#002787]'}`}>
+                        Log In
+                      </button>
+                      <ConfirmLoginModal isOpen={showModal} onClose={() => setShowModal(false)} onConfirm={handleLoginClick} isOprecPage={isOprecProker} />
+                    </>
+                  )}
                 </motion.div>
               </>
             )}

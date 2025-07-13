@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_WORK_PROGRAM_BY_SLUG } from '@/graphql/queries/proker/prokerQueries';
 import Image from 'next/image';
+import ConfirmLoginModal from '@/components/common/ConfirmLoginModal';
 
 import FieldInput from '@/components/pendaftaran/FieldInput';
 import FieldSelect from '@/components/pendaftaran/FieldSelect';
@@ -15,11 +16,24 @@ import { SUBMIT_FORM } from '@/graphql/mutations/pendaftaran/SubmitForm';
 import ModalSubmit from '@/components/pendaftaran/ModalSubmit';
 import SkeletonFormPendaftaran from '@/components/pendaftaran/SkeletonFormPendaftaran';
 
+import { useRouter } from 'next/navigation';
+
 export default function FormPendaftaran() {
+  const router = useRouter();
+
   const params = useParams();
   const slug = params?.slug as string;
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSessionExpired, setIsSessionExpired] = useState(false);
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
+  useEffect(() => {
+    if (!token) {
+      setIsLoginModalOpen(true);
+      setIsSessionExpired(false);
+    }
+  }, [token]);
 
   const { data, loading, error } = useQuery(GET_WORK_PROGRAM_BY_SLUG, {
     variables: { slug },
@@ -28,9 +42,22 @@ export default function FormPendaftaran() {
         Authorization: token ? `Bearer ${token}` : '',
       },
     },
+    onError: (err) => {
+      if (err.message.includes('Unauthorized') || err.message.includes('expired')) {
+        setIsLoginModalOpen(true);
+        setIsSessionExpired(true);
+      }
+    },
   });
 
   const workProgram = data?.getWorkProgramBySlug;
+  useEffect(() => {
+    const fillStatus = workProgram?.form?.myResponse?.fillStatus;
+
+    if (fillStatus === 'submitted') {
+      setModalMode('success');
+    }
+  }, [workProgram]);
 
   const fields = useMemo(() => {
     return [...(workProgram?.form?.fields || [])].sort((a: any, b: any) => a.order - b.order);
@@ -39,6 +66,7 @@ export default function FormPendaftaran() {
   const imageUrl = workProgram?.form?.ImageUrl;
 
   const [formData, setFormData] = useState<Record<string, any>>({});
+
   const [insertAnswer] = useMutation(INSERT_ANSWER);
   const [submitForm] = useMutation(SUBMIT_FORM);
   const [modalMode, setModalMode] = useState<'confirm' | 'success' | null>(null);
@@ -269,7 +297,20 @@ export default function FormPendaftaran() {
           </form>
         </div>
       </div>
-      {modalMode && <ModalSubmit mode={modalMode} onClose={() => setModalMode(null)} onConfirm={modalMode === 'confirm' ? handleConfirmSubmit : undefined} groupLink={modalMode === 'success' ? finalGroupLink : undefined} />}
+      {modalMode && <ModalSubmit mode={modalMode} onClose={() => setModalMode(null)} onConfirm={modalMode === 'confirm' ? handleConfirmSubmit : undefined} groupLink={modalMode === 'success' ? finalGroupLink : undefined} slug={slug} />}
+      {isLoginModalOpen && (
+        <ConfirmLoginModal
+          isOpen={true}
+          onClose={() => router.push('/')}
+          onConfirm={() => {
+            const encoded = encodeURIComponent(btoa(JSON.stringify({ slug })));
+            window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?...&state=${encoded}`;
+          }}
+          isOprecPage={true}
+          isSessionExpired={isSessionExpired}
+          slug={slug}
+        />
+      )}
     </div>
   );
 }

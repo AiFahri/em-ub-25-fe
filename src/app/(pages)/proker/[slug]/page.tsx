@@ -19,6 +19,8 @@ import Bubble2 from '@/assets/proker/proker-subpage-bubble2.svg';
 import Bubble3 from '@/assets/proker/proker-subpage-bubble3.svg';
 
 import { GET_WORK_PROGRAM_BY_SLUG, LIST_WORK_PROGRAMS } from '@/graphql/queries/proker/prokerQueries';
+import { SUBMIT_FORM } from '@/graphql/mutations/pendaftaran/SubmitForm';
+import { useMutation } from '@apollo/client';
 import ProkerSideCard from '@/components/proker/ProkerSideCard';
 import useAuth from '@/hooks/useAuth';
 import ModalSubmit from '@/components/pendaftaran/ModalSubmit';
@@ -40,7 +42,6 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [modalMode, setModalMode] = React.useState<'confirm' | 'success' | null>(null);
   const [groupLink, setGroupLink] = React.useState('');
-  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   React.useEffect(() => {
     const checkMobile = () => {
@@ -52,7 +53,8 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
 
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const [submitForm] = useMutation(SUBMIT_FORM);
   const {
     loading: detailLoading,
     error: detailError,
@@ -294,16 +296,20 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
                   <div className="mt-8 flex justify-center">
                     <button
                       onClick={() => {
+                        console.log('[DEBUG] Full proker.form:', proker?.form);
+                        console.log('[DEBUG] myResponse:', proker?.form?.myResponse);
+                        console.log('[DEBUG] fillStatus:', proker?.form?.myResponse?.fillStatus);
+                        console.log('[DEBUG] groupLink:', proker?.form?.groupLink);
+
                         const isSubmitted = proker?.form?.myResponse?.fillStatus === 'submitted';
-
                         const link = proker?.form?.groupLink ?? '';
-                        console.log('fillStatus:', proker?.form?.myResponse?.fillStatus);
-                        console.log('groupLink:', proker?.form?.groupLink);
 
-                        if (isSubmitted && link) {
-                          setGroupLink(link);
+                        if (isSubmitted) {
+                          console.log('[DEBUG] Kondisi: SUDAH SUBMIT');
+
                           setModalMode('success');
                         } else {
+                          console.log('[DEBUG] Kondisi: BELUM SUBMIT atau LINK kosong');
                           setIsModalOpen(true);
                         }
                       }}

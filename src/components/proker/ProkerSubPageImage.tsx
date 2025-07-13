@@ -1,19 +1,13 @@
-// src/components/proker/ProkerSubPageImage.tsx
-
 import React from "react";
 import Image from "next/image";
 import Frame from "@/assets/proker/prokerdetail-mask-shape.svg";
-// Gambar pengganti jika tidak ada gambar dari data
 import FallbackImage from "@/assets/proker/mori-card-proker.svg"; 
 
-// 1. Definisikan interface untuk props komponen
 interface ProkerSubPageImageProps {
   imageUrl: string | null | undefined;
 }
 
 const ProkerSubPageImage: React.FC<ProkerSubPageImageProps> = ({ imageUrl }) => {
-  // 2. Tentukan gambar mana yang akan ditampilkan.
-  // Jika imageUrl ada, gunakan itu. Jika tidak, gunakan gambar pengganti.
   const imageToDisplay = imageUrl || FallbackImage;
 
   return (

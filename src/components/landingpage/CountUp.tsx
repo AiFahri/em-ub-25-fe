@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface CountUpProps {
   target: number;
@@ -7,10 +6,10 @@ interface CountUpProps {
   padStart?: number;
 }
 
-export default function CountUp({ target, duration = 4000, padStart = 0 }: CountUpProps) {
-  const [current, setCurrent] = useState(0);
+function CountUp({ target, duration = 4000, padStart }: CountUpProps) {
+  const [count, setCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,35 +31,22 @@ export default function CountUp({ target, duration = 4000, padStart = 0 }: Count
   useEffect(() => {
     if (!hasAnimated) return;
 
-    let currentValue = 0;
+    let start = 0;
     const increment = target / (duration / 16);
-
     const timer = setInterval(() => {
-      currentValue += increment;
-      if (currentValue >= target) {
-        setCurrent(target);
+      start += increment;
+      if (start >= target) {
+        setCount(target);
         clearInterval(timer);
       } else {
-        setCurrent(Math.ceil(currentValue));
+        setCount(Math.ceil(start));
       }
     }, 16);
 
     return () => clearInterval(timer);
   }, [hasAnimated, target, duration]);
 
-  const paddedStr = String(current).padStart(padStart, '0');
-
-  return (
-    <span ref={ref} className="inline-flex overflow-hidden h-[1em] align-bottom">
-      {paddedStr.split('').map((char, index) => (
-        <div key={index} className="relative w-[0.65em] h-[1em]">
-          <AnimatePresence mode="wait">\
-            <motion.span key={char} initial={{ y: '100%' }} animate={{ y: '0%' }} exit={{ y: '-100%' }} transition={{ duration: 0.25 }} className="absolute left-0 w-full text-center">
-              {char}
-            </motion.span>
-          </AnimatePresence>
-        </div>
-      ))}
-    </span>
-  );
+  return <span ref={ref}>{String(count).padStart(padStart ?? 0, '0')}</span>;
 }
+
+export default CountUp;

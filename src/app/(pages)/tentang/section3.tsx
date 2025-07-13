@@ -17,6 +17,7 @@ export default function Section3() {
           trigger: containerRef.current,
           start: "top 80%",
           end: "bottom 20%",
+          scrub: true,
           toggleActions: "restart reverse restart reverse",
         },
       });

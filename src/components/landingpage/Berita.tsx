@@ -10,10 +10,10 @@ import { beritaData } from '@/data/beritaData';
 import Image from 'next/image';
 import arrowrightblue from '@/assets/landingpage/icons/arrow-right-blue.svg';
 import arrowleftblue from '@/assets/landingpage/icons/arrow-left-blue.svg';
-import SkeletonBeritaCard from './SkeletonBeritaCard';
 import { useQuery } from '@apollo/client';
 import { GET_LANDING_PAGE_DATA } from '@/graphql/queries/getLandingPageData';
 import { motion } from 'framer-motion';
+import SkeletonBeritaCard from './SkeletonBeritaCard';
 
 export default function Berita() {
   const { data, loading, error } = useQuery(GET_LANDING_PAGE_DATA);
@@ -79,7 +79,6 @@ export default function Berita() {
       </section>
     );
   }
-
   if (error) return <p className="text-center">Gagal memuat berita.</p>;
   console.log(beritaData);
 
@@ -90,7 +89,43 @@ export default function Berita() {
       </motion.h2>
 
       <motion.div variants={carouselVariant} className="relative w-full px-4 md:px-10">
-        <div className="hidden md:block absolute inset-0 z-20">
+        <Swiper
+          modules={[Navigation]}
+          loop={true}
+          navigation={{
+            nextEl: '#berita-next',
+            prevEl: '#berita-prev',
+          }}
+          breakpoints={{
+            0: {
+              slidesPerView: 1.5,
+              spaceBetween: 8,
+            },
+            640: {
+              slidesPerView: 2.5,
+              spaceBetween: 12,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            1600: {
+              slidesPerView: 4,
+              spaceBetween: 28,
+            },
+          }}
+          className="mb-16"
+        >
+          {beritaData.map((news: any, index: any) => (
+            <SwiperSlide key={news.id}>
+              <div className="relative h-fit">
+                <BeritaCard id={news.id} title={news.title} date={new Date(news.createdAt).toLocaleDateString('id-ID')} description={news.content} imageUrl={news.imageUrls?.[0] || ''} index={index} />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <div className="hidden md:block absolute inset-0 z-10 pointer-events-none">
           <button
             id="berita-prev"
             className="swiper-button-prev pointer-events-auto absolute left-4 top-1/2 translate-x-[2vw] -translate-y-[5vw]
@@ -113,30 +148,6 @@ export default function Berita() {
             <Image src={arrowrightblue} alt="Next" className="w-[clamp(16px,2vw,28px)] h-auto" />
           </button>
         </div>
-
-        <Swiper
-          modules={[Navigation]}
-          loop={true}
-          navigation={{
-            nextEl: '#berita-next',
-            prevEl: '#berita-prev',
-          }}
-          breakpoints={{
-            0: { slidesPerView: 1.5, spaceBetween: 8 },
-            640: { slidesPerView: 2.5, spaceBetween: 12 },
-            1024: { slidesPerView: 3, spaceBetween: 20 },
-            1600: { slidesPerView: 4, spaceBetween: 28 },
-          }}
-          className="mb-16"
-        >
-          {beritaData.map((news: any, index: any) => (
-            <SwiperSlide key={news.id}>
-              <div className="relative h-fit">
-                <BeritaCard id={news.id} title={news.title} date={new Date(news.createdAt).toLocaleDateString('id-ID')} description={news.content} imageUrl={news.imageUrls?.[0] || ''} index={index} />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
       </motion.div>
     </motion.section>
   );

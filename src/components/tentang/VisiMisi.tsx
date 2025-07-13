@@ -8,12 +8,12 @@ import {
   useTransform,
   MotionValue,
 } from "framer-motion";
-import React, { useRef, useState, FC, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Image from "next/image";
 
-const VisiMisi: FC = () => {
+const VisiMisi = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const visiTitleRef = useRef<HTMLHeadingElement>(null);
   const misiTitleRef = useRef<HTMLHeadingElement>(null);
@@ -129,20 +129,22 @@ const VisiMisi: FC = () => {
           <motion.h2
             ref={visiTitleRef}
             className={`h-[50vh] flex items-center text-[clamp(8vw,8vw,7rem)] font-bold transition-colors duration-500 ease-in-out text-transparent bg-clip-text 
-                        ${isVisiInView
-                ? "bg-gradient-to-r from-[#FF4900] to-[#FF4900]"
-                : "bg-gradient-to-r from-gray-200 to-gray-200"
-              }`}
+                        ${
+                          isVisiInView
+                            ? "bg-gradient-to-r from-[#FF4900] to-[#FF4900]"
+                            : "bg-gradient-to-r from-gray-200 to-gray-200"
+                        }`}
           >
             VISI.
           </motion.h2>
           <motion.h2
             ref={misiTitleRef}
             className={` h-[50vh] flex items-center text-[clamp(8vw,8vw,7rem)] font-bold transition-colors duration-500 ease-in-out text-transparent bg-clip-text 
-                        ${isMisiInView
-                ? "bg-gradient-to-r from-orange-500 to-orange-500"
-                : "bg-gradient-to-r from-gray-200 to-gray-200"
-              }`}
+                        ${
+                          isMisiInView
+                            ? "bg-gradient-to-r from-orange-500 to-orange-500"
+                            : "bg-gradient-to-r from-gray-200 to-gray-200"
+                        }`}
           >
             MISI.
           </motion.h2>

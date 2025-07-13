@@ -72,19 +72,35 @@ export default function Section2() {
   const isInitialMount = useRef(true);
 
   const handleProfileToggle = () => {
-    if (!profileContentRef.current || !descriptionWrapperRef.current || !arrowRef.current) return;
+    if (
+      !profileContentRef.current ||
+      !descriptionWrapperRef.current ||
+      !arrowRef.current
+    )
+      return;
 
-    gsap.timeline({
-      onComplete: () => {
-        setProfilAktif((prev) => (prev === "presiden" ? "wapres" : "presiden"));
-      },
-    }).to([profileContentRef.current, descriptionWrapperRef.current, arrowRef.current], {
-      opacity: 0,
-      y: -20,
-      duration: 0.4,
-      ease: "power2.in",
-      stagger: 0.1,
-    });
+    gsap
+      .timeline({
+        onComplete: () => {
+          setProfilAktif((prev) =>
+            prev === "presiden" ? "wapres" : "presiden"
+          );
+        },
+      })
+      .to(
+        [
+          profileContentRef.current,
+          descriptionWrapperRef.current,
+          arrowRef.current,
+        ],
+        {
+          opacity: 0,
+          y: -20,
+          duration: 0.4,
+          ease: "power2.in",
+          stagger: 0.1,
+        }
+      );
   };
 
   const handleToggleExpand = () => {
@@ -97,10 +113,9 @@ export default function Section2() {
     setIsExpanded(false);
   }, [profilAktif]);
 
-
   const refreshScrollTrigger = () => {
     setTimeout(() => {
-      ScrollTrigger.refresh(true); 
+      ScrollTrigger.refresh(true);
     }, 100);
 
     setTimeout(() => {
@@ -119,7 +134,7 @@ export default function Section2() {
         },
         onUpdate: () => {
           ScrollTrigger.refresh();
-        }
+        },
       });
     }
   }, [isExpanded]);
@@ -136,16 +151,33 @@ export default function Section2() {
         },
       });
       tl.from(".anim-decor", {
-        opacity: 0, scale: 0.5, stagger: { each: 0.2, from: "random" },
-        duration: 0.8, ease: "power2.out",
+        opacity: 0,
+        scale: 0.5,
+        stagger: { each: 0.2, from: "random" },
+        duration: 0.8,
+        ease: "power2.out",
       });
-      tl.from(".anim-main-content, .anim-main-title", {
-        xPercent: -20, opacity: 0, scale: 0.95,
-        duration: 0.8, ease: "power3.out", stagger: 0.1
-      }, ">-0.4");
+      tl.from(
+        ".anim-main-content, .anim-main-title",
+        {
+          xPercent: -20,
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.1,
+        },
+        ">-0.4"
+      );
 
       if (clickMeRef.current) {
-        gsap.to(clickMeRef.current, { y: -15, repeat: -1, yoyo: true, duration: 0.8, ease: "sine.inOut" });
+        gsap.to(clickMeRef.current, {
+          y: -15,
+          repeat: -1,
+          yoyo: true,
+          duration: 0.8,
+          ease: "sine.inOut",
+        });
       }
     }, containerRef);
     return () => ctx.revert();
@@ -156,24 +188,37 @@ export default function Section2() {
       isInitialMount.current = false;
       return;
     }
-    if (profileContentRef.current && descriptionWrapperRef.current && arrowRef.current) {
+    if (
+      profileContentRef.current &&
+      descriptionWrapperRef.current &&
+      arrowRef.current
+    ) {
       gsap.fromTo(
-        [profileContentRef.current, descriptionWrapperRef.current, arrowRef.current],
+        [
+          profileContentRef.current,
+          descriptionWrapperRef.current,
+          arrowRef.current,
+        ],
         { opacity: 0, y: 20 },
         {
-          opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.15, onComplete: () => {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.15,
+          onComplete: () => {
             refreshScrollTrigger();
-          }
+          },
         }
       );
     }
   }, [profilAktif]);
 
-    useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       refreshScrollTrigger();
     }, 500);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -224,8 +269,9 @@ export default function Section2() {
         <Image
           src={dataSekarang.smiley}
           alt="smiley"
-          className={`w-[9%] absolute right-[38%] bottom-[6%] z-10 border-[1.2vw] rounded-full p-[0.7vw] cursor-pointer anim-decor ${profilAktif === "presiden" ? "border-[#FF4900]" : "border-[#0049FF]"
-            }`}
+          className={`w-[9%] absolute right-[38%] bottom-[6%] z-10 border-[1.2vw] rounded-full p-[0.7vw] cursor-pointer anim-decor ${
+            profilAktif === "presiden" ? "border-[#FF4900]" : "border-[#0049FF]"
+          }`}
           onClick={handleProfileToggle}
           width={0}
           height={0}
@@ -248,20 +294,23 @@ export default function Section2() {
 
         <div className="w-[40%] flex flex-col items-center relative">
           <div
-            className={`flex flex-col text-start gap-y-[0.1vw] leading-[10vw] ${profilAktif === "presiden" ? "ml-[0vw]" : "ml-[2.5vw]"
-              }`}
+            className={`flex flex-col text-start gap-y-[0.1vw] leading-[10vw] ${
+              profilAktif === "presiden" ? "ml-[0vw]" : "ml-[2.5vw]"
+            }`}
           >
             <h1
-              className={`font_bold text-outline-kustom2 drop-shadow-sm ${profilAktif === "presiden"
-                ? "text-[6vw] text-[#0049FF]"
-                : "text-[5vw] text-[#FF4900]"
-                }`}
+              className={`font_bold text-outline-kustom2 drop-shadow-sm ${
+                profilAktif === "presiden"
+                  ? "text-[6vw] text-[#0049FF]"
+                  : "text-[5vw] text-[#FF4900]"
+              }`}
             >
               {dataSekarang.jabatan}
             </h1>
             <h2
-              className={`font_bold text-[7vw] text-outline-kustom drop-shadow-sm leading-[6vw] ${profilAktif === "presiden" ? "text-[#0049FF]" : "text-[#FF4900]"
-                }`}
+              className={`font_bold text-[7vw] text-outline-kustom drop-shadow-sm leading-[6vw] ${
+                profilAktif === "presiden" ? "text-[#0049FF]" : "text-[#FF4900]"
+              }`}
             >
               EM UB <br />
               2025
@@ -270,18 +319,21 @@ export default function Section2() {
 
           <div className="flex flex-col items-center justify-center relative gap-y-[1vw] right-[1vw] absolute bottom-[-7%]">
             <h1
-              className={`${styles.namaContainer
-                } py-[1vw] text-center text-white font_bold text-[2.5vw] rounded-full ${profilAktif === "presiden"
+              className={`${
+                styles.namaContainer
+              } py-[1vw] text-center text-white font_bold text-[2.5vw] rounded-full ${
+                profilAktif === "presiden"
                   ? "px-[6vw] bg-[#FF4900]"
                   : "px-[3.2vw] bg-[#0049FF]"
-                }`}
+              }`}
             >
               {dataSekarang.nama}
             </h1>
 
             <h2
-              className={`px-[5vw] py-[1vw] text-center text-white text-[2vw] font-bold rounded-full ${profilAktif === "presiden" ? "bg-[#FF4900]" : "bg-[#0049FF]"
-                }`}
+              className={`px-[5vw] py-[1vw] text-center text-white text-[2vw] font-bold rounded-full ${
+                profilAktif === "presiden" ? "bg-[#FF4900]" : "bg-[#0049FF]"
+              }`}
             >
               {dataSekarang.fakultas}
             </h2>
@@ -294,8 +346,9 @@ export default function Section2() {
           {dataSekarang.welcomeWords.map((text, index) => (
             <p
               key={`welcome-${index}`}
-              className={`text-[1.8vw] mb-[1.5vw] font_bold ${profilAktif === "presiden" ? "w-full" : "max-w-[35%]"
-                }`}
+              className={`text-[3vw] lg:text-[1.8vw] mb-[1.5vw] font_bold ${
+                profilAktif === "presiden" ? "w-full" : "max-w-[35%]"
+              }`}
             >
               {text}
             </p>
@@ -310,7 +363,7 @@ export default function Section2() {
               {dataSekarang.deskripsi.map((text, index) => (
                 <p
                   key={`desc-${index}`}
-                  className="text-[1.8vw] leading-tight mb-[1.5vw]"
+                  className="text-[3vw] lg:text-[1.8vw] text-justify leading-tight mb-[1.5vw]"
                 >
                   {text}
                 </p>
@@ -321,7 +374,7 @@ export default function Section2() {
               {dataSekarang.closingWords.map((text, index) => (
                 <p
                   key={`closing-${index}`}
-                  className="text-[1.8vw] leading-tight max-w-[35%] mb-[1.5vw]"
+                  className="text-[3vw] lg:text-[1.8vw] leading-tight max-w-[35%] mb-[1.5vw]"
                 >
                   {text}
                 </p>
@@ -337,8 +390,9 @@ export default function Section2() {
           <Image
             src="/Assets/icon/tentang/section2/arrow.svg"
             alt="arrow"
-            className={`w-[50%] mx-auto transition-transform duration-500 ease-in-out ${isExpanded ? "rotate-180" : "rotate-0"
-              }`}
+            className={`w-[50%] mx-auto transition-transform duration-500 ease-in-out ${
+              isExpanded ? "rotate-180" : "rotate-0"
+            }`}
             width={0}
             height={0}
           />

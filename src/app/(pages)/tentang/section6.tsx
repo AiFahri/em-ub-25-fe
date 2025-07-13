@@ -222,7 +222,6 @@ export default function Section6() {
               onClick={() => setActiveIndex(index)}
               style={{ cursor: "pointer" }}
               className="anim-folder snap-start flex-shrink-0 sm:px-0 px-[1vw] text-[0.5vw]"
-
             >
               <Folder
                 nama={folder.nama}
@@ -248,7 +247,7 @@ export default function Section6() {
       <div className="rounded-[2vw] bg-[linear-gradient(87.83deg,#A1BCFF_1.25%,#E6EDFF_100%)] w-11/12 sm:justify-between justify-center flex flex-row p-[3vw] aspect-[1680/334] gap-x-[2vw] items-center anim-desc-box">
         <div className="z-30 sm:flex items-end mt-[15vw] ml-[10vw] justify-end flex-col anim-chat-s6 hidden text-justify ">
           <ChatButton size="clamp(1.5vw, 1.5vw, 0.5rem)">
-            Scroll ke bawah!
+            Saatnya bergerak!
           </ChatButton>
         </div>
 

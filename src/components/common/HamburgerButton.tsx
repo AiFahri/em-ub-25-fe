@@ -8,7 +8,7 @@ export default function HamburgerButton({ isOpen, onToggle }: HamburgerButtonPro
     <div className="w-8 h-8 flex flex-col justify-center items-center cursor-pointer z-[60] relative" onClick={onToggle}>
       <div
         className={`absolute w-[28px] h-0.5 bg-black rounded-lg transition-all duration-500 ease-in-out origin-center
-      ${isOpen ? 'rotate-[135deg]  translate-x-[1px] scale-100' : '-translate-y-2'}`}
+      ${isOpen ? 'rotate-[135deg]  translate-x-[0px] scale-100' : '-translate-y-2'}`}
       />
       <div
         className={`absolute w-[28px] h-0.5 bg-black rounded-lg transition-all duration-500 ease-in-out origin-center
@@ -16,7 +16,7 @@ export default function HamburgerButton({ isOpen, onToggle }: HamburgerButtonPro
       />
       <div
         className={`absolute w-[28px] h-0.5 bg-black rounded-lg transition-all duration-500 ease-in-out origin-center
-      ${isOpen ? '-rotate-[135deg] -translate-x-[1px] scale-100' : 'translate-y-2'}`}
+      ${isOpen ? '-rotate-[135deg] -translate-x-[0px] scale-100' : 'translate-y-2'}`}
       />
     </div>
   );

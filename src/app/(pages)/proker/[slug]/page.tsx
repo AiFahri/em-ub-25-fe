@@ -4,6 +4,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { useQuery } from '@apollo/client';
 import { motion } from 'framer-motion';
 import Modal from '@/components/pendaftaran/Modal';
@@ -19,6 +20,8 @@ import Bubble3 from '@/assets/proker/proker-subpage-bubble3.svg';
 
 import { GET_WORK_PROGRAM_BY_SLUG, LIST_WORK_PROGRAMS } from '@/graphql/queries/proker/prokerQueries';
 import ProkerSideCard from '@/components/proker/ProkerSideCard';
+import useAuth from '@/hooks/useAuth';
+import ModalSubmit from '@/components/pendaftaran/ModalSubmit';
 
 import ProkerSubPageImage from '@/components/proker/ProkerSubPageImage';
 
@@ -30,12 +33,15 @@ interface ProkerDetailPageProps {
   };
 }
 
-const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
-  const { slug } = params;
+const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
+  const params = useParams();
+  const slug = params.slug;
   const [isMobile, setIsMobile] = React.useState(false);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [modalMode, setModalMode] = React.useState<'confirm' | 'success' | null>(null);
+  const [groupLink, setGroupLink] = React.useState('');
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
-  // Detect mobile screen size
   React.useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -53,9 +59,25 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
     data: detailData,
   } = useQuery(GET_WORK_PROGRAM_BY_SLUG, {
     variables: { slug },
+    context: {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    },
   });
 
-  const { loading: listLoading, error: listError, data: listData } = useQuery(LIST_WORK_PROGRAMS);
+  const {
+    loading: listLoading,
+    error: listError,
+    data: listData,
+  } = useQuery(LIST_WORK_PROGRAMS, {
+    variables: {
+      input: {
+        keyword: '',
+        orderBy: 'ID_DESC',
+      },
+    },
+  });
 
   const isLoading = detailLoading || listLoading;
   const proker = detailData?.getWorkProgramBySlug;
@@ -74,8 +96,6 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
   }
 
   const mainImageUrl = proker.imageUrls && proker.imageUrls.length > 0 ? `${IMAGE_BASE_URL}${proker.imageUrls[0]}` : null;
-
-  // Animation variants for Mori
   const moriAnimationVariants = {
     animate: {
       y: [0, -40, 0],
@@ -199,7 +219,6 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
                       ></div>
                     </div>
 
-                    {/* Bubble "Program Kerja Menarik" (Bubble1) */}
                     <motion.div
                       className="absolute z-30 pointer-events-none"
                       style={{
@@ -271,10 +290,25 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
                     __html: proker.content || 'Tidak ada deskripsi.',
                   }}
                 />
-
-                {proker.hasForm && (
+                {typeof proker?.hasForm === 'boolean' && proker.hasForm && (
                   <div className="mt-8 flex justify-center">
-                    <button onClick={() => setIsModalOpen(true)} className="inline-block px-10 py-3 bg-[#FF4900] text-white rounded-3xl font-semibold hover:bg-[#0038c1] transition-colors duration-200">
+                    <button
+                      onClick={() => {
+                        const isSubmitted = proker?.form?.myResponse?.fillStatus === 'submitted';
+
+                        const link = proker?.form?.groupLink ?? '';
+                        console.log('fillStatus:', proker?.form?.myResponse?.fillStatus);
+                        console.log('groupLink:', proker?.form?.groupLink);
+
+                        if (isSubmitted && link) {
+                          setGroupLink(link);
+                          setModalMode('success');
+                        } else {
+                          setIsModalOpen(true);
+                        }
+                      }}
+                      className="inline-block px-10 py-1 bg-[#FF4900] text-white rounded-3xl font-semibold hover:bg-[#0038c1] transition-colors duration-200"
+                    >
                       Daftar
                     </button>
                   </div>
@@ -369,7 +403,6 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
                     <Image src={Bubble1} alt="Proker Apanih Braw" className="object-contain drop-shadow-md w-[80vw] h-auto" />
                   </motion.div>
 
-                  {/* Bubble "Waktunya Menjelajah" (Bubble3) */}
                   <motion.div
                     className="absolute z-30 pointer-events-none"
                     style={{
@@ -410,7 +443,6 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
             </div>
           </div>
 
-          {/* Mobile Section - Proker Lainnya */}
           <div className="lg:hidden px-4 sm:px-6 pb-24">
             <div className="space-y-4">
               {otherProkers &&
@@ -432,6 +464,7 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
         }}
         isGeneral={isGeneral}
       />
+      {modalMode === 'success' && <ModalSubmit mode="success" onClose={() => setModalMode(null)} groupLink={groupLink} />}
     </main>
   );
 };

@@ -14,7 +14,7 @@ const cardVariants = {
 
 const imageVariants = {
   initial: { scale: 1 },
-  hover: { scale: 1.03 },
+  hover: { scale: 1.04 },
 };
 
 const arrowVariants = {

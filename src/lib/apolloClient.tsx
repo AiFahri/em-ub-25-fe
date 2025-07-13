@@ -2,7 +2,6 @@
 
 import { ApolloClient, InMemoryCache, ApolloProvider as ApolloHooksProvider, HttpLink, from } from '@apollo/client';
 import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
-import { generateTraceId } from '@/utils/trace';
 
 const uploadLink = createUploadLink({
   uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,

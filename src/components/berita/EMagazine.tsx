@@ -63,8 +63,8 @@ function EMagazine({}: EMagazineProps) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isClient, setIsClient] = useState<boolean>(false);
   const [pdfLoaded, setPdfLoaded] = useState<boolean>(false);
-  const [selectedPdf, setSelectedPdf] = useState<string>("/e-mag/EMAGZVOL2.pdf");
-  const [selectedVolume, setSelectedVolume] = useState<string>("Vol. 1");
+  const [selectedPdf, setSelectedPdf] = useState<string>("/e-mag/tesfile.pdf");
+  const [selectedVolume, setSelectedVolume] = useState<string>("Test Volume");
 
   // Refs untuk animasi GSAP
   const containerRef = useRef<HTMLDivElement>(null);
@@ -80,10 +80,12 @@ function EMagazine({}: EMagazineProps) {
   const ringOrnamentRef = useRef<HTMLDivElement>(null);
   const flipbookRef = useRef<HTMLDivElement>(null);
 
-  // List of available PDF files
+  // List of available PDF files (using smaller test file for now)
+  // TODO: Host large PDF files externally (Google Drive, AWS S3, etc.)
   const pdfFiles = [
-    { name: "Vol. 1", path: "/e-mag/EMAGZVOL2.pdf" },
-    { name: "Vol. 2", path: "/e-mag/SATCITA.pdf" },
+    { name: "Test Volume", path: "/e-mag/tesfile.pdf" },
+    // { name: "Vol. 1", path: "https://your-external-storage.com/EMAGZVOL2.pdf" },
+    // { name: "Vol. 2", path: "https://your-external-storage.com/SATCITA.pdf" },
     // Add more PDF files as needed
   ];
 

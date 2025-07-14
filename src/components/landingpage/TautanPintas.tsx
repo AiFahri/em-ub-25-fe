@@ -17,6 +17,12 @@ import { motion } from 'framer-motion';
 const bgColors = ['#FF4900', '#0049FF', '#0538B9'];
 const overlayColors = ['#FF7C48', '#3A73FF', '#002787'];
 
+export interface LinkItem {
+  id: string;
+  title: string;
+  url: string;
+}
+
 export default function TautanPintas() {
   const { data, loading, error } = useQuery(GET_LANDING_PAGE_DATA);
 
@@ -89,7 +95,7 @@ export default function TautanPintas() {
             }}
             className="swiper-wrapper mb-16"
           >
-            {tautanPintasData.map((links: any, i: any) => (
+            {tautanPintasData.map((links: LinkItem, i: number) => (
               <SwiperSlide key={links.id}>
                 <div onClick={() => router.push(`${links.url}`)} className="cursor-pointer relative h-[200px] lg:h-[320px] overflow-hidden rounded-[30px] group">
                   <div className="absolute inset-0" style={{ backgroundColor: overlayColors[i % overlayColors.length], zIndex: 0 }} />

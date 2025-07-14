@@ -10,8 +10,18 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
 
+export interface WorkProgramItem {
+  id: string;
+  slug: string;
+  title: string;
+  ministryName: string;
+  isMegaBesar: boolean;
+  hasForm?: boolean;
+  imageUrls?: string[];
+}
+
 const ITEMS_PER_PAGE = 6;
-const IMAGE_BASE_URL = 'https://is3.cloudhost.id/em-ub-2025/';
+const IMAGE_BASE_URL = 'https://is3.cloudhost.id/emub/';
 
 const ProkerList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +31,7 @@ const ProkerList: React.FC = () => {
   const kategoriParam = searchParams.get('kategori') as 'all' | 'open' | 'mega' | null;
   const [filter, setFilter] = useState<'all' | 'open' | 'mega'>(kategoriParam || 'all');
   const searchQueryParam = searchParams.get('cari') || '';
+  const [inputValue, setInputValue] = useState(searchQueryParam);
   const [searchQuery, setSearchQuery] = useState(searchQueryParam);
   const { data, loading, error } = useQuery(LIST_WORK_PROGRAMS, {
     variables: {
@@ -33,14 +44,23 @@ const ProkerList: React.FC = () => {
     },
   });
 
-  const workPrograms = data?.listWorkPrograms?.workPrograms || [];
+  const workPrograms: WorkProgramItem[] = data?.listWorkPrograms?.workPrograms || [];
 
-  console.log(
-    workPrograms.map((p: any) => ({
-      title: p.title,
-      hasForm: p.hasForm,
-    }))
-  );
+  const handleSearch = () => {
+    const newParams = new URLSearchParams(searchParams);
+    const trimmed = inputValue.trim();
+
+    if (trimmed === '') {
+      newParams.delete('cari');
+    } else {
+      newParams.set('cari', trimmed);
+    }
+
+    router.push(`?${newParams.toString()}`, { scroll: false });
+
+    setSearchQuery(trimmed);
+    setCurrentPage(1);
+  };
 
   const totalPages = Math.ceil(workPrograms.length / ITEMS_PER_PAGE);
 
@@ -100,24 +120,17 @@ const ProkerList: React.FC = () => {
             <input
               type="text"
               placeholder="Search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearch();
+                }
+              }}
               className="w-full md:w-[350px] px-6 py-4 text-[#0538B9] text-xl font-bold bg-white focus:outline-none border-2 border-[#0538B9] rounded-2xl"
             />
 
-            <button
-              onClick={() => {
-                const newParams = new URLSearchParams(searchParams);
-                if (searchQuery.trim() === '') {
-                  newParams.delete('cari');
-                } else {
-                  newParams.set('cari', searchQuery.trim());
-                }
-                router.push(`?${newParams.toString()}`);
-                setCurrentPage(1);
-              }}
-              className="flex-shrink-0 flex items-center justify-center p-4 text-white transition-colors rounded-2xl border-2 border-[#0538B9]"
-            >
+            <button onClick={handleSearch} className="flex-shrink-0 flex items-center justify-center p-4 text-white transition-colors rounded-2xl border-2 border-[#0538B9]">
               <Image src="/Assets/icon/search-icon.svg" alt="Search Icon" width={24} height={24} />
             </button>
           </div>
@@ -128,7 +141,7 @@ const ProkerList: React.FC = () => {
           {error && <p className="col-span-3 text-center text-red-500">Terjadi kesalahan: {error.message}</p>}
           {!loading &&
             !error &&
-            currentItems.map((proker: any, idx: number) => (
+            currentItems.map((proker: WorkProgramItem, idx: number) => (
               <Link href={`/proker/${proker.slug}`} key={proker.slug || idx} className="group">
                 <ProkerCardMain
                   title={proker.title}
@@ -140,13 +153,12 @@ const ProkerList: React.FC = () => {
             ))}
         </div>
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex justify-center items-center gap-4">
             <button
               onClick={handlePrevPage}
               disabled={currentPage === 1}
-              aria-label="Halaman Sebelumnya" // Untuk aksesibilitas
+              aria-label="Halaman Sebelumnya"
               className="
       w-18 h-18 rounded-full 
       bg-[url('/Assets/icon/left-arrow-icon.svg')] 
@@ -165,7 +177,7 @@ const ProkerList: React.FC = () => {
             <button
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
-              aria-label="Halaman Berikutnya" // Untuk aksesibilitas
+              aria-label="Halaman Berikutnya"
               className="
       w-18 h-18 rounded-full 
       bg-[url('/Assets/icon/right-arrow-icon.svg')] 
@@ -173,9 +185,7 @@ const ProkerList: React.FC = () => {
       transition-transform hover:scale-110
       disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100
     "
-            >
-              {/* Dikosongkan karena gambar sudah menjadi background */}
-            </button>
+            ></button>
           </div>
         )}
       </div>

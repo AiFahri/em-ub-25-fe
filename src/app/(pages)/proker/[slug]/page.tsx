@@ -19,23 +19,32 @@ import Bubble2 from '@/assets/proker/proker-subpage-bubble2.svg';
 import Bubble3 from '@/assets/proker/proker-subpage-bubble3.svg';
 
 import { GET_WORK_PROGRAM_BY_SLUG, LIST_WORK_PROGRAMS } from '@/graphql/queries/proker/prokerQueries';
-import { SUBMIT_FORM } from '@/graphql/mutations/pendaftaran/SubmitForm';
-import { useMutation } from '@apollo/client';
 import ProkerSideCard from '@/components/proker/ProkerSideCard';
-import useAuth from '@/hooks/useAuth';
-import ModalSubmit from '@/components/pendaftaran/ModalSubmit';
+import SubmittedModal from '@/components/pendaftaran/SubmittedModal';
 
 import ProkerSubPageImage from '@/components/proker/ProkerSubPageImage';
 
-const IMAGE_BASE_URL = 'https://is3.cloudhost.id/em-ub-2025/';
+const IMAGE_BASE_URL = 'https://is3.cloudhost.id/emub/';
 
-interface ProkerDetailPageProps {
-  params: {
-    slug: string;
+interface WorkProgram {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  imageUrls?: string[];
+  isMegaBesar: boolean;
+  isGeneral: boolean;
+  registerLink: string;
+  form?: {
+    myResponse?: {
+      fillStatus?: string;
+    };
+    groupLink?: string;
   };
+  ministryName: string;
 }
 
-const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
+const ProkerDetailPage = () => {
   const params = useParams();
   const slug = params.slug;
   const [isMobile, setIsMobile] = React.useState(false);
@@ -54,7 +63,6 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-  const [submitForm] = useMutation(SUBMIT_FORM);
   const {
     loading: detailLoading,
     error: detailError,
@@ -84,7 +92,7 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
   const isLoading = detailLoading || listLoading;
   const proker = detailData?.getWorkProgramBySlug;
 
-  const otherProkers = listData?.listWorkPrograms?.workPrograms.filter((p: any) => p.slug !== slug);
+  const otherProkers = listData?.listWorkPrograms?.workPrograms.filter((p: WorkProgram) => p.slug !== slug);
   const isGeneral = proker?.isGeneral;
 
   if (isLoading) {
@@ -156,10 +164,8 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
             </h1>
           </header>
 
-          {/* Main Content Grid (Desktop) */}
           <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-24">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-12 xl:gap-x-16 gap-y-12 items-start">
-              {/* --- GAMBAR UTAMA (KIRI ATAS) --- */}
               <div
                 className="lg:col-span-2 container"
                 style={{
@@ -169,7 +175,6 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
                 <ProkerSubPageImage imageUrl={mainImageUrl} />
               </div>
 
-              {/* --- MASKOT (KANAN ATAS) --- */}
               <div
                 className="hidden lg:flex flex-col gap-8 items-center"
                 style={{
@@ -302,14 +307,12 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
                         console.log('[DEBUG] groupLink:', proker?.form?.groupLink);
 
                         const isSubmitted = proker?.form?.myResponse?.fillStatus === 'submitted';
-                        const link = proker?.form?.groupLink ?? '';
 
                         if (isSubmitted) {
-                          console.log('[DEBUG] Kondisi: SUDAH SUBMIT');
-
+                          const groupLink = proker?.form?.groupLink ?? '';
+                          setGroupLink(groupLink);
                           setModalMode('success');
                         } else {
-                          console.log('[DEBUG] Kondisi: BELUM SUBMIT atau LINK kosong');
                           setIsModalOpen(true);
                         }
                       }}
@@ -329,7 +332,7 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
                 }}
               >
                 {otherProkers &&
-                  otherProkers.map((otherProker: any) => (
+                  otherProkers.map((otherProker: WorkProgram) => (
                     <Link href={`/proker/${otherProker.slug}`} key={otherProker.slug} className="transform transition-all duration-300">
                       <ProkerSideCard title={otherProker.title} type={otherProker.isMegaBesar ? 'Mega Besar' : 'Open Recruitment'} department={otherProker.ministryName} />
                     </Link>
@@ -452,7 +455,7 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
           <div className="lg:hidden px-4 sm:px-6 pb-24">
             <div className="space-y-4">
               {otherProkers &&
-                otherProkers.slice(0, 4).map((otherProker: any) => (
+                otherProkers.slice(0, 4).map((otherProker: WorkProgram) => (
                   <Link href={`/proker/${otherProker.slug}`} key={otherProker.slug} className="block transform transition-all duration-300">
                     <ProkerSideCard title={otherProker.title} type={otherProker.isMegaBesar ? 'Mega Besar' : 'Open Recruitment'} department={otherProker.ministryName} />
                   </Link>
@@ -470,7 +473,7 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = () => {
         }}
         isGeneral={isGeneral}
       />
-      {modalMode === 'success' && <ModalSubmit mode="success" onClose={() => setModalMode(null)} groupLink={groupLink} />}
+      {modalMode === 'success' && <SubmittedModal mode="success" onClose={() => setModalMode(null)} groupLink={groupLink} />}
     </main>
   );
 };

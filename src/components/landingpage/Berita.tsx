@@ -6,7 +6,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import BeritaCard from './BeritaCard';
-import { beritaData } from '@/data/beritaData';
 import Image from 'next/image';
 import arrowrightblue from '@/assets/landingpage/icons/arrow-right-blue.svg';
 import arrowleftblue from '@/assets/landingpage/icons/arrow-left-blue.svg';
@@ -14,6 +13,14 @@ import { useQuery } from '@apollo/client';
 import { GET_LANDING_PAGE_DATA } from '@/graphql/queries/getLandingPageData';
 import { motion } from 'framer-motion';
 import SkeletonBeritaCard from './SkeletonBeritaCard';
+
+export interface NewsItem {
+  id: number;
+  title: string;
+  content: string;
+  createdAt: string;
+  imageUrls?: string[];
+}
 
 export default function Berita() {
   const { data, loading, error } = useQuery(GET_LANDING_PAGE_DATA);
@@ -70,7 +77,7 @@ export default function Berita() {
             {Array.from({ length: 4 }).map((_, i) => (
               <SwiperSlide key={i}>
                 <div className="relative h-fit">
-                  <SkeletonBeritaCard index={i} />
+                  <SkeletonBeritaCard />
                 </div>
               </SwiperSlide>
             ))}
@@ -80,7 +87,6 @@ export default function Berita() {
     );
   }
   if (error) return <p className="text-center">Gagal memuat berita.</p>;
-  console.log(beritaData);
 
   return (
     <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} className="bg-white font-sans relative">
@@ -116,7 +122,7 @@ export default function Berita() {
           }}
           className="mb-16"
         >
-          {beritaData.map((news: any, index: any) => (
+          {beritaData.map((news: NewsItem, index: number) => (
             <SwiperSlide key={news.id}>
               <div className="relative h-fit">
                 <BeritaCard id={news.id} title={news.title} date={new Date(news.createdAt).toLocaleDateString('id-ID')} description={news.content} imageUrl={news.imageUrls?.[0] || ''} index={index} />

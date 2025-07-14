@@ -13,8 +13,7 @@ const ModalSubmit: React.FC<ModalSubmitProps> = ({ mode, onClose, onConfirm, gro
   const router = useRouter();
   const handleClose = () => {
     if (mode === 'success' && slug) {
-      router.push(`/proker/${slug}`);
-      window.location.reload();
+      router.replace(`/proker/${slug}`);
     } else {
       onClose();
     }
@@ -50,16 +49,12 @@ const ModalSubmit: React.FC<ModalSubmitProps> = ({ mode, onClose, onConfirm, gro
           </>
         ) : (
           <>
-            <p className="text-[#0538B9] text-sm sm:text-base leading-relaxed">
-              Kami menghargai partisipasi Anda dalam program ini.
-              <br />
-              Pantau terus informasi selanjutnya melalui website kami.
-            </p>
+            <p className="text-[#0538B9] text-sm sm:text-base leading-relaxed">Kami menghargai partisipasi Anda dalam program ini. Pantau terus informasi selanjutnya melalui website kami.</p>
             {groupLink && (
               <p className="text-sm text-[#0538B9] mt-3">
-                Gabung grup WhatsApp: <br />
-                <a href={groupLink} target="_blank" rel="noopener noreferrer" className="font-semibold underline text-[#0049FF] hover:text-[#002787] transition">
-                  <span>{groupLink}</span>
+                Silahkan bergabung ke grup: <br />
+                <a href={groupLink} target="_blank" rel="noopener noreferrer" className="font-semibold underline text-[#0049FF] hover:text-[#002787] transition break-all max-w-full inline-block">
+                  {groupLink}
                 </a>
               </p>
             )}

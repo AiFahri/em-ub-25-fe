@@ -3,9 +3,8 @@
 import React, { useState, useEffect, DragEvent } from 'react';
 import Image from 'next/image';
 import cloud from '@/assets/pendaftaran/cloud.svg';
-import { INSERT_ANSWER } from '@/graphql/mutations/pendaftaran/SubmitForm';
-import { useMutation } from '@apollo/client';
-import useAuth from '@/hooks/useAuth';
+// import { INSERT_ANSWER } from '@/graphql/mutations/pendaftaran/SubmitForm';
+// import { useMutation } from '@apollo/client';
 
 type FileWrapper = {
   file: File | null;
@@ -32,7 +31,6 @@ const fileCategoryMap: Record<string, string[]> = {
 export default function FieldUpload({ label, name, value = [], onChange, fileCategories, maxFile, maxFileSize }: FieldUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<FileWrapper[]>(value);
-  const [insertAnswer] = useMutation(INSERT_ANSWER);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   useEffect(() => {
@@ -59,9 +57,8 @@ export default function FieldUpload({ label, name, value = [], onChange, fileCat
       const isValidExt = !allowedExt.length || allowedExt.includes(ext || '');
       const isValidSize = file.size <= maxSize;
 
-      // Cek semua nama file yang sudah dipilih, baik yang lama (selected) maupun baru (dalam loop ini)
       const isDuplicate = [...selectedFiles, ...newFiles].some((f) => {
-        const existingName = f.file?.name || f.url?.split('/').pop(); // handle file dan restored url
+        const existingName = f.file?.name || f.url?.split('/').pop();
         return existingName === file.name;
       });
 
@@ -118,32 +115,14 @@ export default function FieldUpload({ label, name, value = [], onChange, fileCat
 
   const handleRemoveFile = async (index: number) => {
     const fileToRemove = selectedFiles[index];
-    const token = localStorage.getItem('token');
 
     if (fileToRemove.uploaded && fileToRemove.url) {
       try {
-        const result = await insertAnswer({
-          variables: {
-            input: {
-              fieldID: parseInt(name),
-              image: null,
-              deleted_image: fileToRemove.url?.replace('https://is3.cloudhost.id/em-ub-2025/', ''),
-            },
-          },
-          context: {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        });
-
-        console.log('✅ File dihapus:', result.data);
-
         const updated = selectedFiles.filter((_, i) => i !== index);
         setSelectedFiles(updated);
         onChange(name, updated);
-      } catch (err) {
-        console.error('❌ Gagal hapus file di server:', err);
+      } catch {
+        // console.error('❌ Gagal hapus file di server:', err);
       }
     } else {
       const updated = selectedFiles.filter((_, i) => i !== index);

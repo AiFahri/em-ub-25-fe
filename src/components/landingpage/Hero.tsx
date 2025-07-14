@@ -35,21 +35,6 @@ const textVariant = {
   }),
 };
 
-const moriVariant = {
-  hidden: { opacity: 0, y: 100, rotate: -10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    rotate: 0,
-    transition: {
-      delay: 0.8,
-      type: 'spring',
-      bounce: 0.4,
-      duration: 1,
-    },
-  },
-};
-
 const Hero = () => {
   return (
     <section className="relative w-full bg-white md:my-10 overflow-x-hidden">

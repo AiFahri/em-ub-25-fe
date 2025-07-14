@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion';
 
-export default function SkeletonBeritaCard({ index }: { index: number }) {
+export default function SkeletonBeritaCard() {
   return (
     <motion.div
-      className="min-w-[240px] sm:min-w-[250px] md:min-w-[280px] lg:min-w-[300px] xl:min-w-[440px] 
+      className="min-w-[240px] sm:min-w-[250px] md:min-w-[280px] lg:min-w-[300px]
       p-4 rounded-2xl mx-auto h-full space-y-3 relative animate-pulse"
       style={{ transformOrigin: 'center center' }}
     >

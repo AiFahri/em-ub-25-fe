@@ -22,7 +22,7 @@ export default function FieldCheckboxGroup({ label, name, options, value, onChan
                 onChange={(e) => {
                   const checked = e.target.checked;
                   const newValue = checked ? [...value, opt.value] : value.filter((v) => v !== opt.value);
-                  console.log('✅ Checkbox Changed:', name, newValue);
+
                   onChange(name, newValue);
                 }}
                 className="accent-[#7CA1FF] w-4 h-4 rounded focus:ring-[#7CA1FF] border-[#7CA1FF]"

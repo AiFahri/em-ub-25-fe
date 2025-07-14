@@ -12,7 +12,6 @@ import calendarIcon from '@/assets/landingpage/icons/calendar.svg';
 import bubblechat from '@/assets/landingpage/background/bubblechat.svg';
 import logo from '@/assets/logo/logoEM.svg';
 import borderkalender from '@/assets/landingpage/background/border-kalender.svg';
-import deskripsimori from '@/assets/landingpage/background/deskripsi-mori.svg';
 import eclipse from '@/assets/landingpage/icons/welcome-eclipse.svg';
 import decor from '@/assets/landingpage/icons/welcome-decor-1.svg';
 import line from '@/assets/landingpage/icons/Line.svg';

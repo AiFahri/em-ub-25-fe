@@ -11,11 +11,10 @@ import dropdown from '@/assets/landingpage/icons/dropdown.svg';
 import { GET_WORK_PROGRAM_BY_SLUG } from '@/graphql/queries/proker/prokerQueries';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConfirmLoginModal from './ConfirmLoginModal';
-import { useRouter } from 'next/navigation';
 import HamburgerButton from './HamburgerButton';
 import profileIcon from '@/assets/landingpage/icons/profile.svg';
 import { useQuery } from '@apollo/client';
-import history from '@/assets/landingpage/icons/history.svg';
+// import history from '@/assets/landingpage/icons/history.svg';
 import logoutIcon from '@/assets/landingpage/icons/Logout.svg';
 import Modal from '../pendaftaran/Modal';
 
@@ -49,9 +48,6 @@ export default function Navbar() {
 
   const slug = currentSlug;
   const isOnProkerSlugPage = Boolean(slug);
-  console.log('🔍 pathname:', pathname);
-  console.log('🔍 currentSlug:', currentSlug);
-  console.log('🔍 isOnProkerSlugPage:', isOnProkerSlugPage);
 
   const { data: prokerData } = useQuery(GET_WORK_PROGRAM_BY_SLUG, {
     variables: { slug },
@@ -74,6 +70,14 @@ export default function Navbar() {
   const isActive = (path: string) => {
     const current = pathname?.toLowerCase().replace(/\/$/, '');
     const target = path.toLowerCase().replace(/\/$/, '');
+    if (target === '/proker') {
+      return current === '/proker' || current.startsWith('/proker/');
+    }
+    if (target === '/layanan') {
+      const layananPaths = ['/faq', '/forum-komunikasi', '/jaga-batin', '/donasi'];
+      return layananPaths.includes(current);
+    }
+
     return current === target;
   };
 
@@ -182,10 +186,10 @@ export default function Navbar() {
                       transition={{ duration: 0.2 }}
                       className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-50 overflow-hidden"
                     >
-                      <Link href="/riwayat-pendaftaran" className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-[#002787]">
+                      {/* <Link href="/riwayat-pendaftaran" className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-[#002787]">
                         <Image src={history} alt="Riwayat" width={20} height={20} />
                         Riwayat Pendaftaran
-                      </Link>
+                      </Link> */}
                       <button onClick={logout} className="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-100 text-[#002787]">
                         <Image src={logoutIcon} alt="Logout" width={20} height={20} />
                         Log out
@@ -311,7 +315,7 @@ export default function Navbar() {
                       <AnimatePresence>
                         {isMobileProfileDropdownOpen && (
                           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="mt-2 ml-2 flex flex-col gap-2">
-                            <Link
+                            {/* <Link
                               href="/riwayat-pendaftaran"
                               onClick={() => {
                                 setIsMobileMenuOpen(false);
@@ -321,7 +325,7 @@ export default function Navbar() {
                             >
                               <Image src={history} alt="Riwayat" className="w-[3vw]" />
                               Riwayat Pendaftaran
-                            </Link>
+                            </Link> */}
 
                             <button
                               onClick={() => {

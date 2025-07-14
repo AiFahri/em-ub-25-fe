@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import arrowRight from '@/assets/landingpage/icons/arrow-right.svg';
 
 import circle from '@/assets/landingpage/icons/programkerjacard/circle.svg';

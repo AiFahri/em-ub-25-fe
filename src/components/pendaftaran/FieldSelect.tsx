@@ -18,7 +18,7 @@ export default function FieldSelect({ label, name, options, value, onChange }: F
       <div className="relative">
         <select id={name} name={name} value={value} onChange={(e) => onChange(e.target.value)} className="appearance-none bg-[#E8EEFF] text-[#002787] px-4 py-2 pr-10 rounded-xl w-full">
           <option value="" disabled hidden>
-            -- Pilih {label} --
+            Pilih {label}
           </option>
           {options.map((opt, idx) => (
             <option key={idx} value={opt.value}>

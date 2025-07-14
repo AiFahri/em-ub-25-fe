@@ -3,14 +3,13 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ProgramKerjaCard from './ProgramKerjaCard';
-import { programList } from '@/data/programKerjaData';
 import face from '@/assets/landingpage/icons/maskot-face.svg';
 import circleBlue from '@/assets/landingpage/icons/circle-blue.svg';
 import circleQuarter from '@/assets/landingpage/icons/circle-quarter-blue.svg';
 import k from '@/assets/landingpage/icons/k-outline.svg';
 import CountUp from './CountUp';
 import SkeletonProgramKerjaCard from './SkeletonProgramKerjaCard';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import vektor33 from '@/assets/landingpage/icons/Vector33.svg';
 import vektor34 from '@/assets/landingpage/icons/Vector34.svg';
 import { useQuery } from '@apollo/client';
@@ -203,7 +202,15 @@ export default function ProgramKerja() {
         <div ref={scrollRef} className="overflow-x-auto scrollbar-hide relative z-20">
           <div className="flex gap-6 md:mt-10 md:px-4 w-max">
             {[...workProgramsData, ...workProgramsData].map((workProgram, i) => (
-              <ProgramKerjaCard index={i} key={workProgram.id} title={workProgram.title} description={workProgram.content} kementerian={workProgram.ministryID} bgColor={bgColorPattern[i % bgColorPattern.length]} slug={workProgram.slug} />
+              <ProgramKerjaCard
+                index={i}
+                key={`${workProgram.id}-${i}`}
+                title={workProgram.title}
+                description={workProgram.content}
+                kementerian={workProgram.ministryID}
+                bgColor={bgColorPattern[i % bgColorPattern.length]}
+                slug={workProgram.slug}
+              />
             ))}
           </div>
         </div>

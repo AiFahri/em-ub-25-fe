@@ -11,7 +11,6 @@ const Page = () => {
   };
 
   const handleConfirmSubmit = () => {
-    console.log('Submit berhasil!');
     setModalMode('success');
   };
 

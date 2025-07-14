@@ -1,4 +1,3 @@
-import WelcomeMobile from '@/components/landingpage/WelcomeMobile';
 import Footer from '../components/common/Footer';
 import Navbar from '../components/common/Navbar';
 import Berita from '../components/landingpage/Berita';

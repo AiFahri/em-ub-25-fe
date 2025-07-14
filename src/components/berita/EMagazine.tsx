@@ -5,7 +5,6 @@ import React from "react";
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Image from "next/image";
-import EMagazineBg from "@/assets/berita/background/emagazine.svg";
 
 
 // Disable SSR untuk komponen PDF

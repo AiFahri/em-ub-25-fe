@@ -31,7 +31,7 @@ export default function GoogleCallback() {
     if (code && state) {
       runCallback({ variables: { code, state } });
     }
-  }, [code, state]);
+  }, [code, state, runCallback]);
 
   useEffect(() => {
     if (data?.oAuthCallback?.accessToken) {
@@ -40,11 +40,13 @@ export default function GoogleCallback() {
 
       window.dispatchEvent(new Event('authChanged'));
 
-      const decoded = JSON.parse(atob(decodeURIComponent(state!)));
-      const slug = decoded.slug;
-      router.push(`/pendaftaran/${slug}`);
+      if (state) {
+        const decoded = JSON.parse(atob(decodeURIComponent(state)));
+        const slug = decoded.slug;
+        router.push(`/pendaftaran/${slug}`);
+      }
     }
-  }, [data]);
+  }, [data, router, state]);
 
   if (loading) return <SkeletonFormPendaftaran />;
   if (error) return <p className="text-center mt-10 text-red-500">Login gagal: {error.message}</p>;

@@ -16,6 +16,12 @@ function getFullImageUrl(imageUrl?: string) {
   return `https://is3.cloudhost.id/em-ub-2025/${imageUrl.replace(/^\/+/, '')}`;
 }
 
+function truncateWords(text: string, maxWords: number = 30): string {
+  const words = text.split(' ');
+  if (words.length <= maxWords) return text;
+  return words.slice(0, maxWords).join(' ') + '...';
+}
+
 export default function BeritaCard({
   title,
   date,
@@ -50,10 +56,12 @@ export default function BeritaCard({
       <div className="mx-3 mt-6  md:mt-8 overflow-visible relative"> {/* ✅ Padding responsif */}
         <div className="rounded-[30px] bg-white/20 items-center flex flex-col justify-center  inverted-radius-big "> 
           {imageUrl ? (
-            <img
-              src={getFullImageUrl(imageUrl)}
+            <Image
+              src={getFullImageUrl(imageUrl) || '/placeholder-image.jpg'}
               alt={title}
-              className="object-cover w-full h-full"
+              width={500}
+              height={300}
+              className="object-cover w-full h-full "
               loading="lazy"
               draggable={false}
             />
@@ -85,8 +93,8 @@ export default function BeritaCard({
          <p className="text-sm md:text-base text-white opacity-80 mb-4 flex-shrink-0">{ministryName}
           
           </p> 
-        <p className="text-sm md:text-base text-white flex-grow overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/30 hover:scrollbar-thumb-white/50"> {/* ✅ Ukuran font deskripsi dan styling scrollbar */}
-          {description}
+        <p className="text-sm md:text-base text-white flex-grow overflow-hidden"> {/* ✅ Removed scroll, added overflow-hidden */}
+          {truncateWords(description, 70  )} {/* ✅ Limit to 25 words */}
         </p>
       </div>
     </div>

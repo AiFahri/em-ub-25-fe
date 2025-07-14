@@ -477,3 +477,22 @@
     var(--_g) 0 calc(var(--_d) + var(--y));
   mask-repeat: no-repeat;
 }
+
+/* Custom blue scrollbar for news content */
+.news-content-scrollbar {
+    padding-right: 12px;
+}
+.news-content-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.news-content-scrollbar::-webkit-scrollbar-track {
+    background: #e5e7eb;
+    border-radius: 10px;
+}
+.news-content-scrollbar::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 10px;
+}
+.news-content-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+}

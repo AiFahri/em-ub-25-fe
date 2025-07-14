@@ -1,3 +1,7 @@
+import BgBlue from '@/assets/proker/prokercard-bg-blue.svg';
+import BgOrange from '@/assets/proker/prokercard-bg.svg';
+import Image from 'next/image';
+
 type BeritaCardSideProps = {
   title: string;
   category?: string;
@@ -7,13 +11,23 @@ type BeritaCardSideProps = {
 
 const BeritaCardSide = ({ title, category, ministryName, color }: BeritaCardSideProps) => {
   const bgColor = color === 'blue' ? 'bg-[#003EA7]' : 'bg-[#FF4500]';
+  const backgroundImage = color === 'blue' ? BgBlue : BgOrange;
   
   return (
     <div className={`relative ${bgColor} rounded-3xl p-6 text-white w-full overflow-hidden shadow-md`}>
       
-      <div className="absolute right-0 sm:-right-8 bottom-0 sm:-bottom-8 sm:w-[15vw] w-[30vw] h-[40vw] sm:h-[20vw] border-white/10 border-32 rotate-[15deg] rounded-full" />
-      <div className="absolute  right-0 -bottom-3 sm:-bottom-10 sm:w-[13vw] sm:h-[13vw] w-[40vw] h-[40vw] border-5 border-white/5 rounded-full" />
-
+      {/* Background Image */}
+      <div className="absolute inset-0 rounded-3xl overflow-hidden">
+        <Image 
+          src={backgroundImage}
+          alt={`${color} background`}
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+      
+      
       <div className="relative z-10">
         <div className="flex justify-end mb-2">
           {category && (

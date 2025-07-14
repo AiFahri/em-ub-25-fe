@@ -39,7 +39,8 @@ import ResultFlow from '../../components/comingsoon/ResultFlow';
 
 import Opening from '../../components/comingsoon/Opening';
 
-export default function NotFound() {
+export default function Game() {
+
   const [userChoice, setUserChoice] = useState<Choice | null>(null);
   const [botChoice, setBotChoice] = useState<Choice | null>(null);
   const [result, setResult] = useState<Result | null>(null);
@@ -64,23 +65,26 @@ export default function NotFound() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
+  
+useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'auto' });
 
-    resetToOpening();
-  }, []);
+  resetToOpening();
+}, []);
 
-  const resetToOpening = () => {
-    setUserChoice(null);
-    setBotChoice(null);
-    setResult(null);
-    setIsOpening(true);
-    setShowPlayBtn(true);
-    setShowResultFlow(false);
-    setCurrentView('opening');
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  };
 
+const resetToOpening = () => {
+  setUserChoice(null);
+  setBotChoice(null);
+  setResult(null);
+  setIsOpening(true);
+  setShowPlayBtn(true);
+  setShowResultFlow(false);
+  setCurrentView('opening');
+  window.scrollTo({ top: 0, behavior: 'auto' });
+};
+
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsOpening(false);
@@ -200,13 +204,11 @@ export default function NotFound() {
   useEffect(() => {
     if (userChoice && botChoice && result) {
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [currentView, userChoice, botChoice, result]);
+
+      return () => { document.body.style.overflow = ''; };
+    }, []);
+
+    
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -215,40 +217,91 @@ export default function NotFound() {
     };
   }, []);
 
-  const handlePlay = () => {
-    setCurrentView('game');
-    setTimeout(() => {
-      if (gameRef.current) {
-        gameRef.current.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
-  };
 
-  if (currentView === 'result' && userChoice && botChoice && result) {
-    return (
-      <div ref={resultRef} className=" w-full h-screen overflow-hidden">
-        <BgGrid classNameVertical="opacity-40 object-cover translate-x-[-20%] translate-y-[0.5%]" classNameHorizontal="opacity-40 object-cover translate-y-[34%] z-50" speedVertical={1} speedHorizontal={1} />
-        <div className="absolute inset-0 bg-[#001B5E]" />
-
-        <div
-          className="absolute inset-0 opacity-70 sm:block hidden"
-          style={{
-            background: 'linear-gradient(200.32deg, #000000 -20.61%, #0049FF 184.91%)',
-            clipPath: 'polygon(58% 0%, 58% 0%, 52% 40%, 41% 100%)',
-          }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.45] sm:block hidden"
-          style={{
-            background: 'linear-gradient(200.32deg, #000000 -20.61%, #0049FF 184.91%)',
-            clipPath: 'polygon(0% 100%, 41% 100%, 58% 0%, 0% 0%)',
-          }}
-        />
-
-        <motion.div initial={{ y: 500 }} animate={{ y: 0 }} transition={{ duration: 0.5, ease: 'easeInOut' }} className="relative z-20 flex flex-col items-center justify-center h-full">
-          <div className="sm:block hidden">
-            <div className="flex flex-row items-center justify-center absolute top-6 right-0 left-0">
-              <Image src={whitelogo} alt="white logo" className="w-auto" />
+if (currentView === 'result' && userChoice && botChoice && result) {
+      return (
+        <div ref={resultRef} className=" w-full h-screen overflow-hidden">
+          <BgGrid 
+            classNameVertical="opacity-40 object-cover translate-x-[-20%] translate-y-[0.5%]" 
+            classNameHorizontal="opacity-40 object-cover translate-y-[34%] z-50" 
+            speedVertical={1} 
+            speedHorizontal={1} 
+          />
+          <div className="absolute inset-0 bg-[#001B5E]" />
+  
+          <div
+            className="absolute inset-0 opacity-70 sm:block hidden"
+            style={{
+              background: 'linear-gradient(200.32deg, #000000 -20.61%, #0049FF 184.91%)',
+              clipPath: 'polygon(58% 0%, 58% 0%, 52% 40%, 41% 100%)',
+            }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.45] sm:block hidden"
+            style={{
+              background: 'linear-gradient(200.32deg, #000000 -20.61%, #0049FF 184.91%)',
+              clipPath: 'polygon(0% 100%, 41% 100%, 58% 0%, 0% 0%)',
+            }}
+          />
+  
+          <motion.div 
+            initial={{ y: 500 }} 
+            animate={{ y: 0 }} 
+            transition={{ duration: 0.5, ease: 'easeInOut' }} 
+            className="relative z-20 flex flex-col items-center justify-center h-full"
+          >
+            <div className="sm:block hidden">
+              <div className="flex flex-row items-center justify-center absolute top-6 right-0 left-0">
+                <Image src={whitelogo} alt="white logo" className="w-auto" />
+              </div>
+            </div>
+  
+            <div className="hidden sm:flex flex-row items-center justify-between w-full xl:px-20 lg:px-16 md:px-12 sm:px-4 px-5 xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[50px] absolute xl:-translate-y-[150%] sm:-translate-y-[180%]">
+              <h1 className="text-[#0049FF] font_bold">Mori</h1>
+              <h1 className="text-[#FF4900] font_bold xl:pr-16 lg:pr-12 sm:pr-8 pr-4">you</h1>
+            </div>
+  
+            <div className="sm:hidden flex flex-col items-center justify-center absolute right-0 left-0 translate-y-[-130%]">
+              <p className="font_regular text-white text-[20px]">{labelMap[botDisplayChoice]}</p>
+              <h1 className="font_bold text-[#0049FF] text-[36px] tracking-tight leading-none">Mori</h1>
+            </div>
+  
+            <div className="relative w-full ">
+              <div className="flex sm:flex-row relative flex-col justify-between h-screen items-center">
+                <div className="relative">
+                  {botChoice && (
+                      <Image 
+                        src={imageMapBot[botDisplayChoice]} 
+                        alt="pilihan bot"
+                        className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:h-auto h-[30vh]" 
+                      />
+                  
+                  )}
+                </div>
+                <div className="relative ">
+                  {userChoice && (
+                
+                      
+                      <Image 
+                        src={imageMapUser[userChoice]} 
+                        alt="pilihan user" 
+                        className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw]  sm:h-auto h-[30vh] object-contain" 
+                      />
+                   
+                  )}
+                </div>
+              </div>
+              <h1 className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 font_bold xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[60px] text-white">VS</h1>
+            </div>
+  
+            <div className="sm:hidden flex flex-col items-center justify-center absolute right-0 left-0 translate-y-[130%]">
+              <h1 className="font_bold text-[#FF4900] text-[36px] tracking-tight leading-none">You</h1>
+              <p className="font_regular text-white text-[20px]">{labelMap[userChoice]}</p>
+            </div>
+  
+            <div className="hidden sm:flex flex-row items-center justify-between w-full xl:px-40 lg:px-30 md:px-25 sm:px-15 px-10 xl:text-[42.52px] lg:text-[38px] md:text-[30px] text-[20px] absolute translate-y-[500%]">
+              <h1 className="font_regular text-white">{labelMap[botDisplayChoice]}</h1>
+              <h1 className="font_regular text-white">{labelMap[userChoice]}</h1>
             </div>
           </div>
 

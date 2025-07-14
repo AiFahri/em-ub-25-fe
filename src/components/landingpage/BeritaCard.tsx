@@ -42,7 +42,7 @@ export default function BeritaCard({ title, date, description, imageUrl, index }
               <Image src="/Assets/icon/landingpage/placeholder.svg" alt={title} width={48} height={48} />
             </div>
           ) : (
-            <Image src={`https://is3.cloudhost.id/em-ub-2025/${imageUrl.replace(/^\/+/, '')}`} alt={title} fill className="object-cover transition-all" />
+            <Image src={`https://is3.cloudhost.id/emub/${imageUrl.replace(/^\/+/, '')}`} alt={title} fill className="object-cover transition-all" />
           )}
         </motion.div>
 

@@ -45,6 +45,7 @@ export const GET_WORK_PROGRAM_BY_SLUG = gql`
         id
         category
         categoryName
+        description
         ImageUrl
         isPublished
         groupLink

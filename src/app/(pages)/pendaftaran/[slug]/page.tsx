@@ -18,6 +18,44 @@ import SkeletonFormPendaftaran from '@/components/pendaftaran/SkeletonFormPendaf
 
 import { useRouter } from 'next/navigation';
 
+interface FieldOption {
+  id: string;
+  label: string;
+  order: number;
+}
+
+type FileWrapper = {
+  file: File | null;
+  uploaded: boolean;
+  url?: string;
+};
+
+interface Answer {
+  id: string;
+  fieldID: string;
+  value?: string[];
+  answerOptionsID?: string[] | string;
+}
+
+interface Field {
+  id: string;
+  label: string;
+  type: 'TEXT' | 'DROPDOWN' | 'CHECKBOX' | 'UPLOAD';
+  order: number;
+  options?: FieldOption[];
+  fileCategories?: string[];
+  maxFile?: number;
+  maxFileSize?: number;
+}
+
+type InsertAnswerInput = {
+  fieldID: string;
+  value?: string[];
+  image?: File;
+};
+
+type FormValue = string | string[] | FileWrapper[];
+
 export default function FormPendaftaran() {
   const router = useRouter();
 
@@ -28,6 +66,10 @@ export default function FormPendaftaran() {
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
+  function isFileWrapperArray(value: FormValue): value is FileWrapper[] {
+    return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object' && 'file' in value[0];
+  }
+
   useEffect(() => {
     if (!token) {
       setIsLoginModalOpen(true);
@@ -35,7 +77,7 @@ export default function FormPendaftaran() {
     }
   }, [token]);
 
-  const { data, loading, error } = useQuery(GET_WORK_PROGRAM_BY_SLUG, {
+  const { data, loading, error, refetch } = useQuery(GET_WORK_PROGRAM_BY_SLUG, {
     variables: { slug },
     context: {
       headers: {
@@ -59,27 +101,26 @@ export default function FormPendaftaran() {
     }
   }, [workProgram]);
 
-  const fields = useMemo(() => {
-    return [...(workProgram?.form?.fields || [])].sort((a: any, b: any) => a.order - b.order);
+  const fields: Field[] = useMemo(() => {
+    return [...(workProgram?.form?.fields || [])].sort((a, b) => a.order - b.order);
   }, [workProgram]);
 
   const imageUrl = workProgram?.form?.ImageUrl;
 
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, FormValue>>({});
 
   const [insertAnswer] = useMutation(INSERT_ANSWER);
   const [submitForm] = useMutation(SUBMIT_FORM);
   const [modalMode, setModalMode] = useState<'confirm' | 'success' | null>(null);
-  const [finalGroupLink, setFinalGroupLink] = useState<string | undefined>(undefined);
   const debounceRef = useRef<Record<string, NodeJS.Timeout>>({});
 
-  const handleChange = (name: string, value: any) => {
+  const handleChange = (name: string, value: FormValue) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
 
-    const field = fields.find((f: any) => String(f.id) === name);
+    const field = fields.find((f: Field) => String(f.id) === name);
     if (!field) return;
 
     if (field.type === 'TEXT') {
@@ -94,15 +135,34 @@ export default function FormPendaftaran() {
     }
   };
 
-  const insertSingleAnswer = async (field: any, value: any) => {
+  const insertSingleAnswer = async (field: Field, value: FormValue) => {
     const isEmptyArray = Array.isArray(value) && value.length === 0;
     if (value === undefined || value === '' || isEmptyArray) return;
 
-    let input: any = { fieldID: String(field.id) };
+    const input: InsertAnswerInput = { fieldID: String(field.id) };
 
     if (field.type === 'UPLOAD') {
-      if (!value[0]?.file || value[0].uploaded === true) return;
-      input.image = value[0].file;
+      if (!isFileWrapperArray(value)) return;
+
+      const unuploaded = value.filter((v) => !v.uploaded && v.file);
+      if (unuploaded.length === 0) return;
+
+      const firstFile = unuploaded[0].file;
+      if (!firstFile) return;
+
+      input.image = firstFile;
+
+      const updated = (value as FileWrapper[]).map((file, idx) => {
+        if (!file.uploaded && idx === value.indexOf(unuploaded[0])) {
+          return { ...file, uploaded: true };
+        }
+        return file;
+      });
+
+      setFormData((prev) => ({
+        ...prev,
+        [field.id]: updated,
+      }));
     } else {
       const val = Array.isArray(value) ? value.map(String) : [String(value)];
       if (val.length === 0 || !val[0]) return;
@@ -118,8 +178,8 @@ export default function FormPendaftaran() {
           },
         },
       });
-    } catch (err) {
-      console.warn(`❌ Gagal insert untuk "${field.label}"`, err);
+    } catch {
+      // console.warn(`❌ Gagal insert untuk "${field.label}"`, err);
     }
   };
 
@@ -127,11 +187,11 @@ export default function FormPendaftaran() {
     const savedAnswers = workProgram?.form?.myResponse?.answers;
     if (!savedAnswers || savedAnswers.length === 0) return;
 
-    const restored: Record<string, any> = {};
+    const restored: Record<string, FormValue> = {};
 
-    savedAnswers.forEach((answer: any) => {
+    (savedAnswers as Answer[]).forEach((answer) => {
       const key = String(answer.fieldID);
-      const field = fields.find((f: any) => String(f.id) === key);
+      const field = fields.find((f: Field) => String(f.id) === key);
       if (!field) return;
 
       if (field.type === 'UPLOAD' && answer.value?.[0]) {
@@ -139,11 +199,11 @@ export default function FormPendaftaran() {
           {
             uploaded: true,
             file: null,
-            url: `https://is3.cloudhost.id/em-ub-2025/${answer.value[0].replace(/^\/+/, '')}`,
+            url: `https://is3.cloudhost.id/emub/${answer.value[0].replace(/^\/+/, '')}`,
           },
         ];
       } else if (['DROPDOWN', 'CHECKBOX'].includes(field.type)) {
-        restored[key] = Array.isArray(answer.answerOptionsID) ? answer.answerOptionsID.map(String) : String(answer.answerOptionsID);
+        restored[key] = Array.isArray(answer.answerOptionsID) ? (answer.answerOptionsID.length === 1 ? answer.answerOptionsID[0] : answer.answerOptionsID.map(String)) : String(answer.answerOptionsID);
       } else if (field.type === 'TEXT') {
         if (answer.value && answer.value.length > 0) {
           restored[key] = answer.value.length > 1 ? answer.value : answer.value[0];
@@ -151,7 +211,10 @@ export default function FormPendaftaran() {
       }
     });
 
-    setFormData(restored);
+    setFormData((prev) => ({
+      ...prev,
+      ...restored,
+    }));
   }, [workProgram, fields]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -172,11 +235,19 @@ export default function FormPendaftaran() {
         const isEmptyArray = Array.isArray(value) && value.length === 0;
         if (value === undefined || value === '' || isEmptyArray) continue;
 
-        let input: any = { fieldID };
+        const input: InsertAnswerInput = { fieldID: String(field.id) };
 
         if (field.type === 'UPLOAD') {
-          if (!Array.isArray(value) || value.length === 0 || !value[0]?.file || value[0].uploaded === true) continue;
-          input.image = value[0].file;
+          if (!isFileWrapperArray(value)) continue;
+
+          const unuploadedFiles = value.filter((v) => v.file && !v.uploaded);
+          if (unuploadedFiles.length === 0) continue;
+
+          if (unuploadedFiles[0].file) {
+            input.image = unuploadedFiles[0].file;
+          } else {
+            continue;
+          }
         } else {
           const val = Array.isArray(value) ? value.map(String) : [String(value)];
           if (val.length === 0 || !val[0]) continue;
@@ -193,7 +264,7 @@ export default function FormPendaftaran() {
         });
       }
 
-      const submitResult = await submitForm({
+      await submitForm({
         variables: {
           formID: workProgram.form.id,
         },
@@ -203,10 +274,10 @@ export default function FormPendaftaran() {
           },
         },
       });
-
-      setFinalGroupLink(submitResult.data.submitForm);
+      await refetch();
       setModalMode('success');
-    } catch (err) {
+    } catch {
+      // console.error('❌ Gagal submit form:', err);
       alert('Gagal submit. Silakan coba lagi.');
     }
   };
@@ -220,7 +291,7 @@ export default function FormPendaftaran() {
         <div className="bg-[#E6EDFF] mt-24 mb-5 rounded-[30px] shadow-lg w-full flex flex-col md:flex-row gap-y-5 overflow-hidden">
           <div className="w-full md:w-4/7 py-10 flex flex-col items-center justify-center px-6 md:px-10 lg:px-20">
             {imageUrl ? (
-              <Image src={`https://is3.cloudhost.id/em-ub-2025/${imageUrl.replace(/^\/+/, '')}`} alt="Poster" width={400} height={400} className="rounded-xl w-full object-contain" />
+              <Image src={`https://is3.cloudhost.id/emub/${imageUrl.replace(/^\/+/, '')}`} alt="Poster" width={400} height={400} className="rounded-xl w-full object-contain" />
             ) : (
               <div className="w-full h-48 bg-gray-200 rounded-xl flex items-center justify-center text-gray-500 text-sm">Poster tidak tersedia</div>
             )}
@@ -230,7 +301,7 @@ export default function FormPendaftaran() {
             <h2 className="text-center text-xl md:text-4xl font-bold text-[#002787] mb-4">{workProgram?.title}</h2>
 
             <div className="flex-1 overflow-y-auto custom-scroll pr-5" style={{ maxHeight: '650px' }}>
-              <div>{workProgram?.content || 'Deskripsi tidak tersedia'}</div>
+              <div>{workProgram?.form?.description || 'Deskripsi tidak tersedia'}</div>
             </div>
 
             {workProgram?.form?.fileLink && (
@@ -249,22 +320,21 @@ export default function FormPendaftaran() {
           <h2 className="text-[#002787] text-xl sm:text-2xl md:text-4xl font-bold mb-6 text-center">Formulir Pendaftaran</h2>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {fields.map((field: any) => {
+            {fields.map((field: Field) => {
               const key = field.id;
               const label = field.label;
 
               switch (field.type) {
                 case 'TEXT':
-                  return <FieldInput key={key} label={label} name={key} value={formData[key] || ''} onChange={(e) => handleChange(key, e.target.value)} />;
+                  return <FieldInput key={key} label={label} name={key} value={typeof formData[key] === 'string' ? formData[key] : ''} onChange={(e) => handleChange(key, e.target.value)} />;
                 case 'DROPDOWN':
-                  console.log('📦 FieldSelect:', field);
                   return (
                     <FieldSelect
                       key={key}
                       label={label}
                       name={String(field.id)}
-                      options={field.options?.map((opt: any) => ({ label: opt.label, value: opt.id })) || []}
-                      value={formData[key] || ''}
+                      options={field.options?.map((opt: FieldOption) => ({ label: opt.label, value: opt.id })) || []}
+                      value={typeof formData[key] === 'string' ? (formData[key] as string) : ''}
                       onChange={(val) => handleChange(String(field.id), val)}
                     />
                   );
@@ -273,17 +343,28 @@ export default function FormPendaftaran() {
                     <FieldCheckboxGroup
                       name={String(field.id)}
                       label={field.label}
-                      options={field.options.map((opt: any) => ({
+                      options={(field.options ?? []).map((opt: FieldOption) => ({
                         label: opt.label,
                         value: String(opt.id),
                       }))}
-                      value={formData[String(field.id)] ?? []}
+                      value={Array.isArray(formData[String(field.id)]) ? (formData[String(field.id)] as string[]) : []}
                       onChange={handleChange}
                     />
                   );
 
                 case 'UPLOAD':
-                  return <FieldUpload key={key} label={label} name={key} value={formData[key] || []} onChange={handleChange} fileCategories={field.fileCategories} maxFile={field.maxFile} maxFileSize={field.maxFileSize} />;
+                  return (
+                    <FieldUpload
+                      key={key}
+                      label={label}
+                      name={key}
+                      value={Array.isArray(formData[key]) && typeof formData[key][0] === 'object' ? (formData[key] as FileWrapper[]) : []}
+                      onChange={handleChange}
+                      fileCategories={field.fileCategories}
+                      maxFile={field.maxFile}
+                      maxFileSize={field.maxFileSize}
+                    />
+                  );
                 default:
                   return null;
               }
@@ -297,7 +378,9 @@ export default function FormPendaftaran() {
           </form>
         </div>
       </div>
-      {modalMode && <ModalSubmit mode={modalMode} onClose={() => setModalMode(null)} onConfirm={modalMode === 'confirm' ? handleConfirmSubmit : undefined} groupLink={modalMode === 'success' ? finalGroupLink : undefined} slug={slug} />}
+      {modalMode && (
+        <ModalSubmit mode={modalMode} onClose={() => setModalMode(null)} onConfirm={modalMode === 'confirm' ? handleConfirmSubmit : undefined} groupLink={modalMode === 'success' ? workProgram?.form?.groupLink : undefined} slug={slug} />
+      )}
       {isLoginModalOpen && (
         <ConfirmLoginModal
           isOpen={true}

@@ -2,15 +2,17 @@
 
 import Navbar from '@/components/common/Navbar';
 import Footer from '@/components/common/Footer';
+import { ApolloProvider } from '@/lib/apolloClient';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
+    <div className="">
+      <div className="">
         <Navbar />
-        <main className="pt-28">{children}</main>
+        <ApolloProvider>{children}</ApolloProvider>
+
         <Footer />
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }

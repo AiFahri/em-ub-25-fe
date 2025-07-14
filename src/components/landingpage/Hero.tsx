@@ -2,78 +2,111 @@
 import Image from 'next/image';
 import React from 'react';
 import bghero from '@/assets/landingpage/background/bg-hero.svg';
+import bgheromobile from '@/assets/landingpage/background/bg-hero-mobile.svg';
 import play from '@/assets/landingpage/icons/play.svg';
+import { motion } from 'framer-motion';
 import mori from '@/assets/landingpage/icons/morihero.svg';
 import decor1 from '@/assets/landingpage/icons/hero-decor-1.svg';
 import decor2 from '@/assets/landingpage/icons/hero-decor-2.svg';
 import decor3 from '@/assets/landingpage/icons/hero-decor-3.svg';
 import decor4 from '@/assets/landingpage/icons/hero-decor-4.svg';
 
-type Props = {};
+const popInVariant = {
+  hidden: { opacity: 0, scale: 0.5, rotate: -30 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      delay: 0.3 + i * 0.2,
+      type: 'spring',
+      stiffness: 500,
+      damping: 20,
+    },
+  }),
+};
 
-const Hero = (props: Props) => {
+const textVariant = {
+  hidden: { opacity: 0, x: -40 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: { delay: i * 0.2, duration: 0.8, ease: 'easeOut' },
+  }),
+};
+
+const Hero = () => {
   return (
-    <section className="relative w-full bg-white overflow-hidden">
-      <div className="relative rounded-b-[40px] md:rounded-[40px] overflow-hidden">
-        <div className="flex justify-center pb-20 pt-10">
-          <Image src={bghero} alt="Background Simpul Memori" className="w-[1330px] h-[620px] md:h-[873px]" priority />
-        </div>
+    <section className="relative w-full bg-white md:my-10 overflow-x-hidden">
+      <div className="px-4 md:px-0">
+        <div className="w-full flex justify-center rounded-[60px] md:rounded-[40px] bg-white relative h-[400px] md:h-auto">
+          <div className="relative w-full aspect-[1810/1100]">
+            <Image src={bgheromobile} alt="Background Simpul Memori Mobile" fill className="object-cover rounded-[60px] z-0 md:hidden" />
+            <Image src={bghero} alt="Background Simpul Memori" fill className="object-contain z-0 hidden md:block" />
 
-        <div className="absolute inset-0 z-10 pointer-events-none">
-          <Image src={decor1} className="absolute top-32 right-[500px] w-[73px] h-[146px]" alt="decoration" />
-          <Image src={decor2} className="absolute top-64 right-[550px] w-[152px] h-[152px]" alt="decoration" />
-          <Image src={decor3} className="absolute top-[250px] right-[100px] w-[605px] h-[560px]" alt="decoration" />
-          <Image src={decor4} className="absolute bottom-[290px] right-[460px] w-[150px] h-[251px]" alt="decoration" />
-        </div>
-
-        <div className="absolute inset-0 px-6 md:px-48 py-10 md:py-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 z-10">
-          <div className="text-white max-w-lg space-y-2">
-            <p className="text-sm md:text-[25px] font-medium">KABINET EM UB 2025</p>
-            <h1 className="text-4xl md:text-[110px] font-bold leading-24">Simpul Memori</h1>
-            <p className="text-sm md:text-[25px] text-white/90">Bergerak bersama satukan Brawijaya.</p>
-
-            <div className="flex items-center gap-3 mt-8">
-              <button className="bg-[#FF4900] text-white text-sm md:text-[20px] font-medium px-10 py-2 md:py-2.5 rounded-full shadow-md">Company Profile</button>
-              <div className="bg-white rounded-full w-14 h-14 flex items-center justify-center">
-                <Image src={play} alt="Play" width={30} height={30} />
-              </div>
+            <div className="absolute inset-0 z-10 pointer-events-none">
+              <motion.div custom={0} variants={popInVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className="absolute top-[20%] md:top-[15%] right-[30%] md:right-[40%] w-[4vw]">
+                <Image src={decor1} alt="decoration" />
+              </motion.div>
+              <motion.div custom={1} variants={popInVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className="absolute top-[35%] right-[35%] md:right-[45%] w-[8vw]">
+                <Image src={decor2} alt="decoration" />
+              </motion.div>
+              <motion.div custom={2} variants={popInVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className="absolute top-[55%] right-[10%] md:right-[15%] w-[35vw]">
+                <Image src={decor3} alt="decoration" />
+              </motion.div>
+              <motion.div custom={3} variants={popInVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className="absolute bottom-[30%] md:bottom-[20%] right-[30%] md:right-[40%] w-[8vw]">
+                <Image src={decor4} alt="decoration" />
+              </motion.div>
             </div>
           </div>
 
-          <div className="relative w-full h-full">
-            <Image src={mori} alt="Mori Maskot" fill className="object-contain absolute translate-x-64 -translate-y-11 w-[605px] h-[560px]" />
-          </div>
-        </div>
-      </div>
+          <div className="absolute inset-0 z-20 px-6 md:px-20 lg:px-40 py-10 md:py-14 flex flex-row items-center justify-between gap-6 md:gap-8">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} className="flex flex-col text-white space-y-2 min-w-0">
+              <motion.p variants={textVariant} custom={0} className="hidden md:block text-[clamp(0.875rem,1.5vw,1.5rem)] font-medium">
+                KABINET EM UB 2025
+              </motion.p>
+              <motion.h1 variants={textVariant} custom={1} className="text-[clamp(3rem,6vw,6.875rem)] font-bold leading-none">
+                Simpul Memori
+              </motion.h1>
+              <motion.p variants={textVariant} custom={2} className="text-[clamp(1rem,2vw,3rem)] text-white/90">
+                Bergerak bersama satukan Brawijaya.
+              </motion.p>
 
-      <div className="block md:hidden w-full px-6 py-4">
-        <div className="flex justify-between items-center bg-white rounded-full px-4 py-3 shadow-md">
-          <div>
-            <p className="text-black font-semibold text-sm">Klik disini!</p>
-            <p className="text-gray-500 text-xs">Untuk akses lebih banyak.</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-4 h-4 rounded-full bg-[#fda480]" />
-            <span className="w-4 h-4 rounded-full bg-[#ff7c48]" />
-            <span className="w-4 h-4 rounded-full bg-[#ff4900]" />
-            <span className="w-4 h-4 rounded-full border-2 border-black flex items-center justify-center">
-              <svg width="8" height="8" viewBox="0 0 24 24" fill="black">
-                <path d="M9 6l6 6-6 6" />
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
+              <motion.div variants={textVariant} custom={3} className="flex items-center mt-4 md:mt-6">
+                <button className="bg-[#FF4900] text-white text-[clamp(1rem,1.4vw,1.8vw)] font-medium px-4 md:px-10 py-2 rounded-full shadow-md whitespace-nowrap min-w-[160px] flex-shrink-0">Satcita Bercerita</button>
 
-      <div className="hidden md:flex absolute bottom-[70px] right-7 px-5 py-3 items-center gap-3">
-        <div className="flex items-center -space-x-2">
-          <span className="w-[70px] h-[70px] border-white border-4 z-20 rounded-full bg-[#FEB8A4]" />
-          <span className="w-[70px] h-[70px] border-white border-4 z-10 rounded-full bg-[#FF6A3D]" />
-          <span className="w-[70px] h-[70px] border-white border-4 rounded-full bg-[#FF4900]" />
-        </div>
-        <div className="max-w-52">
-          <p className="text-black text-xl font-medium leading-none">Klik disini!</p>
-          <p className="text-gray-500 text-xl mt-1 leading-7">Untuk akses lebih banyak.</p>
+                <div className="ml-2 bg-white hover:bg-[#FF7C48] rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0">
+                  <div className="bg-[#0049FF] w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center">
+                    <Image src={play} alt="Play" className="w-3.5 h-3.5 md:w-5 md:h-5" />
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            <motion.div
+              className="relative w-[90vw] md:w-[40vw] mt-6 md:mt-0 right-[-10%] md:right-0"
+              initial={{ opacity: 0, y: 80, scale: 0.8, rotate: -15 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 1,
+                type: 'spring',
+                stiffness: 80,
+                damping: 12,
+              }}
+            >
+              <motion.div
+                animate={{ y: [20, -50, 20] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              >
+                <Image src={mori} alt="Mori Maskot" className="object-contain" />
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

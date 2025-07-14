@@ -5,15 +5,16 @@ import Hero from '../components/landingpage/Hero';
 import ProgramKerja from '../components/landingpage/ProgramKerja';
 import TautanPintas from '../components/landingpage/TautanPintas';
 import Welcome from '../components/landingpage/Welcome';
+
 export default function Home() {
   return (
-    <main className='pt-28'>
+    <main className="pt-28">
       <Navbar />
       <Hero />
       <Welcome />
+      <TautanPintas />
       <Berita />
       <ProgramKerja />
-      <TautanPintas />
       <Footer />
     </main>
   );

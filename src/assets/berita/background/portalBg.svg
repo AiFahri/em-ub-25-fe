@@ -1,0 +1,32 @@
+<svg width="1920" height="562" viewBox="0 0 1920 562" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_5728_3992)">
+<rect width="1920" height="1334" transform="matrix(-1 0 0 1 1919.8 -772.177)" fill="url(#paint0_linear_5728_3992)"/>
+<line x1="-0.400391" y1="92.0222" x2="1919.6" y2="92.0222" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="-0.400391" y1="244.823" x2="1919.6" y2="244.823" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="-0.400391" y1="397.624" x2="1919.6" y2="397.624" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="-0.400391" y1="550.425" x2="1919.6" y2="550.425" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="149.613" y1="1212.82" x2="149.613" y2="-719.177" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="301.465" y1="1212.82" x2="301.465" y2="-719.177" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="453.317" y1="1212.82" x2="453.317" y2="-719.177" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="605.169" y1="1212.82" x2="605.169" y2="-719.177" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="757.021" y1="1212.82" x2="757.021" y2="-719.177" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="908.873" y1="1212.82" x2="908.873" y2="-719.177" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="1060.72" y1="1212.82" x2="1060.72" y2="-719.177" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<line x1="1212.58" y1="1212.82" x2="1212.58" y2="-719.177" stroke="white" stroke-width="4" stroke-dasharray="5 5"/>
+<rect width="1920" height="1334" transform="matrix(-1 0 0 1 1919.8 -772.177)" fill="url(#paint1_linear_5728_3992)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_5728_3992" x1="1920" y1="8.23563e-05" x2="-1.53606e-05" y2="1359.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="0.490385" stop-color="#BACEFF"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<linearGradient id="paint1_linear_5728_3992" x1="920.339" y1="607.509" x2="926.058" y2="1334" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<clipPath id="clip0_5728_3992">
+<rect width="1920" height="1334" fill="white" transform="translate(-0.200195 -772.177)"/>
+</clipPath>
+</defs>
+</svg>

@@ -43,3 +43,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large PDF files (use external storage for files > 100MB)
+public/e-mag/*.pdf
+!public/e-mag/tesfile.pdf

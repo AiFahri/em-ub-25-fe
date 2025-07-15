@@ -7,11 +7,24 @@ import { motion, useInView } from 'framer-motion';
 const ProkerSecondSection: React.FC = () => {
     // --- TIDAK ADA PERUBAHAN PADA LOGIKA ANIMASI ---
     const [animationPhase, setAnimationPhase] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
     const sectionRef = useRef(null);
     const isInView = useInView(sectionRef, {
         once: true,
         margin: '-100px 0px -100px 0px',
     });
+
+    // Detect mobile screen size
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         if (!isInView) return;
@@ -37,19 +50,38 @@ const ProkerSecondSection: React.FC = () => {
     }, [isInView]);
 
     const getOrangeTransform = () => {
-        switch (animationPhase) {
-            case 0:
-                return 'translate-x-[2000px] -translate-y-[40%]';
-            case 1:
-            case 2:
-                return 'translate-x-[500px] -translate-y-[40%]';
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            default:
-                return 'translate-x-[30%] -translate-y-[40%]';
+        if (isMobile) {
+            // Mobile: animasi lebih pendek
+            switch (animationPhase) {
+                case 0:
+                    return 'translate-x-[100vw] -translate-y-[40%]';
+                case 1:
+                case 2:
+                    return 'translate-x-[150px] -translate-y-[40%]';
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                default:
+                    return 'translate-x-[20%] -translate-y-[40%]';
+            }
+        } else {
+            // Desktop: animasi original
+            switch (animationPhase) {
+                case 0:
+                    return 'translate-x-[2000px] -translate-y-[40%]';
+                case 1:
+                case 2:
+                    return 'translate-x-[500px] -translate-y-[40%]';
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                default:
+                    return 'translate-x-[30%] -translate-y-[40%]';
+            }
         }
     };
 
@@ -64,7 +96,7 @@ const ProkerSecondSection: React.FC = () => {
             // Menggunakan min-h-screen untuk keterbacaan yang lebih baik
             className="relative w-full flex items-center justify-center min-h-screen py-8 md:py-16 overflow-hidden"
         >
-            <style jsx>{`
+            <style>{`
                 @keyframes shake {
                     0%, 100% { transform: rotate(0deg); }
                     25% { transform: rotate(-10deg); }

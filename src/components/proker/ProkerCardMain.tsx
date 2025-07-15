@@ -15,14 +15,11 @@ interface ProkerCardMainProps {
   imageUrl?: string;
 }
 
-const ProkerCardMain: React.FC<ProkerCardMainProps> = ({
-  title,
-  type,
-  department,
-  imageUrl
-}) => {
+const ProkerCardMain: React.FC<ProkerCardMainProps> = ({ title, type, department, imageUrl }) => {
   const variants = ['blue', 'orange', 'darkBlue'];
-  const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+  const slugHash = Math.abs(title.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0));
+  const variantIndex = slugHash % variants.length;
+  const randomVariant = variants[variantIndex];
 
   const getColors = (variant: string) => {
     switch (variant) {
@@ -32,7 +29,7 @@ const ProkerCardMain: React.FC<ProkerCardMainProps> = ({
           departmentTextColor: 'text-[#0047FF]',
           borderColor: 'border-[#0047FF]',
           bgSVG: CardBgSVGBlue,
-          shadowClass: 'hover:shadow-xl hover:shadow-blue-500/40'
+          shadowClass: 'hover:shadow-xl hover:shadow-blue-500/40',
         };
       case 'orange':
         return {
@@ -40,7 +37,7 @@ const ProkerCardMain: React.FC<ProkerCardMainProps> = ({
           departmentTextColor: 'text-[#FF4C00]',
           borderColor: 'border-[#FF4C00]',
           bgSVG: CardBgSVGOrange,
-          shadowClass: 'hover:shadow-xl hover:shadow-orange-500/40'
+          shadowClass: 'hover:shadow-xl hover:shadow-orange-500/40',
         };
       case 'darkBlue':
         return {
@@ -48,7 +45,7 @@ const ProkerCardMain: React.FC<ProkerCardMainProps> = ({
           departmentTextColor: 'text-[#1E3A8A]',
           borderColor: 'border-[#1E3A8A]',
           bgSVG: CardBgSVGDarkBlue,
-          shadowClass: 'hover:shadow-xl hover:shadow-blue-900/40'
+          shadowClass: 'hover:shadow-xl hover:shadow-blue-900/40',
         };
       default:
         return {
@@ -56,7 +53,7 @@ const ProkerCardMain: React.FC<ProkerCardMainProps> = ({
           departmentTextColor: 'text-[#0047FF]',
           borderColor: 'border-[#0047FF]',
           bgSVG: CardBgSVGBlue,
-          shadowClass: 'hover:shadow-xl hover:shadow-blue-500/40'
+          shadowClass: 'hover:shadow-xl hover:shadow-blue-500/40',
         };
     }
   };
@@ -64,29 +61,11 @@ const ProkerCardMain: React.FC<ProkerCardMainProps> = ({
   const { bgColor, departmentTextColor, borderColor, bgSVG, shadowClass } = getColors(randomVariant);
 
   return (
-  
-    <div
-      className={cn(
-        'w-full rounded-4xl overflow-hidden flex flex-col', // <-- PERUBAHAN DI SINI
-        'transition-all duration-300 ease-in-out transform hover:-translate-y-2',
-        shadowClass
-      )}
-    >
+    <div className={cn('w-full rounded-4xl overflow-hidden flex flex-col', 'transition-all duration-300 ease-in-out transform hover:-translate-y-2', shadowClass)}>
       {/* Area Gambar (tidak berubah) */}
-      <div
-        className={cn(
-          "w-full aspect-video flex items-center justify-center overflow-hidden border-t-2 border-x-2 rounded-t-4xl",
-          borderColor
-        )}
-      >
+      <div className={cn('w-full aspect-video flex items-center justify-center overflow-hidden border-t-2 border-x-2 rounded-t-4xl', borderColor)}>
         {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={title}
-            width={400}
-            height={225}
-            className="w-full h-full object-cover"
-          />
+          <Image src={imageUrl} alt={title} width={400} height={225} className="w-full h-full object-cover" />
         ) : (
           <div className="flex flex-col items-center justify-center text-gray-400">
             <ImageIcon size={64} />
@@ -96,34 +75,28 @@ const ProkerCardMain: React.FC<ProkerCardMainProps> = ({
       </div>
 
       {/* Footer */}
-      {/* LANGKAH 2: Tambahkan 'flex-1' dan 'flex flex-col' di sini */}
-      <div className={cn("relative border-x-2 border-b-2 rounded-b-4xl p-5 flex-1 flex flex-col", borderColor, bgColor)}>
+
+      <div className={cn('relative border-x-2 border-b-2 rounded-b-4xl p-5 flex-1 flex flex-col', borderColor, bgColor)}>
         {/* Background pattern (tidak berubah) */}
         <div className="absolute inset-0">
           <Image src={bgSVG} alt="Background Pattern" fill className="object-cover opacity-80" />
         </div>
 
         {/* Konten */}
-        {/* LANGKAH 3: Tambahkan 'h-full' dan 'justify-between' untuk mengatur posisi konten */}
+
         <div className="relative z-10 flex flex-col justify-between h-full">
           {/* Bagian Atas: Type */}
           <div>
             <div className="flex justify-end">
-              <span className="bg-white bg-opacity-90 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
-                {type}
-              </span>
+              <span className="bg-white bg-opacity-90 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">{type}</span>
             </div>
           </div>
 
           {/* Bagian Bawah: Title & Department */}
-          <div className='mt-3'>
-            <h3 className="text-white font-bold text-xl md:text-2xl leading-tight mb-3">
-              {title}
-            </h3>
+          <div className="mt-3">
+            <h3 className="text-white font-bold text-xl md:text-2xl leading-tight mb-3">{title}</h3>
             <div className="flex justify-start">
-              <span className={cn("bg-white px-4 py-1.5 rounded-full text-base font-bold", departmentTextColor)}>
-                {department}
-              </span>
+              <span className={cn('bg-white px-4 py-1.5 rounded-full text-base font-bold', departmentTextColor)}>{department}</span>
             </div>
           </div>
         </div>

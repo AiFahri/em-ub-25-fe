@@ -546,4 +546,3 @@ function EMagazine({}: EMagazineProps) {
 }
 
 export default EMagazine;
-

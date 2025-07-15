@@ -1,38 +1,61 @@
+'use client';
+
 import { NewsItem } from '@/types/berita';
 import Image from 'next/image';
 import ArrowUpRight from '@/assets/landingpage/icons/arrow-up-right.svg';
-import beritaimg from '@/assets/landingpage/background/contohberita.png';
+import { motion } from 'framer-motion';
 
 type BeritaCardProps = NewsItem & { index: number };
 
-export default function BeritaCard({ title, date, description, image, index }: BeritaCardProps) {
-  const isOrange = index % 2 === 0;
+const cardVariants = {
+  initial: { scale: 1 },
+  hover: { scale: 1.04 },
+};
 
-  const showPlaceholder = !image?.trim();
+const imageVariants = {
+  initial: { scale: 1 },
+  hover: { scale: 1.04 },
+};
+
+const arrowVariants = {
+  initial: { x: 0, scale: 1, rotate: 0 },
+  hover: { x: 6, scale: 1.1, rotate: 20 },
+};
+
+export default function BeritaCard({ title, date, description, imageUrl, index }: BeritaCardProps) {
+  const isOrange = index % 2 === 0;
+  const showPlaceholder = !imageUrl?.trim();
 
   return (
-    <div className="rounded-2xl p-4 w-full h-full space-y-3 relative">
+    <motion.div
+      variants={cardVariants}
+      initial="initial"
+      whileHover="hover"
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className="rounded-2xl p-4 w-full sm:w-[250px] lg:w-[300px] xl:w-[440px] mx-auto h-full space-y-3 relative cursor-pointer"
+      style={{ transformOrigin: 'center center' }}
+    >
       <div className="relative">
-        <div className="w-full h-[330px] rounded-4xl relative overflow-hidden clip-concave-bottom-right">
+        <motion.div variants={imageVariants} transition={{ duration: 0.4, ease: 'easeOut' }} className="w-full h-[200px] lg:h-[320px] rounded-4xl relative overflow-hidden inverted-radius">
           {showPlaceholder ? (
             <div className="flex items-center justify-center w-full h-full bg-gray-100">
               <Image src="/Assets/icon/landingpage/placeholder.svg" alt={title} width={48} height={48} />
             </div>
           ) : (
-            <Image src={beritaimg} alt={title} fill className="object-cover" />
+            <Image src={`https://is3.cloudhost.id/emub/${imageUrl.replace(/^\/+/, '')}`} alt={title} fill className="object-cover transition-all" />
           )}
-        </div>
+        </motion.div>
 
-        <div className={`absolute bottom-2 right-0 p-6 rounded-full z-20 ${isOrange ? 'bg-[#FF4900]' : 'bg-[#0049FF]'}`}>
-          <Image src={ArrowUpRight} alt="arrow" width={20} height={20} />
-        </div>
+        <motion.div variants={arrowVariants} transition={{ type: 'spring', stiffness: 200, damping: 10 }} className={`absolute bottom-0 right-2 p-4 lg:p-6 rounded-full z-20 ${isOrange ? 'bg-[#FF4900]' : 'bg-[#0049FF]'}`}>
+          <Image src={ArrowUpRight} alt="arrow" className="w-[22px] md:w-[20px]" />
+        </motion.div>
       </div>
 
       <div className="font-[NeueHaasDisplay]">
-        <h3 className="text-blue-900 font-medium text-3xl">{title}</h3>
-        <p className="text-xl font-medium text-[#001B5E]">{date}</p>
-        <p className="text-lg mt-2 font-medium text-[#001B5E]">{description}</p>
+        <h3 className="text-[#002787] font-medium text-[clamp(2.8vw,3.8vw,40px)] truncate">{title}</h3>
+        <p className="text-[clamp(1.5vw,2.8vw,20px)] font-medium text-[#001B5E]">{date}</p>
+        <p className="text-[clamp(1.3vw,2.8vw,15px)] mt-2 font-medium text-[#001B5E] truncate">{description}</p>
       </div>
-    </div>
+    </motion.div>
   );
 }

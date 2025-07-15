@@ -6,15 +6,13 @@ import { ApolloProvider } from '@/lib/apolloClient';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body >
+    <div className="">
+      <div className="">
         <Navbar />
-       <ApolloProvider>
-          {children}
-        </ApolloProvider>
+        <ApolloProvider>{children}</ApolloProvider>
 
         <Footer />
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }

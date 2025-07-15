@@ -6,11 +6,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { motion } from "framer-motion";
+import { useParams } from "next/navigation";
 
 import Mori from "@/assets/proker/mori-full.svg";
 import MoriCard from "@/assets/proker/mori-card-subpage.svg";
 import SubpageBg from "@/assets/proker/subpage-bg.svg";
-import { FileText } from "lucide-react";
+// import { FileText } from "lucide-react";
 import ProkerDetailSkeleton from "@/components/proker/ProkerDetailSkeleton";
 import Bubble1 from "@/assets/proker/proker-subpage-bubble1.svg";
 import Bubble2 from "@/assets/proker/proker-subpage-bubble2.svg";
@@ -21,25 +22,20 @@ import {
   LIST_WORK_PROGRAMS,
 } from "@/graphql/queries/proker/prokerQueries";
 import ProkerSideCard from "@/components/proker/ProkerSideCard"; // Pastikan path benar
-import MaskedImage from "@/components/proker/ProkerSubPageImage";
+// import MaskedImage from "@/components/proker/ProkerSubPageImage";
 import ProkerSubPageImage from "@/components/proker/ProkerSubPageImage";
 
 const IMAGE_BASE_URL = "https://is3.cloudhost.id/em-ub-2025/";
 
-const MinistryLogo: React.FC = () => (
-  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">
-    O
-  </div>
-);
+// const MinistryLogo: React.FC = () => (
+//   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">
+//     O
+//   </div>
+// );
 
-interface ProkerDetailPageProps {
-  params: {
-    slug: string;
-  };
-}
-
-const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
-  const { slug } = params;
+const ProkerDetailPage: React.FC = () => {
+  const params = useParams();
+  const slug = params?.slug as string;
 
   const {
     loading: detailLoading,
@@ -59,7 +55,7 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
   const proker = detailData?.getWorkProgramBySlug;
 
   const otherProkers = listData?.listWorkPrograms?.workPrograms.filter(
-    (p: any) => p.slug !== slug
+    (p: { slug: string }) => p.slug !== slug
   );
 
   if (isLoading) {
@@ -213,7 +209,16 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
               {/* --- DAFTAR PROKER LAIN (KANAN BAWAH - DESKTOP) --- */}
               <div className="hidden lg:flex flex-col gap-6 w-full max-w-sm mx-auto max-h-[32rem] overflow-y-auto no-scrollbar p-4">
                 {otherProkers &&
-                  otherProkers.map((otherProker: any) => (
+                  otherProkers.map((otherProker: { 
+                    slug: string; 
+                    name: string; 
+                    title: string;
+                    description: string; 
+                    ministry: { name: string }; 
+                    ministryName: string;
+                    imageUrls: string[];
+                    isMegaBesar: boolean;
+                  }) => (
                     <Link
                       href={`/proker/${otherProker.slug}`}
                       key={otherProker.slug}
@@ -305,7 +310,16 @@ const ProkerDetailPage: React.FC<ProkerDetailPageProps> = ({ params }) => {
              
               
               <div className="space-y-4">
-                {otherProkers && otherProkers.slice(0, 4).map((otherProker: any) => (
+                {otherProkers && otherProkers.slice(0, 4).map((otherProker: { 
+                  slug: string; 
+                  name: string; 
+                  title: string;
+                  description: string; 
+                  ministry: { name: string }; 
+                  ministryName: string;
+                  imageUrls: string[];
+                  isMegaBesar: boolean;
+                }) => (
                   <Link
                     href={`/proker/${otherProker.slug}`}
                     key={otherProker.slug}

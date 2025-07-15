@@ -109,7 +109,7 @@ const HeroSection = () => {
       <div className="relative z-10 text-center sm:mt-0 mt-[15vw] leading-[5vw]">
         <h1 
           ref={titleRef}
-          className="text-[6vw] font_bold text-[#0538B9] mb-2 transform-gpu"
+          className="text-[10vw] md:text-[6vw] font_bold text-[#0538B9] mb-2 transform-gpu"
           style={{ 
             textShadow: '0 4px 8px rgba(5, 56, 185, 0.3)',
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
@@ -119,7 +119,7 @@ const HeroSection = () => {
         </h1>
         <p 
           ref={subtitleRef}
-          className="text-[3vw] font-semibold text-black transform-gpu"
+          className="text-[5vw] md:text-[3vw] mt-7 font-semibold text-black transform-gpu"
           style={{ 
             textShadow: '0 2px 4px rgba(0,0,0,0.2)',
             filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'

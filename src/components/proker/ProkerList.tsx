@@ -78,7 +78,13 @@ const ProkerList: React.FC = () => {
             <p className="col-span-3 text-center text-red-500">Terjadi kesalahan: {error.message}</p>
           }
           
-           {!loading && !error && currentItems.map((proker: any, idx: number) => (
+           {!loading && !error && currentItems.map((proker: { 
+            slug: string; 
+            title: string; 
+            isMegaBesar: boolean; 
+            ministryName: string; 
+            imageUrls: string[] 
+          }, idx: number) => (
                       
                         <Link href={`/proker/${proker.slug}`} key={proker.slug || idx} className="group">
                           

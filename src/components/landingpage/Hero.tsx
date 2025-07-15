@@ -9,9 +9,7 @@ import decor2 from '@/assets/landingpage/icons/hero-decor-2.svg';
 import decor3 from '@/assets/landingpage/icons/hero-decor-3.svg';
 import decor4 from '@/assets/landingpage/icons/hero-decor-4.svg';
 
-type Props = {};
-
-const Hero = (props: Props) => {
+const Hero = () => {
   return (
     <section className="relative w-full bg-white overflow-hidden">
       <div className="relative rounded-b-[40px] md:rounded-[40px] overflow-hidden">

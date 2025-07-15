@@ -65,6 +65,7 @@ function EMagazine({}: EMagazineProps) {
   const [pdfLoaded, setPdfLoaded] = useState<boolean>(false);
   const [selectedPdf, setSelectedPdf] = useState<string>("/e-mag/tesfile.pdf");
   const [selectedVolume, setSelectedVolume] = useState<string>("Test Volume");
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
   // Refs untuk animasi GSAP
   const containerRef = useRef<HTMLDivElement>(null);
@@ -83,8 +84,8 @@ function EMagazine({}: EMagazineProps) {
   // List of available PDF files (using smaller test file for now)
   // TODO: Host large PDF files externally (Google Drive, AWS S3, etc.)
   const pdfFiles = [
-    { name: "Test Volume", path: "/e-mag/tesfile.pdf" },
-    // { name: "Vol. 1", path: "https://your-external-storage.com/EMAGZVOL2.pdf" },
+    { name: "Test Volume", path: "/e-mag/EMAGZVOL2.pdf" },
+    { name: "Vol. 1", path: "https://is3.cloudhost.id/emub/public/emagz/VOL2.pdf" },
     // { name: "Vol. 2", path: "https://your-external-storage.com/SATCITA.pdf" },
     // Add more PDF files as needed
   ];
@@ -101,6 +102,17 @@ function EMagazine({}: EMagazineProps) {
         // Optimize memory usage
         pdfjs.getDocument.prototype.promise = pdfjs.getDocument.prototype.promise || Promise.resolve();
       });
+
+      // Set initial window size
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+
+      // Add resize listener
+      const handleResize = () => {
+        setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+      };
+
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
     }
   }, []);
 
@@ -304,7 +316,7 @@ function EMagazine({}: EMagazineProps) {
     <div ref={containerRef} className="relative w-full mx-auto mb-20 py-16">
       {/* Header Section - Di atas background */}
       <div ref={headerRef} className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-black text-[#0033A1] mb-8">
+        <h1 className={`font-black text-[#0033A1] mb-8 ${windowSize.width < 768 ? 'text-2xl' : 'text-4xl md:text-5xl'}`}>
           E-Magazine
         </h1>
         
@@ -330,32 +342,50 @@ function EMagazine({}: EMagazineProps) {
           </div>
         </div>
       </div>
-
-      {/* E-Magazine Container dengan Background */}
-      <div className="relative mt-[7vw] py-16">
-        {/* Background Image */}
-        <div ref={backgroundRef} className="absolute flex justify-center items-center inset-0 z-0">
+  <div className="absolute top-[48vw] right-[15vw]  z-20 block md:hidden">
           <Image
-            src={EMagazineBg}
-            alt="E-Magazine Background"
-            width={1720}
+            src={MoriGroup}
+            alt="Mori Group"
+            width={500}
             height={100}
-            className=""
-            priority
+            className="object-contain"
           />
         </div>
+
+      {/* E-Magazine Container dengan Background */}
+      <div className={`relative py-16 ${windowSize.width < 768 ? 'mt-[50vw]' : 'mt-[10vw]'}`}>
+        {/* Background Image - Desktop only */}
+        {windowSize.width >= 768 && (
+          <div ref={backgroundRef} className="absolute flex justify-center items-center inset-0 z-0">
+            <Image
+              src={EMagazineBg}
+              alt="E-Magazine Background"
+              width={1720}
+              height={100}
+              className=""
+              priority
+            />
+          </div>
+        )}
+
+        {/* Background Color - Mobile only */}
+        {windowSize.width < 768 && (
+          <div ref={backgroundRef} className="absolute inset-0 bg-[#E6EDFF] rounded-2xl border z-0 mx-4"></div>
+        )}
 
         {/* Top Right - Mori Group */}
         <div ref={moriGroupRef} className="absolute -top-[30vw] -right-[10vw] z-20 hidden md:block">
           <Image
             src={MoriGroup}
             alt="Mori Group"
-            width={1120}
+            width={1020}
             height={120}
             className="object-contain"
           />
         </div>
 
+        {/* Top Right - Mori Group Mobile */}
+      
         {/* Right Side - Ornament1 Group (below Mori) - Hidden on mobile */}
         <div ref={ornament1Ref} className="absolute top-[2vw] right-[8vw] z-20 hidden md:block">
           <Image
@@ -436,17 +466,17 @@ function EMagazine({}: EMagazineProps) {
         </div>
 
         {/* Magazine Container */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto pt-16">
+        <div className={`relative z-10 w-full max-w-7xl mx-auto pt-16 ${windowSize.width < 768 ? 'px-4' : ''}`}>
           <div className="relative flex justify-center items-center min-h-[400px] md:min-h-[600px]">
             <div ref={flipbookRef} className="relative w-full h-[400px] md:h-[600px] flex justify-center items-center">
               <HTMLFlipBook
-                width={400}
-                height={750}
+                width={windowSize.width < 768 ? 230 : 400}
+                height={windowSize.width < 768 ? 480 : 650}
                 size="fixed"
-                minWidth={280}
-                maxWidth={450}
-                minHeight={350}
-                maxHeight={750}
+                minWidth={windowSize.width < 768 ? 250 : 280}
+                maxWidth={windowSize.width < 768 ? 230 : 450}
+                minHeight={windowSize.width < 768 ? 240 : 350}
+                maxHeight={windowSize.width < 768 ? 520 : 750}
                 showCover={true}
                 flippingTime={800}
                 usePortrait={false}
@@ -474,9 +504,9 @@ function EMagazine({}: EMagazineProps) {
                     >
                       <Page
                         pageNumber={pg + 1}
-                        width={350}
-                        height={500}
-                        scale={1.15}
+                        width={windowSize.width < 768 ? 240 : 350}
+                        height={windowSize.width < 768 ? 360 : 500}
+                        scale={windowSize.width < 768 ? 1.0 : 1.15}
                         loading={<div className="flex items-center justify-center h-full">Memuat halaman {pg + 1}...</div>}
                         error={<div className="text-red-500 text-center">Gagal memuat halaman {pg + 1}</div>}
                         renderTextLayer={false}
@@ -490,6 +520,27 @@ function EMagazine({}: EMagazineProps) {
           </div>
         </div>
       </div>
+      
+      {/* Mobile CSS overrides */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          :global(.flipbook-container) {
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+          
+          :global(.flipbook-container > div) {
+            gap: 0 !important;
+            margin: 0 !important;
+          }
+          
+          :global(.demoPage) {
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

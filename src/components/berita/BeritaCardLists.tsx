@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useQuery } from "@apollo/client";
 import { LIST_NEWS } from "@/graphql/queries/berita/beritaQueries";
 import BeritaCard from "@/components/berita/BeritaCard";
-import BeritaDetailPanel from "@/components/berita/BeritaDetailSlide";
 import { useState, useMemo, useEffect, useRef } from "react";
 import ArrowLeft from '@/assets/berita/icons/arrowleftswiper-icon.svg';
 import ArrowRight from '@/assets/berita/icons/arrowrightswiper-icon.svg';
@@ -51,7 +50,10 @@ export default function BeritaSection() {
   const [isPageChanging, setIsPageChanging] = useState(false);
   const ITEMS_PER_PAGE = isMobile ? 4 : isTablet ? 6 : 5;
   const CARDS_PER_ROW_DESKTOP = 3;
-  const originalNewsList: NewsItem[] = data?.listNews?.news ?? [];
+  
+  const originalNewsList: NewsItem[] = useMemo(() => {
+    return data?.listNews?.news ?? [];
+  }, [data?.listNews?.news]);
 
   const categories = useMemo(() => {
     const set = new Set<string>();
@@ -82,7 +84,7 @@ export default function BeritaSection() {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     return filteredNews.slice(startIndex, endIndex);
-  }, [filteredNews, currentPage]);
+  }, [filteredNews, currentPage, ITEMS_PER_PAGE]);
 
   const row1News = paginatedNews.slice(0, 3);
   const row2News = paginatedNews.slice(3, 5);
@@ -388,11 +390,11 @@ export default function BeritaSection() {
   if (error) return <div className="text-center py-20 text-red-500">Error: {error.message}</div>;
 
   return (
-    <section ref={sectionRef} className="w-full z-0 flex flex-col min-h-screen pb-36 mt-[-10vw]">
-      <div ref={filtersRef} className="w-full max-w-[1450px] mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-5 md:gap-0 mb-12 px-6">
-        <div className="relative w-[40vw] md:w-[30vw] lg:w-[20vw]">
+    <section ref={sectionRef} className="w-full z-0 flex flex-col min-h-screen pb-20 md:pb-36 mt-[-5vw] md:mt-[-10vw]">
+      <div ref={filtersRef} className="w-full max-w-[1450px] mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-5 md:gap-0 mb-8 md:mb-12 px-4 md:px-6">
+        <div className="relative w-full md:w-[30vw] lg:w-[20vw]">
           <select
-            className="appearance-none border-2 border-[#0538B9] rounded-2xl px-4 py-4 text-lg text-[#0538B9] font-semibold cursor-pointer outline-none focus:ring-2 focus:ring-blue-300 transition-all w-full"
+            className="appearance-none border-2 border-[#0538B9] rounded-2xl px-4 py-3 md:py-4 text-base md:text-lg text-[#0538B9] font-semibold cursor-pointer outline-none focus:ring-2 focus:ring-blue-300 transition-all w-full"
             value={category}
             onChange={e => setCategory(e.target.value)}
           >
@@ -400,10 +402,10 @@ export default function BeritaSection() {
           </select>
           <Image src={arrowTop} alt="arrowTop" className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
         </div>
-        <div className="relative w-[60vw] md:w-[35vw] lg:w-[25vw]">
+        <div className="relative w-full md:w-[35vw] lg:w-[25vw]">
           <input
             type="text"
-            className="border-2 border-[#0538B9] outline-none rounded-2xl px-4 py-4 text-lg w-full text-[#0538B9] font-medium pr-16 transition-all focus:ring-2 focus:ring-blue-300"
+            className="border-2 border-[#0538B9] outline-none rounded-2xl px-4 py-3 md:py-4 text-base md:text-lg w-full text-[#0538B9] font-medium pr-16 transition-all focus:ring-2 focus:ring-blue-300"
             placeholder="Cari berita..."
             value={search}
             onChange={e => setSearch(e.target.value)}
@@ -417,12 +419,12 @@ export default function BeritaSection() {
         </div>
       </div>
 
-      <div ref={cardsContainerRef} className="flex-1 w-full mx-auto px-8 text-justify">
+      <div ref={cardsContainerRef} className="flex-1 w-full mx-auto px-4 md:px-8 text-justify">
         {filteredNews.length === 0 ? (
-          <div className="text-center text-gray-400 py-20 text-xl ">Tidak ada berita ditemukan.</div>
+          <div className="text-center text-gray-400 py-20 text-lg md:text-xl">Tidak ada berita ditemukan.</div>
         ) : (
           isMobile ? (
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 gap-4 md:gap-6">
               {paginatedNews.map((news, idx) => (
                 <Link key={news.id} href={`/berita/${news.slug}`} legacyBehavior>
                   <a className="berita-card block transform-gpu"><BeritaCard title={news.title} date={news.publishedAt ? new Date(news.publishedAt).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" }) : ""} description={news.content} color={idx % 2 === 0 ? "orange" : "blue"} imageUrl={news.imageUrls?.[0]} /></a>
@@ -430,7 +432,7 @@ export default function BeritaSection() {
               ))}
             </div>
           ) : isTablet ? (
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
               {paginatedNews.map((news, idx) => (
                 <Link key={news.id} href={`/berita/${news.slug}`} legacyBehavior>
                   <a className="berita-card block transform-gpu"><BeritaCard title={news.title} date={news.publishedAt ? new Date(news.publishedAt).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" }) : ""} description={news.content} color={idx % 2 === 0 ? "orange" : "blue"} imageUrl={news.imageUrls?.[0]} /></a>
@@ -465,14 +467,14 @@ export default function BeritaSection() {
       </div>
 
       {totalPages >= 1 && (
-        <div ref={paginationRef} className="flex items-center justify-center mt-20 z-40  gap-2 sm:gap-4">
+        <div ref={paginationRef} className="flex items-center justify-center mt-12 md:mt-20 z-40 gap-2 sm:gap-4 px-4">
           <button
             onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1 || isPageChanging}
             className="border-2 border-[#0538B9] rounded-full cursor-pointer transition disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Previous Page"
           >
-            <Image src={ArrowLeft} alt="Sebelumnya" className="w-12 h-12 p-3" />
+            <Image src={ArrowLeft} alt="Sebelumnya" className="w-10 h-10 md:w-12 md:h-12 p-2 md:p-3" />
           </button>
 
           {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNumber => (
@@ -481,7 +483,7 @@ export default function BeritaSection() {
               data-page={pageNumber}
               onClick={() => handlePageChange(pageNumber)}
               disabled={isPageChanging}
-              className={`w-10 h-10 rounded-full text-lg font-semibold transition cursor-pointer disabled:cursor-not-allowed ${currentPage === pageNumber
+              className={`w-8 h-8 md:w-10 md:h-10 rounded-full text-sm md:text-lg font-semibold transition cursor-pointer disabled:cursor-not-allowed ${currentPage === pageNumber
                   ? 'bg-[#0062FF] text-white shadow-lg'
                   : 'bg-[#E6EDFF] text-[#0062FF] hover:bg-blue-100 border-2 border-[#BACEFF]'
                 }`}
@@ -496,7 +498,7 @@ export default function BeritaSection() {
             className="border-2 border-[#0538B9] rounded-full transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Next Page"
           >
-            <Image src={ArrowRight} alt="Selanjutnya" className="w-12 h-12 p-3" />
+            <Image src={ArrowRight} alt="Selanjutnya" className="w-10 h-10 md:w-12 md:h-12 p-2 md:p-3" />
           </button>
         </div>
       )}

@@ -47,7 +47,7 @@ export default function BeritaDetailPage() {
     const params = useParams();
     const newsSlug = params?.slug as string;
     
-    const [expand, setExpand] = React.useState(false);
+    // const [expand, setExpand] = React.useState(false);
     const { data: listData } = useQuery<ListNewsData>(LIST_NEWS);
 
     const { data: detailData, loading, error } = useQuery<GetNewsData>(GET_NEWS_BY_SLUG, {

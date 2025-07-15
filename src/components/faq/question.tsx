@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
-import arrowDown from '@/assets/faq/icon/arrow-down-white.svg';
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import arrowDown from "@/assets/faq/icon/arrow-down-white.svg";
 
 interface QuestionPageProps {
   question: string;
@@ -35,25 +35,27 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ question, answer }) => {
       >
         <div className="flex items-center gap-x-4">
           <div className="w-2 h-2 bg-white rounded-full" />
-          <span className="font-bold text-lg">{question}</span>
+          <span className="font-bold text-xs lg:text-lg">{question}</span>
         </div>
         <Image
           src={arrowDown}
           alt="toggle"
-          className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          className={`transform transition-transform duration-300 ${
+            isOpen ? "rotate-180" : ""
+          }`}
         />
       </button>
 
       <div
         style={{ maxHeight: `${height}px` }}
-        className={`transition-all duration-500 ease-in-out -mt-[3vw] rounded-t-[1vw]`}
+        className={`transition-all duration-500 ease-in-out -mt-[7vw] md:-mt-[5vw] lg:-mt-[3vw] rounded-t-[1vw]`}
       >
         <div
           ref={contentRef}
-          className="bg-white pt-[6vw] pb-[2vw] px-[2vw] rounded-b-[2vw] text-gray-700 opacity-0 translate-y-2 transition-all duration-500 ease-in-out"
+          className="bg-white pt-[6vw] pb-[2vw] px-[2vw] rounded-b-[2vw] text-gray-700 opacity-0 translate-y-2 transition-all duration-500 ease-in-out text-xs lg:text-xl"
           style={{
             opacity: isOpen ? 1 : 0,
-            transform: isOpen ? 'translateY(0)' : 'translateY(8px)',
+            transform: isOpen ? "translateY(0)" : "translateY(8px)",
           }}
         >
           <p>{answer}</p>

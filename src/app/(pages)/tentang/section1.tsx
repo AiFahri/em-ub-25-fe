@@ -128,7 +128,7 @@ export default function Section1() {
         width={0}
         height={0}
       />
-      <div className="relative w-full mt-28 sm:mt-16 aspect-[1700/755] overflow-hidden">
+      <div className="relative w-full mt-52 sm:mt-36 aspect-[1700/755] overflow-hidden">
         <Image
           src="/Assets/background/tentang/bg_section1.svg"
           alt="Background Section 1"

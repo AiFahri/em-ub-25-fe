@@ -1,3 +1,4 @@
+
 'use client';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -38,6 +39,7 @@ import GameCard from '../../components/comingsoon/GameCard';
 import ResultFlow from '../../components/comingsoon/ResultFlow';
 
 import Opening from '../../components/comingsoon/Opening';
+
 
 export default function Game() {
 
@@ -187,8 +189,8 @@ const resetToOpening = () => {
         const timeout = setTimeout(() => {
           const audio = new Audio(src);
           audio.volume = volume;
-          audio.play().catch(() => {
-            // console.error(`Gagal play sound "${src}":`, err);
+          audio.play().catch((err) => {
+            console.error(`Gagal play sound "${src}":`, err);
           });
         }, delay);
 
@@ -201,22 +203,31 @@ const resetToOpening = () => {
     }
   }, [userChoice, botChoice, result]);
 
-  useEffect(() => {
-    if (userChoice && botChoice && result) {
+ 
+    useEffect(() => {
+      if (userChoice && botChoice && result) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+      return () => { document.body.style.overflow = ''; };
+    }, [currentView,userChoice, botChoice, result]);
+  
+    useEffect(() => {
       document.body.style.overflow = 'hidden';
-
       return () => { document.body.style.overflow = ''; };
     }, []);
 
     
 
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = '';
+    const handlePlay = () => {
+      setCurrentView('game');
+      setTimeout(() => {
+        if (gameRef.current) {
+          gameRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     };
-  }, []);
-
 
 if (currentView === 'result' && userChoice && botChoice && result) {
       return (
@@ -303,50 +314,22 @@ if (currentView === 'result' && userChoice && botChoice && result) {
               <h1 className="font_regular text-white">{labelMap[botDisplayChoice]}</h1>
               <h1 className="font_regular text-white">{labelMap[userChoice]}</h1>
             </div>
-          </div>
-
-          <div className="hidden sm:flex flex-row items-center justify-between w-full xl:px-20 lg:px-16 md:px-12 sm:px-4 px-5 xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[50px] absolute xl:-translate-y-[150%] sm:-translate-y-[180%]">
-            <h1 className="text-[#0049FF] font_bold">Mori</h1>
-            <h1 className="text-[#FF4900] font_bold xl:pr-16 lg:pr-12 sm:pr-8 pr-4">you</h1>
-          </div>
-
-          <div className="sm:hidden flex flex-col items-center justify-center absolute right-0 left-0 translate-y-[-130%]">
-            <p className="font_regular text-white text-[20px]">{labelMap[botDisplayChoice]}</p>
-            <h1 className="font_bold text-[#0049FF] text-[36px] tracking-tight leading-none">Mori</h1>
-          </div>
-
-          <div className="relative w-full ">
-            <div className="flex sm:flex-row relative flex-col justify-between h-screen items-center">
-              <div className="relative">{botChoice && <Image src={imageMapBot[botDisplayChoice]} alt="pilihan bot" className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw] sm:h-auto h-[30vh]" />}</div>
-              <div className="relative ">{userChoice && <Image src={imageMapUser[userChoice]} alt="pilihan user" className="relative xl:w-auto lg:w-[400px] md:w-[330px] sm:w-[250px] w-[60vw]  sm:h-auto h-[30vh] object-contain" />}</div>
+          </motion.div>
+          
+          {showResultFlow && (
+            <div className="absolute inset-0 z-50 w-full h-full">
+              <ResultFlow isWinner={result === 'win'} onPlayAgain={handlePlayAgain} />
             </div>
-            <h1 className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 font_bold xl:text-[121.32px] lg:text-[100px] md:text-[80px] text-[60px] text-white">VS</h1>
-          </div>
+          )}
+        </div>
+      );
+    }
 
-          <div className="sm:hidden flex flex-col items-center justify-center absolute right-0 left-0 translate-y-[130%]">
-            <h1 className="font_bold text-[#FF4900] text-[36px] tracking-tight leading-none">You</h1>
-            <p className="font_regular text-white text-[20px]">{labelMap[userChoice]}</p>
-          </div>
-
-          <div className="hidden sm:flex flex-row items-center justify-between w-full xl:px-40 lg:px-30 md:px-25 sm:px-15 px-10 xl:text-[42.52px] lg:text-[38px] md:text-[30px] text-[20px] absolute translate-y-[500%]">
-            <h1 className="font_regular text-white">{labelMap[botDisplayChoice]}</h1>
-            <h1 className="font_regular text-white">{labelMap[userChoice]}</h1>
-          </div>
-        </motion.div>
-
-        {showResultFlow && (
-          <div className="absolute inset-0 z-50 w-full h-full">
-            <ResultFlow isWinner={result === 'win'} onPlayAgain={handlePlayAgain} />
-          </div>
-        )}
-      </div>
-    );
-  }
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className='flex flex-col h-screen overflow-hidden'>
       <div className="relative flex flex-col items-center w-full justify-center min-h-screen bg-[#001B5E]">
-        <Opening />
+      <Opening />
         <BgGrid classNameVertical="object-cover translate-x-[-20%] opacity-40" classNameHorizontal="opacity-40 object-cover translate-y-[34%] " speedVertical={1} speedHorizontal={1} />
         <Lock />
 
@@ -366,7 +349,7 @@ if (currentView === 'result' && userChoice && botChoice && result) {
               <Animasi />
             </div>
           </div>
-
+          
           <div className="md:hidden z-30 flex flex-col items-center justify-center font_bold text-[3.5rem] leading-none space-y-2">
             <div className="flex flex-row items-center  text-[#0049FF]">
               <span>ha</span>
@@ -385,12 +368,12 @@ if (currentView === 'result' && userChoice && botChoice && result) {
           <h2 className="text-lg md:hidden text-white font_regular font-normal text-center md:text-xl lg:text-2xl xl:text-[42.52px]">We’re cooking up something awesome.</h2>
         </div>
         {!isOpening && showPlayBtn && (
-          <BtnPlay
+          <BtnPlay 
             onClick={() => {
               setShowPlayBtn(false);
               setCurrentView('game');
               handlePlay();
-            }}
+            }} 
           />
         )}
         <p className="text-[14px] md:hidden w-full mt-2 text-white font-normal text-center fixed bottom-[50px] ">While we polish up the site, lets play a game!</p>
@@ -401,50 +384,53 @@ if (currentView === 'result' && userChoice && botChoice && result) {
       </div>
 
       {currentView === 'game' && (
-        <div ref={gameRef} className="relative flex flex-col items-center justify-center  min-h-screen bg-[#001B5E] w-full">
-          <Lock />
-          <BgGrid classNameVertical="object-cover translate-x-[-20%] opacity-40" classNameHorizontal="object-cover translate-y-[34%] opacity-40" speedVertical={0.7} speedHorizontal={1} />
-          <div className="flex flex-row items-center justify-center absolute top-5">
-            <Image src={whitelogo} alt="white logo" className="w-auto" />
-          </div>
-
-          <div ref={pickRef} className="relative flex flex-col sm:mb-80 px-4 ">
-            <div className="flex flex-row items-center justify-center font_bold whitespace-nowrap space-x-6 text-7xl sm:text-9xl md:text-[8rem]">
-              <div className="flex flex-row items-center space-x-5 z-20">
-                <span className="text-[#FF4900]">pick</span>
-                <span className="text-[#0049FF]">one!</span>
-              </div>
-            </div>
-            <h2 className="text-white font_regular text-center text-lg sm:text-3xl md:text-[30px] flex flex-row items-center">
-              Win the game, unlock the surprise.
-              <span className="font_bold inline-block align-middle mx-1 text-lg sm:text-3xl md:text-[30px]">Ready?</span>
-            </h2>
-          </div>
-
-          <div className="relative  sm:absolute sm:bottom-[-50px] w-full flex sm:flex-row flex-col items-center justify-center space-x-[-60px] space-y-[-70px] sm:mr-0 mr-12 ">
-            <Image src={minutes} alt="coming soon" className="rotate-[167.99deg] translate-y-[70%] md:block hidden z-20 xl:w-[15%] lg:w-[30%] md:w-[20%] " />
-            <GameCard
-              src={gunting}
-              alt="Scissors"
-              onClick={() => handle('gunting')}
-              className=" -translate-x-16 sm:-translate-x-0 mt-10 sm:rotate-[-5.61deg] rotate-[-10deg] shadow-[#fff] hover:shadow-[0px_0px_100px] relative z-30 cursor-pointer lg:w-[40%] xl:w-[20%] w-[35%] sm:mb-0 hover:z-50"
-            />
-            <GameCard
-              src={kertas}
-              alt="Paper"
-              onClick={() => handle('kertas')}
-              className="translate-x-16 sm:translate-x-0 sm:mb-[-30px] sm:rotate-0 rotate-[15.79deg] shadow-[#fff] hover:shadow-[0px_0px_100px] z-40 relative lg:w-[40%] xl:w-[20%] w-[35%]"
-            />
-            <GameCard
-              src={batu}
-              alt="Rock"
-              onClick={() => handle('batu')}
-              className="-translate-x-16 sm:-translate-x-0 mt-5  sm:mb-[-30px] shadow-[#fff] hover:shadow-[0px_0px_100px] sm:mt-0 relative z-30 sm:rotate-[5.61deg] rotate-[-10deg] lg:w-[40%] xl:w-[20%] w-[35%] hover:z-50"
-            />
-            <Image src={orange} alt="coming soon" className="rotate-[196.58deg] translate-y-[50%] xl:w-[15%] lg:w-[30%] md:w-[20%] md:block hidden z-20" />
-          </div>
+        
+    
+      <div  ref={gameRef} className="relative flex flex-col items-center justify-center  min-h-screen bg-[#001B5E] w-full">
+        <Lock/>
+        <BgGrid classNameVertical="object-cover translate-x-[-20%] opacity-40" classNameHorizontal="object-cover translate-y-[34%] opacity-40" speedVertical={0.7} speedHorizontal={1} />
+        <div className="flex flex-row items-center justify-center absolute top-5">
+          <Image src={whitelogo} alt="white logo" className="w-auto" />
         </div>
+
+        <div ref={pickRef} className="relative flex flex-col sm:mb-80 px-4 ">
+          <div className="flex flex-row items-center justify-center font_bold whitespace-nowrap space-x-6 text-7xl sm:text-9xl md:text-[8rem]">
+            <div className="flex flex-row items-center space-x-5 z-20">
+              <span className="text-[#FF4900]">pick</span>
+              <span className="text-[#0049FF]">one!</span>
+            </div>
+          </div>
+          <h2 className="text-white font_regular text-center text-lg sm:text-3xl md:text-[30px] flex flex-row items-center">
+            Win the game, unlock the surprise.
+            <span className="font_bold inline-block align-middle mx-1 text-lg sm:text-3xl md:text-[30px]">Ready?</span>
+          </h2>
+        </div>
+
+        <div className="relative  sm:absolute sm:bottom-[-50px] w-full flex sm:flex-row flex-col items-center justify-center space-x-[-60px] space-y-[-70px] sm:mr-0 mr-12 ">
+          <Image src={minutes} alt="coming soon" className="rotate-[167.99deg] translate-y-[70%] md:block hidden z-20 xl:w-[15%] lg:w-[30%] md:w-[20%] " />
+          <GameCard
+            src={gunting}
+            alt="Scissors"
+            onClick={() => handle('gunting')}
+            className=" -translate-x-16 sm:-translate-x-0 mt-10 sm:rotate-[-5.61deg] rotate-[-10deg] shadow-[#fff] hover:shadow-[0px_0px_100px] relative z-30 cursor-pointer lg:w-[40%] xl:w-[20%] w-[35%] sm:mb-0 hover:z-50"
+          />
+          <GameCard
+            src={kertas}
+            alt="Paper"
+            onClick={() => handle('kertas')}
+            className="translate-x-16 sm:translate-x-0 sm:mb-[-30px] sm:rotate-0 rotate-[15.79deg] shadow-[#fff] hover:shadow-[0px_0px_100px] z-40 relative lg:w-[40%] xl:w-[20%] w-[35%]"
+          />
+          <GameCard
+            src={batu}
+            alt="Rock"
+            onClick={() => handle('batu')}
+            className="-translate-x-16 sm:-translate-x-0 mt-5  sm:mb-[-30px] shadow-[#fff] hover:shadow-[0px_0px_100px] sm:mt-0 relative z-30 sm:rotate-[5.61deg] rotate-[-10deg] lg:w-[40%] xl:w-[20%] w-[35%] hover:z-50"
+          />
+          <Image src={orange} alt="coming soon" className="rotate-[196.58deg] translate-y-[50%] xl:w-[15%] lg:w-[30%] md:w-[20%] md:block hidden z-20" />
+        </div>
+      </div>
       )}
     </div>
+      
   );
 }

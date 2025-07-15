@@ -330,6 +330,14 @@
   box-shadow: 0 -25px 0 0 white;
 }
 
+.inverted-radius-big {
+  --r:20px;  /* radius luar */
+  --s: 30px;  /* besar cekungan */
+  --x: 10px; 
+  --y: 0px;
+  width: 100%;
+  height: 250px;
+  background: #fff;
 .inverted-radius {
   --r: 25px;
   --s: 40px;
@@ -674,4 +682,23 @@
   .curve_two {
     left: 73%;
   }
+}
+
+/* Custom blue scrollbar for news content */
+.news-content-scrollbar {
+    padding-right: 12px;
+}
+.news-content-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.news-content-scrollbar::-webkit-scrollbar-track {
+    background: #e5e7eb;
+    border-radius: 10px;
+}
+.news-content-scrollbar::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 10px;
+}
+.news-content-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
 }

@@ -19,7 +19,7 @@ const expressionImageMap = {
 
 export default function MoriExpressionList({ onSelect }: MoriExpressionListProps) {
   return (
-    <div className="flex flex-wrap md:flex-nowrap gap-x-[10vw] md:gap-x-[5vw] justify-center items-end">
+    <div className="flex flex-wrap md:flex-nowrap gap-x-[10vw] md:gap-x-[5vw] xl:gap-x-[6vw] justify-center items-end">
       {expressions.map((exp) => (
         <div key={exp} onClick={() => onSelect(exp)} className="cursor-pointer flex flex-col items-center w-[clamp(90px,10vw,120px)]">
           <motion.div

@@ -34,7 +34,7 @@ export default function WelcomeDesktop() {
 
   return (
     <motion.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={fadeUp} className="relative w-full px-4 md:px-16 py-10 flex flex-col gap-14 items-center bg-white">
-      <div className="flex flex-col md:flex-row gap-12 items-start w-full max-w-7xl relative">
+      <div className="flex flex-col md:flex-row items-start w-full relative">
         <motion.div custom={1} variants={fadeUp} className="absolute z-10 top-[-4vw] left-[33vw]">
           <motion.div whileHover={{ scale: 1.1, y: -3 }} transition={{ type: 'spring', stiffness: 300, damping: 15 }} className="bg-[#FF4900] flex items-center justify-center rounded-full w-[9vw] h-[9vw] p-4">
             <motion.img src={ArrowUpRight.src} alt="arrow" className="w-[4vw]" whileHover={{ rotate: 360 }} transition={{ duration: 0.6, ease: 'easeInOut' }} />
@@ -104,8 +104,8 @@ export default function WelcomeDesktop() {
           </motion.div>
 
           <motion.div custom={8} variants={fadeUp} className="relative w-[35vw] -translate-y-[30px] rounded-[40px] z-10">
-            <div className="absolute w-[18vw] h-[8vw] top-[3vw] right-[36vw] bg-[#0049FF] py-2 rounded-[80px] flex items-center shadow-md z-10">
-              <Image src={logo} alt="Logo" className=" px-3 object-cover mx-auto" />
+            <div className="absolute w-[18vw] h-[8vw] top-[3vw] right-[36vw] bg-[#0049FF] py-2 rounded-[10vw] flex items-center shadow-md z-10">
+              <Image src={logo} alt="Logo" className=" px-3 w-[15vw] mx-auto" />
             </div>
             <div className="z-20 inverted-radius-descmori min-h-[10vw] px-6 pt-6 pb-10 sm:pb-12">
               <div className="text-[#002787] text-[clamp(1vw,1.5vw,2vw)] px-6 leading-relaxed font-[NeueHaasDisplay] text-end">

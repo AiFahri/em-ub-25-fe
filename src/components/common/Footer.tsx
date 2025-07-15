@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import logo from '@/assets/logo/logo-em-ub-2025-whiteText2.svg';
-import instagram from '@/assets/footer/icons/Instagram.svg';
-import twitter from '@/assets/footer/icons/Twitter.svg';
-import LinkedIn from '@/assets/footer/icons/LinkedIn.svg';
-import Youtube from '@/assets/footer/icons/YouTube.svg';
-import TikTok from '@/assets/footer/icons/TikTok.svg';
+import Image from "next/image";
+import Link from "next/link";
+import logo from "@/assets/logo/logo-em-ub-2025-whiteText2.svg";
+import instagram from "@/assets/footer/icons/Instagram.svg";
+import twitter from "@/assets/footer/icons/X.png";
+import LinkedIn from "@/assets/footer/icons/LinkedIn.svg";
+import Youtube from "@/assets/footer/icons/YouTube.svg";
+import TikTok from "@/assets/footer/icons/TikTok.svg";
 
 export default function Footer() {
   return (
@@ -16,11 +16,49 @@ export default function Footer() {
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
           <Image src={logo} alt="Logo Simpul Memori" width={220} height={220} />
           <div className="flex space-x-5 mt-10">
-            <Image src={LinkedIn} alt="Linkedin" width={30} height={30} />
-            <Image src={TikTok} alt="Tiktok" width={30} height={30} />
-            <Image src={Youtube} alt="YouTube" width={30} height={30} />
-            <Image src={instagram} alt="Instagram" width={30} height={30} />
-            <Image src={twitter} alt="Twitter" width={30} height={30} />
+                <a
+                  className="hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.linkedin.com/company/em-ub-2024/"
+                >
+                  <Image src={LinkedIn} alt="Linkedin" width={30} height={30} />
+                </a>
+                <a
+                  className="hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.tiktok.com/@em_ubofficial"
+                >
+                  <Image src={TikTok} alt="Tiktok" width={30} height={30} />
+                </a>
+                <a
+                  className="hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://youtube.com/@emubofficial"
+                >
+                  <Image src={Youtube} alt="YouTube" width={30} height={30} />
+                </a>
+                <a
+                  className="hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://instagram.com/em_ubofficial"
+                >
+                  <Image
+                    src={instagram}
+                    alt="Instagram"
+                    width={30}
+                    height={30}
+                  />
+                </a>
+                <a
+                  className="hover:underline"
+                  href="http://x.com/em_ubofficial"
+                >
+                  <Image src={twitter} alt="Twitter" width={30} height={30} />
+                </a>
           </div>
         </div>
 
@@ -56,28 +94,51 @@ export default function Footer() {
               <h3 className="font-semibold mb-2">Sosial Media</h3>
               <ul className="space-y-1">
                 <li>
-                  <a className="hover:underline" href="#">
+                  <a
+                    className="hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.linkedin.com/company/em-ub-2024/"
+                  >
                     Linkedin
                   </a>
                 </li>
                 <li>
-                  <a className="hover:underline" href="#">
+                  <a
+                    className="hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.tiktok.com/@em_ubofficial"
+                  >
                     Tiktok
                   </a>
                 </li>
                 <li>
-                  <a className="hover:underline" href="#">
+                  <a
+                    className="hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://youtube.com/@emubofficial"
+                  >
                     Youtube
                   </a>
                 </li>
                 <li>
-                  <a className="hover:underline" href="#">
+                  <a
+                    className="hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://instagram.com/em_ubofficial"
+                  >
                     Instagram
                   </a>
                 </li>
                 <li>
-                  <a className="hover:underline" href="#">
-                    Twitter
+                  <a
+                    className="hover:underline"
+                    href="http://x.com/em_ubofficial"
+                  >
+                    X
                   </a>
                 </li>
               </ul>

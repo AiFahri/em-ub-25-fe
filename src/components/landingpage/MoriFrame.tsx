@@ -15,23 +15,39 @@ const expressionImageMap = {
   bangga: moriBangga,
 };
 
+const frameVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.7 }
+  }
+};
+
+const moriVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, delay: 0.3 }
+  }
+};
+
 export default function MoriFrame({ expression }: MoriFrameProps) {
   return (
-    <div className="w-[40vw] h-[40vw] bg-cover rounded-[40px] overflow-hidden relative flex items-center justify-center" style={{ backgroundImage: `url(${bgframe.src})` }}>
+    <motion.div
+      className="w-[40vw] h-[40vw] bg-cover rounded-[40px] overflow-hidden relative flex items-center justify-center"
+      style={{ backgroundImage: `url(${bgframe.src})` }}
+      variants={frameVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <motion.div
         className="absolute translate-y-[8vw] w-[40vw] h-[40vw]"
-        initial={{ y: 0, scale: 1 }}
-        animate={{
-          y: ['0vw', '-3vw', '0vw'],
-          scale: 1,
-        }}
-        transition={{
-          y: {
-            duration: 3,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-        }}
+        variants={moriVariants}
+        initial="hidden"
+        animate="visible"
         whileHover={{
           scale: 1.2,
           transition: { type: 'spring', stiffness: 300, damping: 20 },
@@ -43,6 +59,6 @@ export default function MoriFrame({ expression }: MoriFrameProps) {
       >
         <Image src={expressionImageMap[expression]} alt={`Ekspresi Mori ${expression}`} fill className="object-contain" />
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

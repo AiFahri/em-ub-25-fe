@@ -61,7 +61,7 @@ const ProkerCardMain: React.FC<ProkerCardMainProps> = ({ title, type, department
   const { bgColor, departmentTextColor, borderColor, bgSVG, shadowClass } = getColors(randomVariant);
 
   return (
-    <div className={cn('w-full rounded-4xl overflow-hidden flex flex-col', 'transition-all duration-300 ease-in-out transform hover:-translate-y-2', shadowClass)}>
+    <div className={cn('w-full h-[350px] lg:h-[400px] rounded-4xl overflow-hidden flex flex-col', 'transition-all duration-300 ease-in-out transform hover:-translate-y-2', shadowClass)}>
       {/* Area Gambar (tidak berubah) */}
       <div className={cn('w-full aspect-video flex items-center justify-center overflow-hidden border-t-2 border-x-2 rounded-t-4xl', borderColor)}>
         {imageUrl ? (

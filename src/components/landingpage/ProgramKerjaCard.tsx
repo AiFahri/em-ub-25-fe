@@ -58,7 +58,7 @@ export default function ProgramKerjaCard({ index, title, description, kementeria
   return (
     <div
       onClick={() => router.push(`/proker/${slug}`)}
-      className={`group relative overflow-hidden rounded-4xl p-6 text-white flex flex-col justify-between transition-all duration-500 ease-in-out ${bgColor} w-[200px] hover:w-[260px] md:w-[250px] xl:w-[300px] md:hover:w-[400px] h-[300px] md:h-[500px] cursor-pointer`}
+      className={`program-card group relative overflow-hidden rounded-4xl p-6 text-white flex flex-col justify-between transition-all duration-500 ease-in-out ${bgColor} w-[200px] hover:w-[260px] md:w-[250px] xl:w-[300px] md:hover:w-[400px] h-[300px] md:h-[500px] cursor-pointer`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none">{decorations}</div>
 

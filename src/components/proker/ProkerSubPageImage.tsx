@@ -11,6 +11,7 @@ import Frame from '@/assets/proker/prokerdetail-mask-shape.svg';
 import FallbackImage from '@/assets/proker/mori-card-proker.svg';
 import arrowrightblue from '@/assets/landingpage/icons/arrow-right-blue.svg';
 import arrowleftblue from '@/assets/landingpage/icons/arrow-left-blue.svg';
+import instagram from '@/assets/proker/Instagram.svg';
 
 interface ProkerSubPageImageProps {
   imageUrl: string[] | null | undefined;
@@ -25,7 +26,6 @@ const ProkerSubPageImage: React.FC<ProkerSubPageImageProps> = ({ imageUrl, insta
 
   return (
     <div className="relative w-full h-[400px] md:h-[500px]">
-      {/* ARROWS */}
       <button ref={prevRef} className="flex absolute z-20 left-3 md:left-8 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md p-2 rounded-full shadow">
         <Image src={arrowleftblue} alt="Previous" className="w-3 h-3 md:w-6 md:h-6" />
       </button>
@@ -73,6 +73,12 @@ const ProkerSubPageImage: React.FC<ProkerSubPageImageProps> = ({ imageUrl, insta
           </SwiperSlide>
         ))}
       </Swiper>
+      <div className="absolute z-30 translate-x-[55vw] translate-y-[-10vw] lg:translate-y-[-5vw] lg:translate-x-[45vw] flex items-center gap-2 px-3 py-1">
+        <Image src={instagram} alt="Instagram Icon" className="w-5 md:w-6" />
+        <a href={instagramUrl} target="_blank" className="text-blue-800 font-semibold text-sm md:text-base hover:underline">
+          Instagram
+        </a>
+      </div>
     </div>
   );
 };

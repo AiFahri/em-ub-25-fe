@@ -109,7 +109,7 @@ const ProkerDetailPage = () => {
   }
 
   const mainImageUrl = proker.imageUrls?.map((url: string) => `${IMAGE_BASE_URL}${url}`) || null;
-  const instagramUrl = proker.instagramUrl || 'https://instagram.com/psdm.emub';
+  const instagramUrl = proker.instagramUrl;
   const moriAnimationVariants = {
     animate: {
       y: [0, -40, 0],
@@ -177,12 +177,6 @@ const ProkerDetailPage = () => {
                 }}
               >
                 <ProkerSubPageImage imageUrl={mainImageUrl} instagramUrl={instagramUrl} />
-                <div className="absolute translate-x-[55vw] translate-y-[-10vw] lg:translate-y-[-5vw] lg:translate-x-[45vw] flex items-center gap-2 px-3 py-1">
-                  <Image src={instagram} alt="Instagram Icon" className="w-5 md:w-6" />
-                  <a href={instagramUrl} target="_blank" className="text-blue-800 font-semibold text-sm md:text-base">
-                    Instagram
-                  </a>
-                </div>
               </div>
 
               <div
@@ -241,7 +235,7 @@ const ProkerDetailPage = () => {
                       style={{
                         bottom: '30%',
                         left: '-15%',
-                        width: 'clamp(10rem, 18vw, 25rem)',
+                        width: 'clamp(9rem, 14vw, 21rem)',
                       }}
                       initial={{ x: '100%', opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
@@ -300,7 +294,7 @@ const ProkerDetailPage = () => {
                 }}
               >
                 <div
-                  className="leading-relaxed"
+                  className="leading-relaxed text-justify"
                   dangerouslySetInnerHTML={{
                     __html: proker.content || 'Tidak ada deskripsi.',
                   }}
@@ -440,7 +434,7 @@ const ProkerDetailPage = () => {
                     style={{
                       bottom: 'clamp(-20rem, 15vw, -3rem)',
                       right: 0,
-                      width: 'clamp(5rem, 25vw, 10rem)',
+                      width: 'clamp(5rem, 25vw,8)',
                     }}
                     initial={{ x: '100%', opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}

@@ -444,7 +444,7 @@ const ProkerDetailPage = () => {
                       ease: [0.22, 1, 0.36, 1],
                     }}
                   >
-                    <Image src={Bubble3} alt="Klik di Bawah Braw" className="object-contain drop-shadow-md w-[100vw] h-auto" />
+                    <Image src={Bubble3} alt="Klik di Bawah Braw" className="object-contain drop-shadow-md translate-y-2 w-[28vw]" />
                   </motion.div>
 
                   <motion.div

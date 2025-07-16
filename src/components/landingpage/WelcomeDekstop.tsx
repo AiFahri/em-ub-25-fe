@@ -82,7 +82,21 @@ export default function WelcomeDesktop() {
                   <p className="text-[#0538B9] font-semibold text-[2vw] leading-tight">
                     Kabinet <span className="font-bold">Simpul Memori</span>
                   </p>
-                  <Image src={calendarIcon} alt="calendar" className="w-[4vw]" />
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5, y: 30 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.7, type: 'spring', bounce: 0.6 }}
+                    viewport={{ once: true }}
+                  >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5, y: 30 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.7, type: 'spring', bounce: 0.6 }}
+                    viewport={{ once: true }}
+                  >
+                    <Image src={calendarIcon} alt="calendar" className="w-[4vw]" />
+                  </motion.div>
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -91,10 +105,34 @@ export default function WelcomeDesktop() {
 
         <motion.div custom={5} variants={fadeUp} className="flex flex-col items-center md:items-end gap-6 w-full">
           <div className="w-full flex justify-end font-[NeueHaasDisplay]">
-            <motion.h2 custom={6} variants={fadeUp} className="text-black text-[clamp(2.5vw,3vw,6vw)] font-bold">
-              Selamat datang,
-              <br />
-              <span className="text-[#0538B9] text-[clamp(7vw,6vw,7vw)]">Sobat Mori!</span>
+            <motion.h2 custom={6} variants={fadeUp} className="text-black text-[clamp(2.5vw,3vw,6vw)] font-bold flex flex-col">
+              <span className="flex flex-wrap gap-x-2">
+                {['Selamat', 'datang,'].map((word, i) => (
+                  <motion.span
+                    key={word}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.2 }}
+                    viewport={{ once: true }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </span>
+              <span className="flex flex-wrap gap-x-2">
+                {['Sobat', 'Mori!'].map((word, i) => (
+                  <motion.span
+                    key={word}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 + i * 0.2 }}
+                    viewport={{ once: true }}
+                    className={i === 0 ? "text-[#0538B9] text-[clamp(7vw,6vw,7vw)]" : "text-[#0538B9] text-[clamp(7vw,6vw,7vw)]"}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </span>
             </motion.h2>
           </div>
 
@@ -104,14 +142,34 @@ export default function WelcomeDesktop() {
           </motion.div>
 
           <motion.div custom={8} variants={fadeUp} className="relative w-[35vw] -translate-y-[30px] rounded-[40px] z-10">
-            <div className="absolute w-[18vw] h-[8vw] top-[3vw] right-[36vw] bg-[#0049FF] py-2 rounded-[10vw] flex items-center shadow-md z-10">
-              <Image src={logo} alt="Logo" className=" px-3 w-[15vw] mx-auto" />
+            <div className="absolute w-[18vw] h-[8vw] top-[3vw] right-[36vw] bg-[#0049FF] py-2 rounded-[10vw] flex items-center  z-10">
+              <Image src={logo} alt="Logo" className=" px-3 mt-[1vw] w-[15vw] mx-auto" />
             </div>
             <div className="z-20 inverted-radius-descmori min-h-[10vw] px-6 pt-6 pb-10 sm:pb-12">
-              <div className="text-[#002787] text-[clamp(1vw,1.5vw,2vw)] px-6 leading-relaxed font-[NeueHaasDisplay] text-end">
-                <p>Mori adalah teman kecilmu yang siap memandu petualangan seru di dunia EM UB 2025. Mau mencari info kegiatan? Dokumentasi kece? Atau sekadar kepo sama EM UB? </p>
-                <p className="mt-4 pl-[3rem]">Tenang saja, Mori siap nemenin kamu keliling. Ayo klik-klik bareng Mori, ya. Jangan takut nyasar, soalnya Mori hafal semua jalan di sini!</p>
-              </div>
+              <motion.div
+                className="text-[#002787] text-[clamp(1vw,1.5vw,2vw)] px-6 leading-relaxed font-[NeueHaasDisplay] text-end"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: { staggerChildren: 0.22 },
+                  },
+                }}
+              >
+                <motion.p
+                  variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } }}
+                >
+                  Mori adalah teman kecilmu yang siap memandu petualangan seru di dunia EM UB 2025. Mau mencari info kegiatan? Dokumentasi kece? Atau sekadar kepo sama EM UB?
+                </motion.p>
+                <motion.p
+                  className="mt-4 pl-[3rem]"
+                  variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } }}
+                >
+                  Tenang saja, Mori siap nemenin kamu keliling. Ayo klik-klik bareng Mori, ya. Jangan takut nyasar, soalnya Mori hafal semua jalan di sini!
+                </motion.p>
+              </motion.div>
             </div>
             <Image src={eclipse} alt="Eclipse dekor" className="absolute bottom-[3vw] left-[-2vw] w-[5vw]" />
             <div className="absolute inset-0 -z-10">

@@ -8,7 +8,7 @@ import Welcome from '../components/landingpage/Welcome';
 
 export default function Home() {
   return (
-    <main className="pt-28">
+    <main className="pt-28 overflow-x-hidden">
       <Navbar />
       <Hero />
       <Welcome />

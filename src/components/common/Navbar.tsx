@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -35,6 +35,11 @@ export default function Navbar() {
   const [showModal, setShowModal] = useState(false);
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  // States for sliding background animation
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [backgroundStyle, setBackgroundStyle] = useState({});
+  const navItemsRef = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const normalizedPath = pathname.replace(/\/+$/, "");
@@ -71,6 +76,13 @@ export default function Navbar() {
     prokerData?.getWorkProgramBySlug?.hasForm &&
     prokerData?.getWorkProgramBySlug?.isGeneral;
 
+  const navItems = [
+    { href: "/", label: "Beranda" },
+    { href: "/berita", label: "Berita" },
+    { href: "/tentang", label: "Tentang" },
+    { href: "/proker", label: "Program Kerja" },
+  ];
+
   const isActive = (path: string) => {
     const current = pathname?.toLowerCase().replace(/\/$/, "");
     const target = path.toLowerCase().replace(/\/$/, "");
@@ -89,6 +101,28 @@ export default function Navbar() {
 
     return current === target;
   };
+
+  // Update sliding background position
+  useEffect(() => {
+    const currentActiveIndex = navItems.findIndex(item => isActive(item.href));
+    
+    if (currentActiveIndex !== -1 && navItemsRef.current[currentActiveIndex]) {
+      const activeElement = navItemsRef.current[currentActiveIndex];
+      const rect = activeElement.getBoundingClientRect();
+      const containerRect = activeElement.parentElement?.getBoundingClientRect();
+      
+      if (containerRect) {
+        setBackgroundStyle({
+          left: rect.left - containerRect.left,
+          width: rect.width,
+          height: rect.height,
+        });
+        setActiveIndex(currentActiveIndex);
+      }
+    } else {
+      setActiveIndex(null);
+    }
+  }, [pathname, isClient, isMobileView]);
 
   const handleLoginClick = () => {
     if (isOnProkerSlugPage && isOprecProker) {
@@ -119,27 +153,46 @@ export default function Navbar() {
       {!isMobileView && (
         <>
           <div className="flex flex-1 justify-center min-w-0">
-            <div className="flex items-center whitespace-nowrap max-w-full gap-x-[5vw] text-[clamp(1.5vw,1.7vw,2rem)]">
-              {[
-                { href: "/", label: "Beranda" },
-                { href: "/berita", label: "Berita" },
-                { href: "/tentang", label: "Tentang" },
-                { href: "/proker", label: "Program Kerja" },
-              ].map((item) => (
+            <div className="flex items-center whitespace-nowrap max-w-full gap-x-[5vw] text-[clamp(1.5vw,1.7vw,2rem)] relative">
+              {/* Sliding background */}
+              <motion.div
+                className="absolute bg-[#002787] rounded-full z-0"
+                initial={false}
+                animate={{
+                  left: backgroundStyle.left,
+                  width: backgroundStyle.width,
+                  height: backgroundStyle.height,
+                  opacity: activeIndex !== null ? 1 : 0,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 30,
+                  duration: 0.3,
+                }}
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                }}
+              />
+
+              {navItems.map((item, index) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative font-medium after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-[#002787] after:transition-all after:duration-300 ${
+                  ref={(el) => (navItemsRef.current[index] = el)}
+                  className={`relative font-medium z-10 px-4 py-2 rounded-full transition-colors duration-300 ${
                     isActive(item.href)
-                      ? "bg-[#002787] text-white px-4 py-2 rounded-full after:hidden"
-                      : "text-[#002787] after:w-0 hover:after:w-full"
+                      ? "text-white"
+                      : "text-[#002787] hover:text-[#002787]"
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
 
-              <div className="relative inline-block">
+              <div className="relative inline-block z-10">
                 <button
                   onClick={() => {
                     setIsServiceDropdownOpen(!isServiceDropdownOpen);

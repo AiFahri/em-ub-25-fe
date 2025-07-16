@@ -4,6 +4,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import BeritaCard from './BeritaCard';
 import Image from 'next/image';
@@ -11,8 +14,9 @@ import arrowrightblue from '@/assets/landingpage/icons/arrow-right-blue.svg';
 import arrowleftblue from '@/assets/landingpage/icons/arrow-left-blue.svg';
 import { useQuery } from '@apollo/client';
 import { GET_LANDING_PAGE_DATA } from '@/graphql/queries/getLandingPageData';
-import { motion } from 'framer-motion';
 import SkeletonBeritaCard from './SkeletonBeritaCard';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export interface NewsItem {
   id: number;
@@ -24,26 +28,232 @@ export interface NewsItem {
 
 export default function Berita() {
   const { data, loading, error } = useQuery(GET_LANDING_PAGE_DATA);
+  const containerRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const swiperRef = useRef<HTMLDivElement>(null);
 
   const beritaData = data?.listNews?.news ?? [];
-  const titleVariant = {
-    hidden: { x: -100, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { type: 'spring', duration: 1, bounce: 0.4 },
-    },
-  };
 
-  const carouselVariant = {
-    hidden: { y: 100, scale: 0.95, opacity: 0 },
-    visible: {
-      y: 0,
-      scale: 1,
-      opacity: 1,
-      transition: { type: 'spring', duration: 1.2, delay: 0.2 },
-    },
-  };
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Set initial states with dramatic modern effects
+      gsap.set(swiperRef.current, {
+        opacity: 0,
+        y: 150,
+        scale: 0.7,
+        rotationX: 35,
+        transformPerspective: 1200,
+        filter: "blur(30px) brightness(0.3)",
+        transformOrigin: "center center",
+      });
+
+      // Split text into individual characters for letter-by-letter animation
+      if (titleRef.current) {
+        const titleText = titleRef.current.textContent || "";
+        titleRef.current.innerHTML = "";
+        
+        titleText.split("").forEach((char) => {
+          const span = document.createElement("span");
+          span.textContent = char === " " ? "\u00A0" : char; // Non-breaking space
+          span.style.display = "inline-block";
+          span.style.opacity = "0";
+          span.style.transform = "translateY(-100px) rotateX(90deg)";
+          span.style.transformOrigin = "center bottom";
+          titleRef.current!.appendChild(span);
+        });
+      }
+
+      // Create sophisticated entrance animation
+      const masterTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 70%",
+          end: "bottom 30%",
+          toggleActions: "play none none reverse",
+        }
+      });
+
+      // Letter-by-letter animation with falling effect
+      const letters = titleRef.current?.querySelectorAll("span");
+      if (letters) {
+        letters.forEach((letter, index) => {
+          masterTl.to(letter, {
+            opacity: 1,
+            y: 0,
+            rotationX: 0,
+            duration: 0.6,
+            ease: "bounce.out",
+          }, index * 0.03);
+        });
+      }
+
+      // Title animation with morphing phases
+      masterTl
+        .to(swiperRef.current, {
+          opacity: 0.2,
+          y: 100,
+          scale: 0.75,
+          rotationX: 25,
+          filter: "blur(20px) brightness(0.5)",
+          duration: 0.3,
+          ease: "power2.out",
+        }, "-=0.8")
+        .to(swiperRef.current, {
+          opacity: 0.5,
+          y: 60,
+          scale: 0.85,
+          rotationX: 15,
+          filter: "blur(12px) brightness(0.7)",
+          duration: 0.4,
+          ease: "power2.out",
+        })
+        .to(swiperRef.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotationX: 0,
+          filter: "blur(0px) brightness(1)",
+          duration: 0.6,
+          ease: "elastic.out(1, 0.9)",
+        });
+
+      // Individual card animations with advanced effects
+      const cards = swiperRef.current?.querySelectorAll('.berita-card');
+      if (cards) {
+        cards.forEach((card, index) => {
+          gsap.set(card, {
+            opacity: 0,
+            y: 120 + (index * 30),
+            scale: 0.6,
+            rotationY: 30,
+            rotationX: 20,
+            transformPerspective: 1000,
+            filter: "blur(20px) saturate(0.3)",
+            transformOrigin: "center center",
+          });
+
+          gsap.to(card, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotationY: 0,
+            rotationX: 0,
+            filter: "blur(0px) saturate(1)",
+            duration: 1,
+            ease: "back.out(1.5)",
+            delay: 0.6 + (index * 0.2),
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            }
+          });
+
+          // Simple hover effects (original style)
+          card.addEventListener('mouseenter', () => {
+            gsap.to(card, {
+              scale: 1.05,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          });
+
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+              scale: 1,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          });
+        });
+      }
+
+      // Add magnetic effect to title letters
+      if (titleRef.current) {
+        titleRef.current.addEventListener('mousemove', (e) => {
+          const rect = titleRef.current!.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          
+          gsap.to(titleRef.current, {
+            x: x * 0.02,
+            y: y * 0.02,
+            rotationX: y * 0.01,
+            rotationY: x * 0.01,
+            duration: 0.4,
+            ease: "power2.out",
+          });
+
+          // Individual letter hover effects
+          const letters = titleRef.current!.querySelectorAll("span");
+          letters.forEach((letter, index) => {
+            const delay = index * 0.01;
+            gsap.to(letter, {
+              x: x * 0.02,
+              y: y * 0.02,
+              rotationX: y * 0.01,
+              rotationY: x * 0.01,
+              duration: 0.5,
+              ease: "power2.out",
+              delay: delay,
+            });
+          });
+        });
+
+        titleRef.current.addEventListener('mouseleave', () => {
+          gsap.to(titleRef.current, {
+            x: 0,
+            y: 0,
+            rotationX: 0,
+            rotationY: 0,
+            duration: 0.6,
+            ease: "elastic.out(1, 0.9)",
+          });
+
+          // Reset letter effects
+          const letters = titleRef.current!.querySelectorAll("span");
+          letters.forEach((letter, index) => {
+            const delay = index * 0.01;
+            gsap.to(letter, {
+              x: 0,
+              y: 0,
+              rotationX: 0,
+              rotationY: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              delay: delay,
+            });
+          });
+        });
+      }
+
+      // Add smooth parallax scrolling effect
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          gsap.to(titleRef.current, {
+            y: progress * -25,
+            duration: 0.3,
+            ease: "none",
+          });
+          gsap.to(swiperRef.current, {
+            y: progress * -35,
+            duration: 0.3,
+            ease: "none",
+          });
+        },
+      });
+
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [data]);
 
   if (loading) {
     return (
@@ -89,12 +299,12 @@ export default function Berita() {
   if (error) return <p className="text-center">Gagal memuat berita.</p>;
 
   return (
-    <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} className="bg-white font-sans relative">
-      <motion.h2 variants={titleVariant} className="text-4xl md:text-6xl lg:text-8xl font-bold text-[#0538B9] mb-10 text-center">
+    <section ref={containerRef} className="bg-white font-sans relative">
+      <h2 ref={titleRef} className="text-4xl md:text-6xl lg:text-8xl font-bold text-[#0538B9] mb-10 text-center">
         What&#39;s up right now?
-      </motion.h2>
+      </h2>
 
-      <motion.div variants={carouselVariant} className="relative w-full px-4 md:px-10">
+      <div ref={swiperRef} className="relative w-full px-4 md:px-10">
         <Swiper
           modules={[Navigation]}
           loop={true}
@@ -154,7 +364,7 @@ export default function Berita() {
             <Image src={arrowrightblue} alt="Next" className="w-[clamp(16px,2vw,28px)] h-auto" />
           </button>
         </div>
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 }

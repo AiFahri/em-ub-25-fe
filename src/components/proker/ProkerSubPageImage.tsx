@@ -75,7 +75,7 @@ const ProkerSubPageImage: React.FC<ProkerSubPageImageProps> = ({ imageUrl, insta
       </Swiper>
       <div className="absolute z-30 translate-x-[55vw] translate-y-[-10vw] lg:translate-y-[-5vw] lg:translate-x-[45vw] flex items-center gap-2 px-3 py-1">
         <Image src={instagram} alt="Instagram Icon" className="w-5 md:w-6" />
-        <a href={instagramUrl} target="_blank" className="text-blue-800 font-semibold text-sm md:text-base hover:underline">
+        <a href={instagramUrl} target="_blank" className="text-[#0538B9] font-semibold text-[clamp(1vw,1.5vw,3vw)] hover:underline">
           Instagram
         </a>
       </div>

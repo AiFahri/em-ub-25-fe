@@ -49,8 +49,6 @@ type ListNewsData = {
 export default function BeritaDetailPage() {
   const params = useParams();
   const newsSlug = params?.slug as string;
-
-  // const [expand, setExpand] = React.useState(false);
   const { data: listData } = useQuery<ListNewsData>(LIST_NEWS);
 
   const {
@@ -65,7 +63,7 @@ export default function BeritaDetailPage() {
   const [imageIdx, setImageIdx] = React.useState(0);
   const news = detailData?.getNewsBySlug;
 
-  // Refs untuk animasi
+  
   const mainRef = useRef<HTMLElement>(null);
   const ornamentLineRef = useRef<HTMLDivElement>(null);
   const detailHeaderRef = useRef<HTMLDivElement>(null);
@@ -97,12 +95,12 @@ export default function BeritaDetailPage() {
     setImageIdx(0);
   }, [newsSlug]);
 
-  // GSAP Animations dengan ScrollTrigger
+  
   useEffect(() => {
     if (!news || loading) return;
 
     const ctx = gsap.context(() => {
-      // Set initial state untuk content elements - invisible dari awal
+      
       gsap.set(
         [
           imageControlsRef.current,
@@ -116,7 +114,7 @@ export default function BeritaDetailPage() {
         }
       );
 
-      // Set initial state untuk detail header - invisible dari awal
+      
       gsap.set(detailHeaderRef.current, {
         x: -200,
         opacity: 0,
@@ -127,7 +125,7 @@ export default function BeritaDetailPage() {
         gsap.set(metaRef.current.children, { opacity: 0, y: 30 });
       }
 
-      // Animasi awal - ornament line slide in
+      
       gsap.fromTo(
         ornamentLineRef.current,
         {
@@ -143,7 +141,7 @@ export default function BeritaDetailPage() {
         }
       );
 
-      // Background parallax effect
+      
       ScrollTrigger.create({
         trigger: backgroundRef.current,
         start: "top bottom",
@@ -159,7 +157,7 @@ export default function BeritaDetailPage() {
         },
       });
 
-      // Ornament line reveal animation
+      
       ScrollTrigger.create({
         trigger: ornamentLineRef.current,
         start: "top 85%",
@@ -188,13 +186,13 @@ export default function BeritaDetailPage() {
         },
       });
 
-      // Detail header reveal animation dengan scroll trigger
+      
       ScrollTrigger.create({
         trigger: detailHeaderRef.current,
         start: "top 80%",
         once: true,
         onEnter: () => {
-          // Main detail header slide dari kiri
+          
           gsap.fromTo(
             detailHeaderRef.current,
             {
@@ -211,7 +209,7 @@ export default function BeritaDetailPage() {
             }
           );
 
-          // Individual elements stagger animation
+          
           const headerElements =
             detailHeaderRef.current?.querySelectorAll("img, p");
           if (headerElements) {
@@ -236,14 +234,14 @@ export default function BeritaDetailPage() {
         },
       });
 
-      // Content section reveal dengan scroll trigger gradual
+      
       ScrollTrigger.create({
         trigger: contentSectionRef.current,
         start: "top 85%",
         end: "top 30%",
         scrub: 1,
         onUpdate: (self) => {
-          // Image controls muncul pelan-pelan
+          
           if (imageControlsRef.current) {
             gsap.to(imageControlsRef.current, {
               opacity: self.progress,
@@ -253,7 +251,7 @@ export default function BeritaDetailPage() {
             });
           }
 
-          // Image display dengan parallax fade
+          
           if (imageDisplayRef.current) {
             gsap.to(imageDisplayRef.current, {
               opacity: self.progress,
@@ -263,7 +261,7 @@ export default function BeritaDetailPage() {
             });
           }
 
-          // Title dengan progressive reveal
+          
           if (titleRef.current) {
             gsap.to(titleRef.current, {
               opacity: Math.max(0, (self.progress - 0.2) * 1.25),
@@ -272,7 +270,7 @@ export default function BeritaDetailPage() {
             });
           }
 
-          // Meta info dengan delayed reveal
+          
           if (metaRef.current) {
             const metaElements = metaRef.current.children;
             Array.from(metaElements).forEach((element, index) => {
@@ -291,7 +289,7 @@ export default function BeritaDetailPage() {
         },
       });
 
-      // Content text reveal dengan smooth scroll trigger
+      
       ScrollTrigger.create({
         trigger: contentTextRef.current,
         start: "top 90%",
@@ -307,7 +305,7 @@ export default function BeritaDetailPage() {
         },
       });
 
-      // Sidebar cards reveal dengan wave effect
+      
       ScrollTrigger.create({
         trigger: sidebarRef.current,
         start: "top 80%",
@@ -335,7 +333,6 @@ export default function BeritaDetailPage() {
         },
       });
 
-      // Ornament decoration continuous rotation dengan scroll
       ScrollTrigger.create({
         trigger: ornamentDecoRef.current,
         start: "top bottom",
@@ -405,7 +402,7 @@ export default function BeritaDetailPage() {
   return (
     <main ref={mainRef}>
       <BeritaHero />
-      <div className="flex flex-col relative mt-[-12vw] md:mt-[-5vw] overflow-hidden">
+      <div className="flex flex-col relative mt-[-12vw] md:mt-[-10vw] overflow-hidden">
         <div
           ref={ornamentLineRef}
           className="flex flex-row items-center px-[2vw] sm:w-[70%] w-full gap-x-[1vw]"
@@ -439,13 +436,13 @@ export default function BeritaDetailPage() {
               alt="detail berita"
               className="w-[2.5vw]"
             />
-            <p className="text-[#0538B9] text-[2vw] tracking-tight">
+            <p className="text-[#0538B9] text-[clamp(1.5rem, 3vw, 5rem)] tracking-tight">
               Detail Berita
             </p>
             <Image
               src={detailBeritaArrow}
               alt="detail berita"
-              className="sm:w-[6.5vw] w-[14vw]"
+              className="sm:w-[5vw] md:w-[6.5vw] w-[12vw]"
             />
           </div>
           <Image
@@ -464,7 +461,7 @@ export default function BeritaDetailPage() {
               alt="ornament"
               className="absolute bottom-[1%] right-[10%] w-[20%] -z-10"
             />
-            <div className="sm:w-[75%] w-[90%] px-[2vw]  sm:px-0">
+            <div className="sm:w-[75%] w-[90%] mt-[2vw] px-[2vw]  sm:px-0">
               <div className="flex flex-col md:flex-row items-center md:items-start  md:gap-12 ">
                 {totalImages > 0 && (
                   <div
@@ -576,10 +573,10 @@ export default function BeritaDetailPage() {
                     )}
                   </div>
                   <div className="relative w-full">
-                    <div className="leading-[3.5vw]">
+                    <div className="leading-[5vw]">
                       <h1
                         ref={titleRef}
-                        className="text-[clamp(5vw,5vw,4rem)] font_bold text-[#002787] text-justify"
+                        className="text-[clamp(5vw,5vw,4rem)] font_bold text-[#002787] "
                       >
                         {news.title}
                       </h1>
@@ -590,14 +587,14 @@ export default function BeritaDetailPage() {
                             { year: "numeric", month: "long", day: "numeric" }
                           )}
                         </p>
-                        <p className="text-[#0538B9] border-2 border-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] bg-white rounded-[2vw] px-[1vw] py-[1vw]  w-fit ">
+                        <p className="text-[#0538B9] border-2 border-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] bg-white rounded-[2vw] px-[1vw] py-[0.5vw]  w-fit ">
                           {news.ministryName}
                         </p>
                       </div>
                     </div>
                     <div
                       ref={contentTextRef}
-                      className="news-content-scrollbar text-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] h-[35vw] sm:h-[25vw] md:h-[40vw] lg:h-[40vw] overflow-y-auto text-justify mt-[2vw] mb-2"
+                      className="news-content-scrollbar text-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] h-[35vw] sm:h-[18vw] md:h-[40vw] lg:h-[40vw] overflow-y-auto text-justify mt-[2vw] mb-2"
                     >
                       {news.content}
                     </div>

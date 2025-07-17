@@ -233,7 +233,7 @@ export default function Section2() {
 
       <div
         ref={profileContentRef}
-        className="relative flex flex-row aspect-[1660/700] w-[95%] anim-main-content"
+        className="relative flex flex-row aspect-[1660/700] w-[95%] overflow-hidden anim-main-content"
       >
         <div className="relative w-[60%] ml-[1.5vw]">
           <Image

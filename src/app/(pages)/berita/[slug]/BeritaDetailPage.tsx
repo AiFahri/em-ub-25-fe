@@ -3,7 +3,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_NEWS_BY_SLUG, LIST_NEWS } from '@/graphql/queries/berita/beritaQueries';
-import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import BeritaHero from '@/components/berita/BeritaHero';
 import BeritaCardSide from '@/components/berita/BeritaCardSide';

@@ -24,18 +24,16 @@
   z-index: 1; 
 }
 
-/* Efek saat di-hover */
+
 .namaContainer:hover {
-  transform: scale(1.05); /* Sedikit membesar */
-  box-shadow: 0 0.25em 0.8em rgba(249, 75, 23, 0.4); /* Bayangan seperti di ChatButton */
+  transform: scale(1.05); 
+  box-shadow: 0 0.25em 0.8em rgba(249, 75, 23, 0.4); 
 }
 
-/* Saat di-hover, pindahkan pseudo-element kilau melintasi tombol */
 .namaContainer:hover::before {
-  left: 120%; /* Pindah ke luar layar di sebelah kanan */
+  left: 120%; 
 }
 
-/* Anda bisa menambahkan ini jika ingin teks tidak terpengaruh oleh kilau */
 .namaContainer > span {
     position: relative;
     z-index: 2;

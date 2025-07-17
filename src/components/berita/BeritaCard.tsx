@@ -122,8 +122,8 @@ export default function BeritaCard(props: BeritaCardProps) {
         <h3 className="text-xl md:text-2xl font-bold text-white mb-1 flex-shrink-0">{title}</h3> 
         <p className="text-sm md:text-base text-white opacity-80 mb-4 flex-shrink-0">{date}</p> 
          <p className="text-sm md:text-base text-white opacity-80 mb-4 flex-shrink-0">{ministryName}</p> 
-        <p className="text-sm md:text-base text-white flex-grow overflow-hidden"> {/* ✅ Removed scroll, added overflow-hidden */}
-          {truncateWords(description, 70)} {/* ✅ Limit to 25 words */}
+        <p className="text-sm md:text-base text-white flex-grow overflow-hidden "> {/* ✅ Removed scroll, added overflow-hidden */}
+          {truncateWords(description,25)} {/* ✅ Limit to 25 words */}
         </p>
       </div>
     </div>

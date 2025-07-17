@@ -36,11 +36,11 @@ const BeritaCardSide = ({ title, category, ministryName, color }: BeritaCardSide
             </span>
           )}
         </div>
-        <h4 className="font-bold sm:text-[2vw] text-[5vw] leading-tight mb-3 h-14 overflow-hidden">
+        <h4 className="font-bold sm:text-[2vw] text-[5vw] leading-tight mb-3  overflow-hidden">
           {title}
         </h4>
         {ministryName && (
-          <span className="sm:text-[1vw] text-[5vw] font-medium bg-white text-blue-900 text-wrap inline-block px-2 py-  w-fit rounded-lg">
+          <span className="sm:text-[1vw] text-[5vw] w-[40vw] font-medium bg-white text-blue-900 text-wrap inline-block px-2  w-fit rounded-lg">
             {ministryName}
           </span>
         )}

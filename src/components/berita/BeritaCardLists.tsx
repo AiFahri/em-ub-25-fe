@@ -474,7 +474,7 @@ export default function BeritaSection() {
             className="border-2 border-[#0538B9] rounded-full cursor-pointer transition disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Previous Page"
           >
-            <Image src={ArrowLeft} alt="Sebelumnya" className="w-10 h-10 md:w-12 md:h-12 p-2 md:p-3" />
+            <Image src={ArrowLeft} alt="Sebelumnya" className="w-10 h-10 md:w-12 md:h-12 p-1 md:p-3" />
           </button>
 
           {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNumber => (

@@ -196,7 +196,6 @@ export default function FieldUpload({ label, name, value = [], onChange, fileCat
         <div className="mt-3 w-full bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-xl text-sm space-y-1">
           {errorMessages.map((err, idx) => (
             <div key={idx} className="flex items-center gap-2">
-              <span className="text-xl">⚠️</span>
               <span>{err}</span>
             </div>
           ))}

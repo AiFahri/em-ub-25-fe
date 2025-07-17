@@ -18,7 +18,6 @@ import ProkerDetailSkeleton from '@/components/proker/ProkerDetailSkeleton';
 import Bubble1 from '@/assets/proker/proker-subpage-bubble1.svg';
 import Bubble2 from '@/assets/proker/proker-subpage-bubble2.svg';
 import Bubble3 from '@/assets/proker/proker-subpage-bubble3.svg';
-import instagram from '@/assets/proker/Instagram.svg';
 
 import { GET_WORK_PROGRAM_BY_SLUG, LIST_WORK_PROGRAMS } from '@/graphql/queries/proker/prokerQueries';
 import ProkerSideCard from '@/components/proker/ProkerSideCard';

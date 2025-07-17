@@ -402,7 +402,7 @@ export default function BeritaDetailPage() {
   return (
     <main ref={mainRef}>
       <BeritaHero />
-      <div className="flex flex-col relative mt-[-12vw] md:mt-[-10vw] overflow-hidden">
+      <div className="flex flex-col relative mt-[-2vw] md:mt-[-10vw] overflow-hidden">
         <div
           ref={ornamentLineRef}
           className="flex flex-row items-center px-[2vw] sm:w-[70%] w-full gap-x-[1vw]"
@@ -429,7 +429,7 @@ export default function BeritaDetailPage() {
           />
           <div
             ref={detailHeaderRef}
-            className="flex flex-row items-center absolute top-[2vw] left-0 gap-x-[0.5vw] px-[2vw]"
+            className="flex flex-row items-center absolute  top-[6%] sm:top-[3%] left-0 gap-x-[0.5vw] px-[2vw]"
           >
             <Image
               src={detailBerita}
@@ -462,11 +462,11 @@ export default function BeritaDetailPage() {
               className="absolute bottom-[1%] right-[10%] w-[20%] -z-10"
             />
             <div className="sm:w-[75%] w-[90%] mt-[10vw] sm:mt-[2vw] px-[2vw]  sm:px-0">
-              <div className="flex flex-col sm:flex-row items-center sm:items-start  sm:gap-4 md:gap-12 ">
+              <div className="flex flex-col sm:flex-row items-center  sm:items-start  sm:gap-4 md:gap-12 ">
                 {totalImages > 0 && (
                   <div
                     ref={imageControlsRef}
-                    className="flex flex-row sm:flex-col items-center  sm:mt-0 sm:mt-[5vw] justify-center gap-4 sm:gap-6 order-2 "
+                    className="flex flex-row sm:flex-col items-center  sm:mt-0 mt-[2vw] sm:mt-[5vw] justify-center gap-4 sm:gap-6 order-2 "
                   >
                     <button
                       onClick={() =>
@@ -587,14 +587,14 @@ export default function BeritaDetailPage() {
                             { year: "numeric", month: "long", day: "numeric" }
                           )}
                         </p>
-                        <p className="text-[#0538B9] border-2 border-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] bg-white rounded-[2vw] px-[1vw] py-[0.5vw]  w-fit ">
+                        <p className="text-[#0538B9] border-2 border-[#0538B9] text-[clamp(1.5vw,3vw,2rem)] sm:mt-0 mt-[-2vw] sm:text-[clamp(1.5vw,1.5vw,1.5rem)] bg-white rounded-[2vw] px-[1vw] py-[0.5vw]  w-fit ">
                           {news.ministryName}
                         </p>
                       </div>
                     </div>
                     <div
                       ref={contentTextRef}
-                      className="news-content-scrollbar text-[#0538B9] text-[clamp(1.5vw,2vw,2rem)] sm:text-[clamp(1.5vw,1.5vw,1.5rem)] h-[30vw] sm:h-[17vw] md:h-[20vw] overflow-y-auto text-justify mt-[2vw] mb-2"
+                      className="news-content-scrollbar text-[#0538B9] text-[clamp(1.5vw,3vw,2rem)] sm:text-[clamp(1.5vw,1.5vw,1.5rem)] h-[23vw] sm:h-[17vw] md:h-[20vw] overflow-y-auto text-justify mt-[2vw] mb-2"
                     >
                       {news.content}
                     </div>
@@ -607,7 +607,7 @@ export default function BeritaDetailPage() {
             <h3 className="text-2xl font-bold text-blue-900 mb-6">
               Berita Lain
             </h3>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 hover:-translate-y-1 transition transform ">
               {otherNews.map((other, index) => (
                 <Link
                   key={other.id}
@@ -628,8 +628,8 @@ export default function BeritaDetailPage() {
             </div>
           </div>
         </div>
-        <div className="w-[100%] px-[2vw] block sm:hidden mb-6">
-          <h3 className="text-2xl font-bold text-blue-900 mb-6">Berita Lain</h3>
+        <div className="w-[100%] px-[2vw] mt-[5vw] block sm:hidden mb-6">
+          <h3 className="text-2xl font-bold text-blue-900 mb-4">Berita Lain</h3>
           <div className="flex flex-col gap-4">
             {otherNews.map((other, index) => (
               <Link

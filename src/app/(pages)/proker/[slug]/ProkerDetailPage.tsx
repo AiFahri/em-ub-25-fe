@@ -4,7 +4,6 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import { useQuery } from '@apollo/client';
 import { motion } from 'framer-motion';
 import Modal from '@/components/pendaftaran/Modal';

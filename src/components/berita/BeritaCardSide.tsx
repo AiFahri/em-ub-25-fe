@@ -14,7 +14,7 @@ const BeritaCardSide = ({ title, category, ministryName, color }: BeritaCardSide
   const backgroundImage = color === 'blue' ? BgBlue : BgOrange;
   
   return (
-    <div className={`relative ${bgColor} rounded-3xl p-6 text-white w-full overflow-hidden shadow-md`}>
+    <div className={`relative ${bgColor} rounded-3xl p-3 md:p-4 lg:p-6 text-white w-full overflow-hidden shadow-md`}>
       
       {/* Background Image */}
       <div className="absolute inset-0 rounded-3xl overflow-hidden">
@@ -40,7 +40,7 @@ const BeritaCardSide = ({ title, category, ministryName, color }: BeritaCardSide
           {title}
         </h4>
         {ministryName && (
-          <span className="sm:text-[1vw] text-[5vw] w-[40vw] font-medium bg-white text-blue-900 text-wrap inline-block px-2  w-fit rounded-lg">
+          <span className="sm:text-[1vw] text-[5vw] w-[40vw] font-medium bg-white text-blue-900 text-wrap inline-block px-2 py-  w-fit rounded-lg">
             {ministryName}
           </span>
         )}

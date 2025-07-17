@@ -227,7 +227,7 @@ export default function Section2() {
       ref={containerRef}
       className="relative w-full flex flex-col items-center pb-20 mt-[-2vw] overflow-hidden"
     >
-      <h1 className="text-[#FF4900] font_bold text-[clamp(5rem,5vw,4rem)] text-outline-kustom drop-shadow-sm overflow-hidden anim-main-title">
+      <h1 className="text-[#FF4900] font_bold text-[clamp(5rem,8vw,6rem)] text-outline-kustom drop-shadow-sm overflow-hidden anim-main-title">
         Sambutan
       </h1>
 

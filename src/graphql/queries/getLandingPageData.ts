@@ -16,6 +16,7 @@ export const GET_LANDING_PAGE_DATA = gql`
       news {
         id
         title
+        slug
         content
         ministryID
         publishedAt

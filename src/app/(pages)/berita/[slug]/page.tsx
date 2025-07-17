@@ -462,11 +462,11 @@ export default function BeritaDetailPage() {
               className="absolute bottom-[1%] right-[10%] w-[20%] -z-10"
             />
             <div className="sm:w-[75%] w-[90%] mt-[2vw] px-[2vw]  sm:px-0">
-              <div className="flex flex-col md:flex-row items-center md:items-start  md:gap-12 ">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start  sm:gap-4 md:gap-12 ">
                 {totalImages > 0 && (
                   <div
                     ref={imageControlsRef}
-                    className="flex flex-row md:flex-col items-center  sm:mt-0 md:mt-[5vw] justify-center gap-4 md:gap-6 order-2 "
+                    className="flex flex-row sm:flex-col items-center  sm:mt-0 sm:mt-[5vw] justify-center gap-4 sm:gap-6 order-2 "
                   >
                     <button
                       onClick={() =>
@@ -491,7 +491,7 @@ export default function BeritaDetailPage() {
                         />
                       </svg>
                     </button>
-                    <div className="flex md:flex-col gap-3">
+                    <div className="flex sm:flex-col gap-3">
                       {images.map((_, idx) => (
                         <button
                           key={idx}
@@ -533,7 +533,7 @@ export default function BeritaDetailPage() {
                     </button>
                   </div>
                 )}
-                <div className="flex-1 flex flex-col order-1 md:order-2">
+                <div className="flex-1 flex flex-col order-1 sm:order-2">
                   <div
                     ref={imageDisplayRef}
                     className="relative w-full aspect-video bg-gray-100 rounded-2xl overflow-hidden mb-6 "
@@ -594,7 +594,7 @@ export default function BeritaDetailPage() {
                     </div>
                     <div
                       ref={contentTextRef}
-                      className="news-content-scrollbar text-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] h-[35vw] sm:h-[18vw] md:h-[40vw] lg:h-[40vw] overflow-y-auto text-justify mt-[2vw] mb-2"
+                      className="news-content-scrollbar text-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] h-[35vw] sm:h-[17vw] md:h-[20vw] overflow-y-auto text-justify mt-[2vw] mb-2"
                     >
                       {news.content}
                     </div>

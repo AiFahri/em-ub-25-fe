@@ -4,4 +4,5 @@ export type NewsItem = {
   date: string;
   description: string;
   imageUrl: string;
+  image?: string;
 };

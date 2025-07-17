@@ -1,10 +1,10 @@
-'use client';
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import Lose from '../../app/comingsoon/lose';
-import Win1 from './win1';
-import Win2 from './win2';
-import Win3 from './win3';
+"use client";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import Lose from "@/app/Comingsoon/lose";
+import Win1 from "./win1";
+import Win2 from "./win2";
+import Win3 from "./win3";
 
 interface ResultFlowProps {
   isWinner: boolean;
@@ -49,11 +49,15 @@ export default function ResultFlow({ isWinner, onPlayAgain }: ResultFlowProps) {
     }
   };
 
-  const animationType = step === 2 ? 'scrollUp' : 'fade';
+  const animationType = step === 2 ? "scrollUp" : "fade";
 
   return (
     <div className="absolute inset-0 bg-black/60 z-50 flex items-center justify-center">
-      <motion.div key={step} {...animations[animationType]} className="w-full h-full flex items-center justify-center">
+      <motion.div
+        key={step}
+        {...animations[animationType]}
+        className="w-full h-full flex items-center justify-center"
+      >
         {renderComponent()}
       </motion.div>
     </div>

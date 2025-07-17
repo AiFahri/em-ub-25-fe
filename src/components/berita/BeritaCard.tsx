@@ -13,7 +13,7 @@ type BeritaCardProps = {
   title: string;
   date: string;
   description: string;
-  color: 'orange' | 'blue';
+  color: "orange" | "blue";
   imageUrl?: string;
   ministryName?: string;
   onClick?: () => void;
@@ -67,7 +67,7 @@ export default function BeritaCard(props: BeritaCardProps) {
         <div ref={imageRef} className="rounded-2xl bg-white/20 items-center flex flex-col justify-center inverted-radius-big">
           {imageUrl ? (
             <Image
-              src={getFullImageUrl(imageUrl) || '/placeholder-image.jpg'}
+              src={getFullImageUrl(imageUrl) || "/placeholder-image.jpg"}
               alt={title}
               width={500}
               height={300}
@@ -78,9 +78,30 @@ export default function BeritaCard(props: BeritaCardProps) {
           ) : (
             <span className="text-white/50 flex items-center justify-center h-full">
               <svg width="60" height="60" fill="none" viewBox="0 0 48 48">
-                <rect x="6" y="10" width="36" height="28" rx="3" fill="currentColor" opacity="0.2"/>
-                <path d="M19 24L24 29L31 21" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" opacity="0.5"/>
-                <circle cx="17" cy="18" r="2" fill="currentColor" opacity="0.5"/>
+                <rect
+                  x="6"
+                  y="10"
+                  width="36"
+                  height="28"
+                  rx="3"
+                  fill="currentColor"
+                  opacity="0.2"
+                />
+                <path
+                  d="M19 24L24 29L31 21"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  opacity="0.5"
+                />
+                <circle
+                  cx="17"
+                  cy="18"
+                  r="2"
+                  fill="currentColor"
+                  opacity="0.5"
+                />
               </svg>
             </span>
           )}

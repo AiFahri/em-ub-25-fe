@@ -38,8 +38,12 @@ export default function Navbar() {
 
   // States for sliding background animation
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [backgroundStyle, setBackgroundStyle] = useState({});
-  const navItemsRef = useRef<(HTMLElement | null)[]>([]);
+  const [backgroundStyle, setBackgroundStyle] = useState<{
+    left: number;
+    width: number;
+    height: number;
+  }>({ left: 0, width: 0, height: 0 });
+  const navItemsRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     const normalizedPath = pathname.replace(/\/+$/, "");
@@ -103,14 +107,18 @@ export default function Navbar() {
   };
 
   // Update sliding background position
+
   useEffect(() => {
-    const currentActiveIndex = navItems.findIndex(item => isActive(item.href));
-    
+    const currentActiveIndex = navItems.findIndex((item) =>
+      isActive(item.href)
+    );
+
     if (currentActiveIndex !== -1 && navItemsRef.current[currentActiveIndex]) {
       const activeElement = navItemsRef.current[currentActiveIndex];
       const rect = activeElement.getBoundingClientRect();
-      const containerRect = activeElement.parentElement?.getBoundingClientRect();
-      
+      const containerRect =
+        activeElement.parentElement?.getBoundingClientRect();
+
       if (containerRect) {
         setBackgroundStyle({
           left: rect.left - containerRect.left,
@@ -122,6 +130,7 @@ export default function Navbar() {
     } else {
       setActiveIndex(null);
     }
+    // eslint-disable-next-line
   }, [pathname, isClient, isMobileView]);
 
   const handleLoginClick = () => {
@@ -171,9 +180,9 @@ export default function Navbar() {
                   duration: 0.3,
                 }}
                 style={{
-                  position: 'absolute',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
+                  position: "absolute",
+                  top: "50%",
+                  transform: "translateY(-50%)",
                 }}
               />
 
@@ -181,7 +190,9 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  ref={(el) => (navItemsRef.current[index] = el)}
+                  ref={(el) => {
+                    navItemsRef.current[index] = el;
+                  }}
                   className={`relative font-medium z-10 px-4 py-2 rounded-full transition-colors duration-300 ${
                     isActive(item.href)
                       ? "text-white"

@@ -594,7 +594,7 @@ export default function BeritaDetailPage() {
                     </div>
                     <div
                       ref={contentTextRef}
-                      className="news-content-scrollbar text-[#0538B9] text-[clamp(1.5vw,2vw,2rem)] sm:text-[clamp(1.5vw,1.5vw,1.5rem)] h-[30vw] sm:h-[30vw] md:h-[30vw] overflow-y-auto text-justify mt-[2vw] mb-2"
+                      className="news-content-scrollbar text-[#0538B9] text-[clamp(1.5vw,2vw,2rem)] sm:text-[clamp(1.5vw,1.5vw,1.5rem)] h-[30vw] sm:h-[17vw] md:h-[20vw] overflow-y-auto text-justify mt-[2vw] mb-2"
                     >
                       {news.content}
                     </div>

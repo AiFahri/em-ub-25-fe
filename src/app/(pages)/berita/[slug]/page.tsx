@@ -436,7 +436,7 @@ export default function BeritaDetailPage() {
               alt="detail berita"
               className="w-[2.5vw]"
             />
-            <p className="text-[#0538B9] text-[clamp(1.5rem, 3vw, 5rem)] tracking-tight">
+            <p className="text-[#0538B9] text-[2vw] tracking-tight">
               Detail Berita
             </p>
             <Image
@@ -461,7 +461,7 @@ export default function BeritaDetailPage() {
               alt="ornament"
               className="absolute bottom-[1%] right-[10%] w-[20%] -z-10"
             />
-            <div className="sm:w-[75%] w-[90%] mt-[2vw] px-[2vw]  sm:px-0">
+            <div className="sm:w-[75%] w-[90%] mt-[10vw] sm:mt-[2vw] px-[2vw]  sm:px-0">
               <div className="flex flex-col sm:flex-row items-center sm:items-start  sm:gap-4 md:gap-12 ">
                 {totalImages > 0 && (
                   <div
@@ -594,7 +594,7 @@ export default function BeritaDetailPage() {
                     </div>
                     <div
                       ref={contentTextRef}
-                      className="news-content-scrollbar text-[#0538B9] text-[clamp(1.5vw,1.5vw,1.5rem)] h-[35vw] sm:h-[17vw] md:h-[20vw] overflow-y-auto text-justify mt-[2vw] mb-2"
+                      className="news-content-scrollbar text-[#0538B9] text-[clamp(1.5vw,2vw,2rem)] sm:text-[clamp(1.5vw,1.5vw,1.5rem)] h-[30vw] sm:h-[30vw] md:h-[30vw] overflow-y-auto text-justify mt-[2vw] mb-2"
                     >
                       {news.content}
                     </div>

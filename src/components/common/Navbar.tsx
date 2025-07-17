@@ -17,6 +17,7 @@ import { useQuery } from '@apollo/client';
 // import history from '@/assets/landingpage/icons/history.svg';
 import logoutIcon from '@/assets/landingpage/icons/Logout.svg';
 import Modal from '../pendaftaran/Modal';
+import LogoutConfirmModal from './LogoutConfirmModal';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -25,6 +26,7 @@ export default function Navbar() {
   const [isMobileView, setIsMobileView] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [currentSlug, setCurrentSlug] = useState<string | null>(null);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileServiceDropdownOpen, setIsMobileServiceDropdownOpen] = useState(false);
@@ -34,7 +36,6 @@ export default function Navbar() {
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
-  // States for sliding background animation
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [backgroundStyle, setBackgroundStyle] = useState<{
     left: number;
@@ -131,6 +132,10 @@ export default function Navbar() {
       setShowModal(true);
     }
   };
+
+  useEffect(() => {
+    setShowModal(false);
+  }, [pathname]);
 
   if (!isClient) return <></>;
 
@@ -263,7 +268,7 @@ export default function Navbar() {
                         <Image src={history} alt="Riwayat" width={20} height={20} />
                         Riwayat Pendaftaran
                       </Link> */}
-                      <button onClick={logout} className="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-100 text-[#002787]">
+                      <button onClick={() => setShowLogoutModal(true)} className="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-100 text-[#002787]">
                         <Image src={logoutIcon} alt="Logout" width={20} height={20} />
                         Log out
                       </button>
@@ -405,7 +410,7 @@ export default function Navbar() {
 
                             <button
                               onClick={() => {
-                                logout();
+                                setShowLogoutModal(true);
                                 setIsMobileMenuOpen(false);
                                 setIsMobileProfileDropdownOpen(false);
                               }}
@@ -446,6 +451,14 @@ export default function Navbar() {
           </AnimatePresence>
         </>
       )}
+      <LogoutConfirmModal
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        onConfirm={() => {
+          logout();
+          setShowLogoutModal(false);
+        }}
+      />
     </nav>
   );
 }

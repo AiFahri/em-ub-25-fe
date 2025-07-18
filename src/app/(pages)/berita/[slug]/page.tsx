@@ -18,8 +18,8 @@ export async function generateStaticParams() {
   });
 }
 
-// Kalau kamu pakai dynamicParams di versi terbaru (boleh di-skip kalau generateStaticParams sudah mencakup semua)
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
-export default function Page({ params }: { params: { slug: string } }) {
-  return <BeritaDetailPage slug={params.slug} />;
+  return <BeritaDetailPage slug={slug} />;
 }

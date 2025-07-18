@@ -47,7 +47,6 @@ type BeritaDetailPageProps = {
 };
 
 export default function BeritaDetailPage({ slug }: BeritaDetailPageProps) {
-  // const [expand, setExpand] = React.useState(false);
   const { data: listData } = useQuery<ListNewsData>(LIST_NEWS);
 
   const {

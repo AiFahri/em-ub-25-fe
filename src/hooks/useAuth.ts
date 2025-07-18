@@ -46,8 +46,6 @@ export default function useAuth() {
   }, []);
 
   const logout = () => {
-    const confirmLogout = window.confirm('Apakah kamu yakin ingin logout?');
-    if (!confirmLogout) return;
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setIsLoggedIn(false);

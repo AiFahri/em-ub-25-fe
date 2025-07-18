@@ -4,13 +4,17 @@ import React from 'react';
 import ProkerHero from '@/components/proker/ProkerHero';
 import ProkerSecondSection from '@/components/proker/ProkerSecondSection';
 import ProkerList from '@/components/proker/ProkerList';
+import { Suspense } from 'react';
 
 const page = () => {
   return (
     <div className="relative overflow-hidden  min-h-screen">
       <ProkerHero />
       <ProkerSecondSection />
-      <ProkerList />
+
+      <Suspense fallback={<div className="text-center">Loading...</div>}>
+        <ProkerList />
+      </Suspense>
     </div>
   );
 };

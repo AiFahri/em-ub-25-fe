@@ -10,11 +10,14 @@ interface ConfirmLoginModalProps {
   onConfirm: () => void;
   isOprecPage?: boolean;
   isSessionExpired?: boolean;
+  isAuthMissing?: boolean;
   slug?: string;
 }
 
-export default function ConfirmLoginModal({ isOpen, onClose, onConfirm, isOprecPage, isSessionExpired = false, slug }: ConfirmLoginModalProps) {
+export default function ConfirmLoginModal({ isOpen, onClose, onConfirm, isOprecPage, isSessionExpired = false, slug, isAuthMissing = false }: ConfirmLoginModalProps) {
   const router = useRouter();
+
+  const isExpiredOrMissing = isSessionExpired || isAuthMissing;
 
   if (!isOpen) return null;
 
@@ -35,10 +38,12 @@ export default function ConfirmLoginModal({ isOpen, onClose, onConfirm, isOprecP
           <Image src={closemodal} alt="Tutup" width={20} height={20} />
         </button>
 
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">{isSessionExpired ? 'Sesi Berakhir' : 'Konfirmasi Login'}</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-4">{isExpiredOrMissing ? 'Sesi Berakhir' : 'Konfirmasi Login'}</h2>
 
         <p className="text-sm md:text-lg mb-6 break-words whitespace-pre-wrap">
-          {isSessionExpired ? 'Sesi login kamu telah berakhir. Silakan login ulang untuk melanjutkan proses Open Recruitment.' : 'Anda akan diarahkan kembali ke halaman pendaftaran untuk melanjutkan proses Open Recruitment. Lanjutkan?'}
+          {isExpiredOrMissing
+            ? 'Sesi login kamu telah berakhir atau belum tersedia. Silakan login ulang untuk melanjutkan proses Open Recruitment.'
+            : 'Yuk, Lihat Proker yang Sedang Buka Oprec! Kami akan mengarahkan Anda ke halaman daftar program kerja yang sedang membuka pendaftaran kepanitiaan. Setelah itu, Anda bisa memilih salah satu proker dan klik tombol Daftar. Siap untuk melanjutkan?'}
         </p>
 
         <div className="flex justify-center gap-14">
@@ -46,7 +51,7 @@ export default function ConfirmLoginModal({ isOpen, onClose, onConfirm, isOprecP
             Batal
           </button>
           <button onClick={handleConfirm} className="bg-[#0049FF] text-white text-sm font-bold px-4 py-1 rounded-md hover:bg-[#002f8b]">
-            {isSessionExpired ? 'Kembali ke Halaman' : 'Lanjutkan'}
+            {isExpiredOrMissing ? 'Kembali' : 'Lanjutkan'}
           </button>
         </div>
       </div>

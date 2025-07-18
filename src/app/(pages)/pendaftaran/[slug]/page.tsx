@@ -4,8 +4,10 @@ import { generateStaticParamsFromQuery } from '@/utils/generateStaticParam';
 import { GET_ALL_WORK_PROGRAM_SLUGS } from '@/graphql/queries/proker/listSlug';
 import FormPendaftaranClient from './FormPendaftaranClient';
 
-export default function Page({ params }: { params: { slug: string } }) {
-  return <FormPendaftaranClient slug={params.slug} />;
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  return <FormPendaftaranClient slug={slug} />;
 }
 
 export async function generateStaticParams() {

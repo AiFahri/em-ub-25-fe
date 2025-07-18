@@ -116,7 +116,7 @@ export default function FormPendaftaranClient({ slug }: FormPendaftaranClientPro
   const [modalMode, setModalMode] = useState<'confirm' | 'success' | null>(null);
   const debounceRef = useRef<Record<string, NodeJS.Timeout>>({});
   const [notification, setNotification] = useState<string | null>(null);
-  const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({});
+
   useEffect(() => {
     if (notification) {
       const timeout = setTimeout(() => setNotification(null), 3000);
@@ -249,12 +249,10 @@ export default function FormPendaftaranClient({ slug }: FormPendaftaranClientPro
     }
 
     if (missingFields.length > 0) {
-      setFieldErrors(newErrors);
       setNotification('Mohon lengkapi semua isian wajib sebelum mendaftar.');
       return;
     }
 
-    setFieldErrors({});
     setNotification(null);
     setModalMode('confirm');
   };

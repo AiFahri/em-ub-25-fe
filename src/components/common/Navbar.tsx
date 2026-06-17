@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -77,14 +77,14 @@ export default function Navbar() {
 
   const isOprecProker = prokerData?.getWorkProgramBySlug?.hasForm && prokerData?.getWorkProgramBySlug?.isGeneral;
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { href: '/', label: 'Beranda' },
     { href: '/berita', label: 'Berita' },
     { href: '/tentang', label: 'Tentang' },
     { href: '/proker', label: 'Program Kerja' },
-  ];
+  ], []);
 
-  const isActive = (path: string) => {
+  const isActive = useCallback((path: string) => {
     const current = pathname?.toLowerCase().replace(/\/$/, '');
     const target = path.toLowerCase().replace(/\/$/, '');
     if (target === '/proker') {
@@ -99,7 +99,7 @@ export default function Navbar() {
     }
 
     return current === target;
-  };
+  }, [pathname]);
 
   // Update sliding background position
 
@@ -122,8 +122,7 @@ export default function Navbar() {
     } else {
       setActiveIndex(null);
     }
-    // eslint-disable-next-line
-  }, [pathname, isClient, isMobileView]);
+  }, [isActive, isClient, isMobileView, navItems]);
 
   const handleLoginClick = () => {
     if (isOnProkerSlugPage && isOprecProker) {

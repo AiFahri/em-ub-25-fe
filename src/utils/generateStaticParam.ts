@@ -66,7 +66,8 @@ export async function generateStaticParamsFromQuery<T extends PathItem>({ query,
       };
     });
   } catch (error) {
-    console.error('[generateStaticParamsFromQuery] Error:', error);
-    throw error;
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(`[generateStaticParamsFromQuery] Tidak bisa mengambil static params untuk "${resultPath}": ${message}. Build dilanjutkan tanpa pre-render slug.`);
+    return [];
   }
 }

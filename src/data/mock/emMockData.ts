@@ -413,7 +413,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian Kewirausahaan',
     isMegaBesar: true,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [img('1553729459-efe14ef6055d')],
+    imageUrls: [img('1522543558187-768b6df7c25c')],
     createdAt: '2025-05-01T09:00:00.000Z',
     hasForm: true,
     registerLink: '/pendaftaran/startup-bootcamp',

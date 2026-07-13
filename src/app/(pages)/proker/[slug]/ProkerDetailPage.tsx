@@ -23,8 +23,7 @@ import ProkerSideCard from '@/components/proker/ProkerSideCard';
 import SubmittedModal from '@/components/pendaftaran/SubmittedModal';
 
 import ProkerSubPageImage from '@/components/proker/ProkerSubPageImage';
-
-const IMAGE_BASE_URL = 'https://is3.cloudhost.id/emub/';
+import { resolveMediaUrl } from '@/lib/media';
 
 interface WorkProgram {
   id: string;
@@ -104,7 +103,7 @@ const ProkerDetailPage = ({ slug }: { slug: string }) => {
     return <div className="min-h-screen flex items-center justify-center bg-gray-100">Program Kerja tidak ditemukan.</div>;
   }
 
-  const mainImageUrl = proker.imageUrls?.map((url: string) => `${IMAGE_BASE_URL}${url}`) || null;
+  const mainImageUrl = proker.imageUrls?.map((url: string) => resolveMediaUrl(url)) || null;
   const instagramUrl = proker.instagramUrl;
   const moriAnimationVariants = {
     animate: {

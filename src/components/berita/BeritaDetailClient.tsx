@@ -20,6 +20,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { resolveMediaUrl } from "@/lib/media";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -89,7 +90,7 @@ const BeritaDetailClient: React.FC<Props> = ({ slug }) => {
   const totalImages = images.length;
 
   const displayImage = images[imageIdx]
-    ? `https://is3.cloudhost.id/emub/${images[imageIdx].replace(/^\/+/, "")}`
+    ? resolveMediaUrl(images[imageIdx])
     : null;
 
   React.useEffect(() => {

@@ -17,6 +17,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { resolveMediaUrl } from '@/lib/media';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -83,7 +84,7 @@ export default function BeritaDetailPage({ slug }: BeritaDetailPageProps) {
   const images: string[] = Array.isArray(news?.imageUrls) ? news.imageUrls : [];
   const totalImages = images.length;
 
-  const displayImage = images[imageIdx] ? `https://is3.cloudhost.id/emub/${images[imageIdx].replace(/^\/+/, '')}` : null;
+  const displayImage = images[imageIdx] ? resolveMediaUrl(images[imageIdx]) : null;
 
   React.useEffect(() => {
     setImageIdx(0);

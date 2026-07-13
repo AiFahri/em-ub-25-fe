@@ -5,6 +5,16 @@
  * ============================================================================
  */
 
+/**
+ * URL gambar memakai Unsplash (open-source, gratis dipakai) dengan ID foto
+ * terkurasi sesuai tema tiap item. Parameter `?w=1200&q=80&auto=format&fit=crop`
+ * menjaga ukuran & kualitas tetap ringan. Karena `next.config.ts` memakai
+ * `images.unoptimized: true`, URL eksternal langsung dipakai tanpa perlu
+ * mendaftarkan domain.
+ */
+const img = (id: string) =>
+  `https://images.unsplash.com/photo-${id}?w=1200&q=80&auto=format&fit=crop`;
+
 export interface MockLink {
   id: string;
   title: string;
@@ -109,7 +119,7 @@ export const mockNews: MockNews[] = [
     ministryName: 'Kementerian Dalam Negeri',
     categoryID: 'cat-01',
     categoryName: 'Organisasi',
-    imageUrls: [],
+    imageUrls: [img('1523240795612-9a054b0db644')],
     publishedAt: '2025-03-12T09:00:00.000Z',
     createdAt: '2025-03-12T09:00:00.000Z',
   },
@@ -124,7 +134,7 @@ export const mockNews: MockNews[] = [
     ministryName: 'Kementerian PSDM',
     categoryID: 'cat-02',
     categoryName: 'Pengumuman',
-    imageUrls: [],
+    imageUrls: [img('1522202176988-66273c2fd55f')],
     publishedAt: '2025-04-01T08:30:00.000Z',
     createdAt: '2025-04-01T08:30:00.000Z',
   },
@@ -139,7 +149,7 @@ export const mockNews: MockNews[] = [
     ministryName: 'Kementerian Advokesma',
     categoryID: 'cat-03',
     categoryName: 'Kajian',
-    imageUrls: [],
+    imageUrls: [img('1497633762265-9d179a990aa6')],
     publishedAt: '2025-04-18T10:15:00.000Z',
     createdAt: '2025-04-18T10:15:00.000Z',
   },
@@ -154,7 +164,7 @@ export const mockNews: MockNews[] = [
     ministryName: 'Kementerian Sosial Budaya',
     categoryID: 'cat-04',
     categoryName: 'Kegiatan',
-    imageUrls: [],
+    imageUrls: [img('1511578314322-379afb476865')],
     publishedAt: '2025-05-05T13:00:00.000Z',
     createdAt: '2025-05-05T13:00:00.000Z',
   },
@@ -169,7 +179,7 @@ export const mockNews: MockNews[] = [
     ministryName: 'Kementerian Lingkungan Hidup',
     categoryID: 'cat-04',
     categoryName: 'Kegiatan',
-    imageUrls: [],
+    imageUrls: [img('1505373877841-8d25f7d46678')],
     publishedAt: '2025-05-22T07:45:00.000Z',
     createdAt: '2025-05-22T07:45:00.000Z',
   },
@@ -184,7 +194,7 @@ export const mockNews: MockNews[] = [
     ministryName: 'Kementerian Kewirausahaan',
     categoryID: 'cat-05',
     categoryName: 'Seminar',
-    imageUrls: [],
+    imageUrls: [img('1540575467063-178a50c2df87')],
     publishedAt: '2025-06-10T09:30:00.000Z',
     createdAt: '2025-06-10T09:30:00.000Z',
   },
@@ -295,7 +305,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian PSDM',
     isMegaBesar: true,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [],
+    imageUrls: [img('1517486808906-6ca8b3f04846')],
     createdAt: '2025-03-20T09:00:00.000Z',
     hasForm: true,
     registerLink: '/pendaftaran/pelatihan-softskill-mahasiswa',
@@ -313,7 +323,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian Kominfo',
     isMegaBesar: false,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [],
+    imageUrls: [img('1531482615713-2afd69097998')],
     createdAt: '2025-03-25T09:00:00.000Z',
     hasForm: true,
     registerLink: '/pendaftaran/kelas-desain-gratis',
@@ -331,7 +341,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian Advokesma',
     isMegaBesar: true,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [],
+    imageUrls: [img('1540575467063-178a50c2df87')],
     createdAt: '2025-04-02T09:00:00.000Z',
     hasForm: false,
     registerLink: '',
@@ -349,7 +359,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian Ristek',
     isMegaBesar: false,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [],
+    imageUrls: [img('1497633762265-9d179a990aa6')],
     createdAt: '2025-04-08T09:00:00.000Z',
     hasForm: true,
     registerLink: '/pendaftaran/beasiswa-riset-mahasiswa',
@@ -367,7 +377,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian Sosial Budaya',
     isMegaBesar: true,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [],
+    imageUrls: [img('1511578314322-379afb476865')],
     createdAt: '2025-04-15T09:00:00.000Z',
     hasForm: false,
     registerLink: '',
@@ -385,7 +395,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian Lingkungan Hidup',
     isMegaBesar: false,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [],
+    imageUrls: [img('1416879595882-3373a0480b5b')],
     createdAt: '2025-04-22T09:00:00.000Z',
     hasForm: true,
     registerLink: '/pendaftaran/eco-green-ub',
@@ -403,7 +413,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian Kewirausahaan',
     isMegaBesar: true,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [],
+    imageUrls: [img('1553729459-efe14ef6055d')],
     createdAt: '2025-05-01T09:00:00.000Z',
     hasForm: true,
     registerLink: '/pendaftaran/startup-bootcamp',
@@ -421,7 +431,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian Kesejahteraan Mahasiswa',
     isMegaBesar: false,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [],
+    imageUrls: [img('1571019613454-1cb2f99b2d8b')],
     createdAt: '2025-05-09T09:00:00.000Z',
     hasForm: false,
     registerLink: '',
@@ -439,7 +449,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian Sosial Masyarakat',
     isMegaBesar: true,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [],
+    imageUrls: [img('1524178232363-1fb2b075b655')],
     createdAt: '2025-05-16T09:00:00.000Z',
     hasForm: true,
     registerLink: '/pendaftaran/brawijaya-mengajar',
@@ -457,7 +467,7 @@ export const mockWorkPrograms: MockWorkProgram[] = [
     ministryName: 'Kementerian Dalam Negeri',
     isMegaBesar: true,
     instagramUrl: 'https://instagram.com/em.ub',
-    imageUrls: [],
+    imageUrls: [img('1509062522246-3755977927d7')],
     createdAt: '2025-05-24T09:00:00.000Z',
     hasForm: false,
     registerLink: '',

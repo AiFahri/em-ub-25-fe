@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { resolveMediaUrl } from '@/lib/media';
 
 export interface WorkProgramItem {
   id: string;
@@ -21,7 +22,6 @@ export interface WorkProgramItem {
 }
 
 const ITEMS_PER_PAGE = 6;
-const IMAGE_BASE_URL = 'https://is3.cloudhost.id/emub/';
 
 const ProkerList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -147,7 +147,7 @@ const ProkerList: React.FC = () => {
                   title={proker.title}
                   type={proker.isMegaBesar ? 'Mega Besar' : 'Open Recruitment'}
                   department={proker.ministryName}
-                  imageUrl={proker.imageUrls && proker.imageUrls.length > 0 ? `${IMAGE_BASE_URL}${proker.imageUrls[0]}` : undefined}
+                  imageUrl={proker.imageUrls && proker.imageUrls.length > 0 ? resolveMediaUrl(proker.imageUrls[0]) : undefined}
                 />
               </Link>
             ))}

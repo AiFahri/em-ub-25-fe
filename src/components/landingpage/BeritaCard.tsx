@@ -2,6 +2,7 @@
 
 import { NewsItem } from '@/types/berita';
 import Image from 'next/image';
+import { resolveMediaUrl } from '@/lib/media';
 import ArrowUpRight from '@/assets/landingpage/icons/arrow-up-right.svg';
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
@@ -87,7 +88,7 @@ export default function BeritaCard({ title, date, description, imageUrl, index }
               <Image src="/Assets/icon/landingpage/placeholder.svg" alt={title} width={48} height={48} />
             </div>
           ) : (
-            <Image src={`https://is3.cloudhost.id/emub/${imageUrl.replace(/^\/+/, '')}`} alt={title} fill className="object-cover transition-all" />
+            <Image src={resolveMediaUrl(imageUrl) as string} alt={title} fill className="object-cover transition-all" />
           )}
         </div>
 

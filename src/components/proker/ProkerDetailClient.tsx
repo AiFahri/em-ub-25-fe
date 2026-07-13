@@ -28,8 +28,7 @@ import ProkerSideCard from "@/components/proker/ProkerSideCard";
 import SubmittedModal from "@/components/pendaftaran/SubmittedModal";
 
 import ProkerSubPageImage from "@/components/proker/ProkerSubPageImage";
-
-const IMAGE_BASE_URL = "https://is3.cloudhost.id/emub/";
+import { resolveMediaUrl } from "@/lib/media";
 
 interface WorkProgram {
   id: string;
@@ -125,7 +124,7 @@ const ProkerDetailClient = () => {
   }
 
   const mainImageUrl =
-    proker.imageUrls?.map((url: string) => `${IMAGE_BASE_URL}${url}`) || null;
+    proker.imageUrls?.map((url: string) => resolveMediaUrl(url)) || null;
   const instagramUrl = proker.instagramUrl;
   const moriAnimationVariants = {
     animate: {
